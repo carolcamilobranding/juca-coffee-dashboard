@@ -1,0 +1,3406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juca Coffee — Dashboard de Consultoria</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+@font-face {
+  font-family: 'TJ Evolette';
+  src: url('fonts/TJEvoletteABasic-Black.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MB NOIR';
+  src: url('fonts/MB-NOIR-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --marrom: #4A2C1A;
+  --dourado: #D4A017;
+  --creme: #FFF8E7;
+  --dourado-light: #F5E6CC;
+  --dourado-dark: #A67A2E;
+  --green: #4A7C59;
+  --green-light: #D4E8D9;
+  --orange: #D4760A;
+  --orange-light: #FAE4C4;
+  --danger: #8B3A3A;
+  --danger-light: #F0D4D4;
+  --dark: #2D2018;
+  --bg: #FAF8F5;
+  --card: #FFFFFF;
+  --gray-900: #3D2B1F;
+  --gray-700: #5C4A3E;
+  --gray-500: #8B8680;
+  --gray-300: #D4CFC9;
+  --gray-100: #F0EDE8;
+  --sidebar-w: 240px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Mangal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--gray-900);
+  line-height: 1.6;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--dark);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+.sidebar-logo {
+  padding: 24px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-logo img {
+  max-width: 140px;
+  height: auto;
+}
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 0;
+}
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+}
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  color: #fff;
+  background: rgba(212,160,23,0.15);
+  border-left-color: var(--dourado);
+}
+.sidebar-nav a .nav-icon {
+  margin-right: 12px;
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+.sidebar-footer {
+  padding: 16px 20px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* MAIN */
+.main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+.header {
+  background: linear-gradient(135deg, var(--marrom) 0%, var(--dark) 100%);
+  color: #fff;
+  padding: 32px 40px 24px;
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.header-logo img {
+  height: 48px;
+}
+.header h1 {
+  font-family: 'TJ Evolette', serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+.header p {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* TABS */
+.tab-bar {
+  background: #fff;
+  border-bottom: 2px solid var(--gray-100);
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+.tab-btn {
+  padding: 14px 24px;
+  border: none;
+  background: none;
+  font-family: 'Mangal', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.tab-btn:hover {
+  color: var(--marrom);
+}
+.tab-btn.active {
+  color: var(--marrom);
+  border-bottom-color: var(--dourado);
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* CONTENT */
+.content {
+  padding: 32px 40px;
+  max-width: 1200px;
+}
+
+/* SECTION */
+.section {
+  margin-bottom: 40px;
+}
+.section-title {
+  font-family: 'Mangal', serif;
+  font-size: 22px;
+  color: var(--marrom);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--dourado-light);
+}
+.section-sub {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin-bottom: 20px;
+}
+
+/* KPI CARDS */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.kpi-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 20px;
+  border-left: 4px solid var(--dourado);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.kpi-card.green { border-left-color: var(--green); }
+.kpi-card.orange { border-left-color: var(--orange); }
+.kpi-card.danger { border-left-color: var(--danger); }
+.kpi-card .kpi-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.kpi-card .kpi-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--marrom);
+}
+.kpi-card .kpi-note {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+
+/* INSIGHT */
+.insight {
+  padding: 16px 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--dourado);
+  background: var(--dourado-light);
+  margin-bottom: 20px;
+  font-style: italic;
+  color: var(--gray-900);
+  line-height: 1.7;
+}
+.insight.green { border-left-color: var(--green); background: var(--green-light); }
+.insight.orange { border-left-color: var(--orange); background: var(--orange-light); }
+.insight.danger { border-left-color: var(--danger); background: var(--danger-light); }
+
+/* ACCORDION */
+details {
+  background: var(--card);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+details summary {
+  padding: 16px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--marrom);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+}
+details summary:hover {
+  background: var(--gray-100);
+}
+details summary::after {
+  content: '+';
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--gray-500);
+  transition: transform 0.2s;
+}
+details[open] summary::after {
+  content: '\2212';
+}
+details summary::-webkit-details-marker { display: none; }
+.detail-content {
+  padding: 0 20px 20px;
+  color: var(--gray-700);
+  line-height: 1.7;
+}
+
+/* TABLES */
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.table-wrap th {
+  background: var(--marrom);
+  color: #fff;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.table-wrap td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.table-wrap tr:hover td {
+  background: var(--gray-100);
+}
+
+/* TAGS */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.tag-green { background: var(--green-light); color: var(--green); }
+.tag-gold { background: var(--dourado-light); color: var(--dourado-dark); }
+.tag-orange { background: var(--orange-light); color: var(--orange); }
+.tag-red { background: var(--danger-light); color: var(--danger); }
+
+/* SCENARIO CARDS */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.scenario-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 20px;
+  border-top: 4px solid var(--gray-300);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  text-align: center;
+}
+.scenario-card.green { border-top-color: var(--green); }
+.scenario-card.gold { border-top-color: var(--dourado); }
+.scenario-card.orange { border-top-color: var(--orange); }
+.scenario-card.red { border-top-color: var(--danger); }
+.scenario-card .scenario-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-500);
+  margin-bottom: 8px;
+}
+.scenario-card .scenario-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.scenario-card.green .scenario-value { color: var(--green); }
+.scenario-card.gold .scenario-value { color: var(--dourado-dark); }
+.scenario-card.orange .scenario-value { color: var(--orange); }
+.scenario-card.red .scenario-value { color: var(--danger); }
+.scenario-card .scenario-note {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+/* CHART */
+.chart-container {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+  position: relative;
+}
+.chart-container canvas {
+  max-height: 400px;
+}
+
+/* BIG SCORE */
+.big-score {
+  text-align: center;
+  padding: 40px;
+}
+.big-score .score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--marrom), var(--dark));
+  color: var(--dourado);
+  font-size: 48px;
+  font-weight: 700;
+  font-family: 'TJ Evolette', serif;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(74,44,26,0.3);
+}
+.big-score .score-label {
+  font-size: 18px;
+  color: var(--gray-700);
+}
+
+/* PILLAR SCORE CARDS */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.pillar-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.pillar-card .pillar-score {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--danger);
+  margin-bottom: 4px;
+}
+.pillar-card .pillar-name {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+/* COMPETITOR CARD */
+.competitor-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+  border-left: 4px solid var(--gray-300);
+}
+.competitor-card h3 {
+  color: var(--marrom);
+  margin-bottom: 8px;
+}
+.competitor-card .comp-summary {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+/* CONTENT PILLARS */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.pillar-content-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 20px;
+  border-top: 3px solid var(--dourado);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  text-align: center;
+}
+.pillar-content-card h4 {
+  color: var(--marrom);
+  margin-bottom: 4px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .hamburger {
+    display: block;
+  }
+  .header {
+    padding: 20px;
+  }
+  .header h1 {
+    font-size: 20px;
+  }
+  .content {
+    padding: 20px;
+  }
+  .tab-bar {
+    padding: 0 16px;
+  }
+  .tab-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .scenario-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pillar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* PRINT */
+@media print {
+  .sidebar, .hamburger, .tab-bar { display: none !important; }
+  .main { margin-left: 0; }
+  .tab-content { display: block !important; page-break-before: always; }
+  .tab-content:first-of-type { page-break-before: avoid; }
+  .header { background: var(--marrom) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  details { break-inside: avoid; }
+  details[open] .detail-content { break-inside: avoid; }
+  .chart-container { break-inside: avoid; }
+  .kpi-card, .scenario-card { break-inside: avoid; }
+}
+
+/* OVERLAY */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* TWO COL */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+.visible-text {
+  font-size: 15px;
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.benchmark-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+  border-left: 4px solid var(--dourado);
+}
+.benchmark-card h3 {
+  color: var(--marrom);
+  margin-bottom: 8px;
+}
+
+.conclusion-block {
+  background: linear-gradient(135deg, var(--marrom), var(--dark));
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+.conclusion-block h3 {
+  color: var(--dourado);
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+.conclusion-block p {
+  line-height: 1.8;
+  margin-bottom: 12px;
+  opacity: 0.95;
+}
+.conclusion-block .key-insight {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 16px;
+  margin-top: 16px;
+  font-style: italic;
+  color: var(--dourado);
+  font-size: 16px;
+  line-height: 1.7;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <img src="logo-sidebar.png" alt="Juca Coffee Logo">
+  </div>
+  <nav class="sidebar-nav">
+    <a class="active" data-tab="tab-visao">
+      <span class="nav-icon">&#9678;</span> Visao Geral
+    </a>
+    <a data-tab="tab-maturidade">
+      <span class="nav-icon">&#9881;</span> Maturidade Digital
+    </a>
+    <a data-tab="tab-financeiro">
+      <span class="nav-icon">&#9733;</span> Financeiro
+    </a>
+    <a data-tab="tab-branding">
+      <span class="nav-icon">&#9830;</span> Branding Estrategico
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    Carol Camilo Branding &middot; Marco 2026
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <button class="hamburger" id="hamburgerBtn">&#9776;</button>
+      <div class="header-logo">
+        <img src="logo-main.png" alt="Juca Coffee">
+      </div>
+    </div>
+    <h1>Dashboard de Consultoria</h1>
+    <p>Relatorio integrado &mdash; Visao Geral, Maturidade Digital, Financeiro e Branding</p>
+  </header>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="tab-visao">Visao Geral</button>
+    <button class="tab-btn" data-tab="tab-maturidade">Maturidade Digital</button>
+    <button class="tab-btn" data-tab="tab-financeiro">Financeiro</button>
+    <button class="tab-btn" data-tab="tab-branding">Branding Estrategico</button>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB 1: VISAO GERAL -->
+  <!-- ============================================================ -->
+  <div class="tab-content active" id="tab-visao">
+    <div class="content">
+
+      <!-- BLOCO 1: Quem e a Juca Coffee -->
+      <div class="section">
+        <h2 class="section-title">Quem e a Juca Coffee</h2>
+        <p class="section-sub">Tres geracoes de cafe especial no Cerrado Mineiro</p>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Tradicao</div>
+            <div class="kpi-value">Desde 1975</div>
+            <div class="kpi-note">3 geracoes de cafe</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Fazendas</div>
+            <div class="kpi-value">2</div>
+            <div class="kpi-note">Pedras + Bom Retiro</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Altitude</div>
+            <div class="kpi-value">1.060m+</div>
+            <div class="kpi-note">Cerrado Mineiro</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Score SCA</div>
+            <div class="kpi-value">85+</div>
+            <div class="kpi-note">Cafe especial certificado</div>
+          </div>
+        </div>
+
+        <p class="visible-text">Tres geracoes cultivando cafe 100% Arabica no Cerrado Mineiro. Variedades Catuai Vermelho (chocolate, rapadura) e Arara (chocolate, avela, citrico). Processo Natural. Docura 10/10, Corpo 8.75/10 (Cropster).</p>
+
+        <div class="insight">"A Juca Coffee nao e uma marca nova que quer surfar a onda do cafe especial. Sao 3 geracoes no Cerrado Mineiro. Isso nao se compra &mdash; se herda."</div>
+
+        <details>
+          <summary>Perfil completo</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Item</th><th>Detalhe</th></tr>
+                <tr><td>Fundacao formal</td><td>Agosto 2024</td></tr>
+                <tr><td>Origem</td><td>Regiao dos Fanecos, Santa Rosa da Serra-MG (1975)</td></tr>
+                <tr><td>Fazendas</td><td>Fazenda das Pedras (Santa Rosa da Serra) e Fazenda Juca Coffee (Andorinhas, Campos Altos)</td></tr>
+                <tr><td>Socios</td><td>Pedro Lima e Ricardo</td></tr>
+                <tr><td>Torra</td><td>Terceirizada (em processo de internalizacao)</td></tr>
+                <tr><td>Canais atuais</td><td>Parceiros comerciais (cafeterias, emporios, supermercados) + WhatsApp + Instagram</td></tr>
+                <tr><td>Preco presencial</td><td>R$28/250g</td></tr>
+                <tr><td>Preco e-commerce</td><td>R$42-45 (Nuvemshop), R$47-52 (ML), R$44-48 (Shopee)</td></tr>
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- BLOCO 2: O Mercado -->
+      <div class="section">
+        <h2 class="section-title">O Mercado</h2>
+        <p class="section-sub">Cafe especial em plena expansao no Brasil e no mundo</p>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Mercado Global</div>
+            <div class="kpi-value">USD 2,02bi</div>
+            <div class="kpi-note">CAGR 9.9%</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Mercado BR (ABIC)</div>
+            <div class="kpi-value">R$46,24bi</div>
+            <div class="kpi-note">+25.6% crescimento</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Querem experimentar</div>
+            <div class="kpi-value">74%</div>
+            <div class="kpi-note">Pesquisa Cocapec</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3 style="margin-bottom:12px;color:var(--marrom);">Radar Competitivo &mdash; 7 Pilares</h3>
+          <canvas id="radarVisao"></canvas>
+        </div>
+
+        <div class="insight green">"O mercado de cafe especial no Brasil cresce acima de qualquer previsao. A demanda existe. A Juca Coffee tem o produto certo para esse momento."</div>
+
+        <details>
+          <summary>Dados completos de mercado</summary>
+          <div class="detail-content">
+            <ul style="margin-left:20px;line-height:2;">
+              <li>Projecao: USD 3,54bi ate 2030</li>
+              <li>Cafes especiais = 5-10% do consumo interno, mas 20% das exportacoes</li>
+              <li>E-commerce Alimentos/Bebidas: R$16bi em 2024 (+18,4%)</li>
+              <li>D2C: R$5,8bi em 2025</li>
+              <li>88% dos pedidos via smartphone, 49% via Pix</li>
+              <li>ML: 1.877 resultados ativos "cafe especial 250g", 65 marcas, 131 Full</li>
+              <li>Amazon BR: 300-5.000 compras mensais nos lideres</li>
+              <li>Shopee: lojas com 13.000+ avaliacoes</li>
+              <li>Google Trends: "cafe especial" cresce ha 5 anos</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Comportamento do consumidor</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Fator de Decisao</th><th>Resposta Juca Coffee</th></tr>
+                <tr><td>Sabor/aroma</td><td>Laudo Cropster Docura 10/10</td></tr>
+                <tr><td>Qualidade SCA</td><td>85+ acima dos concorrentes (84-84.5)</td></tr>
+                <tr><td>Torras claras</td><td>Comunicar perfil sensorial</td></tr>
+                <tr><td>Origem/transparencia</td><td>Cerrado Mineiro + Fazenda + 51 anos</td></tr>
+                <tr><td>Certificacoes</td><td>DO nao explorada pelos concorrentes</td></tr>
+                <tr><td>Proximidade</td><td>Visitas, WhatsApp direto</td></tr>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Cenario de precos</summary>
+          <div class="detail-content">
+            <p>Saca 60kg arabica: R$2.769 (fev/2025, recorde). Especiais: menor reajuste (+9,8% 2024, +4,3% 2025). Margens premium mais estaveis. Rabobank projeta -33% commodity ate final 2026. Safra 66,2M sacas (+17,2%).</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Cerrado Mineiro como ativo</summary>
+          <div class="detail-content">
+            <p>1a DO do Brasil (2013), 4.500+ produtores, 55 municipios, 6M sacas/ano. 160% crescimento certificacao em 2024 (115k&rarr;300.500 sacas). 5M selos DO emitidos (parceria illy). Nenhum concorrente direto explorou com profundidade.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- BLOCO 3: Onde Esta Hoje -->
+      <div class="section">
+        <h2 class="section-title">Onde Esta Hoje</h2>
+        <p class="section-sub">Diagnostico atual da presenca digital</p>
+
+        <div class="kpi-grid">
+          <div class="kpi-card danger">
+            <div class="kpi-label">Maturidade</div>
+            <div class="kpi-value">N1</div>
+            <div class="kpi-note">5 de 7 pilares</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Instagram</div>
+            <div class="kpi-value">1.647</div>
+            <div class="kpi-note">4.5% engajamento</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Nuvemshop</div>
+            <div class="kpi-value">Ativa</div>
+            <div class="kpi-note">5 produtos, Meta Pixel</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">Snapshot Competitivo &mdash; Instagram</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Marca</th><th>Seguidores</th><th>Engajamento</th><th>Observacao</th></tr>
+              <tr><td><strong>Juca Coffee</strong></td><td>1.647</td><td>4.5%</td><td>Engajamento acima da media</td></tr>
+              <tr><td>Campos Altos</td><td>20.000</td><td>~5 likes/post</td><td>Volume sem qualidade</td></tr>
+              <tr><td>Desiderio</td><td>5.900</td><td>Baixo</td><td>Conteudo fraco</td></tr>
+              <tr><td>Artefato</td><td>6.400</td><td>Baixo</td><td>Conteudo generico</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="insight orange">"Todos os concorrentes sao fracos em conteudo e engajamento. Campos Altos tem 20k seguidores e 5 likes por post. A brecha esta no conteudo, nao nos numeros."</div>
+
+        <details>
+          <summary>Diagnostico Instagram @juca_coffee</summary>
+          <div class="detail-content">
+            <p>206 posts, 1.640 seguidores, 904 seguindo, taxa 4,5%. Frequencia: ~2 posts/mes (ideal 3-5/semana). Link na bio: bio.site sem loja.</p>
+            <p style="margin-top:8px;">Post APAE: 645 curtidas. Romeiros: 181. Reels com pessoas reais: 4x a 35x melhor que carrosseis educativos (17-24 likes). Problema: frequencia e ausencia de destino de compra.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Forcas e Fragilidades</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Forcas (9)</th><th>Fragilidades (9)</th></tr>
+                <tr><td>Historia 51 anos</td><td>Sem canal digital</td></tr>
+                <tr><td>IV coerente</td><td>Frequencia baixa (2x/mes)</td></tr>
+                <tr><td>85+ SCA Docura 10/10</td><td>Torra terceirizada</td></tr>
+                <tr><td>Altitude 1.060m+</td><td>Dupla jornada Pedro</td></tr>
+                <tr><td>Engajamento 4.5%</td><td>Zero automacao</td></tr>
+                <tr><td>Atendimento humanizado</td><td>Nenhum marketplace</td></tr>
+                <tr><td>2 fazendas</td><td>Sem clube</td></tr>
+                <tr><td>Preco competitivo e-commerce</td><td>Razao seguindo/seguidores alta (55%)</td></tr>
+                <tr><td>Conexao comunidade (APAE, romeiros)</td><td>Demanda IG sem destino de compra</td></tr>
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- BLOCO 4: O Verdadeiro Desafio -->
+      <div class="section">
+        <h2 class="section-title">O Verdadeiro Desafio: do produto certo ao canal certo</h2>
+        <p class="section-sub">A margem atual nao sustenta operacao digital</p>
+
+        <p class="visible-text">"A Juca Coffee tem o produto certo, o custo certo e o diferencial certo. O que falta e o modelo comercial certo para o canal digital. O desafio nao e preco &mdash; isso se resolve em um dia. O desafio e construir um canal digital a altura de um cafe de 3 geracoes."</p>
+
+        <div class="kpi-grid">
+          <div class="kpi-card danger">
+            <div class="kpi-label">Margem Real</div>
+            <div class="kpi-value">~1%</div>
+            <div class="kpi-note">R$0,28/un a R$28</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Preco Minimo Viavel</div>
+            <div class="kpi-value">R$40+</div>
+            <div class="kpi-note">Recomendado R$42-45</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3 style="margin-bottom:12px;color:var(--marrom);">Decomposicao de Margem &mdash; Waterfall</h3>
+          <canvas id="waterfallChart"></canvas>
+        </div>
+
+        <div class="insight danger">"A Juca Coffee quer ser marca de cafe especial ou de cafe barato? O produto ja respondeu. O preco precisa dizer a mesma coisa. Cobrar R$42-45 nao e ganancia &mdash; e posicionamento."</div>
+
+        <details>
+          <summary>Analise de margem detalhada</summary>
+          <div class="detail-content">
+            <p>Margem bruta 50% (R$14 lucro bruto) parece saudavel mas ignora todos os custos fora da producao. Simulacao min/max: Receita R$28 &rarr; custos R$22.03 a R$27.68 &rarr; resultado R$+5.97 a R$+0.32 (margem 21% a 1%). Qualquer CAC apaga.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Regra pratica</summary>
+          <div class="detail-content">
+            <p>Custo do produto nunca deve ultrapassar 35% do preco. Custo R$14 &rarr; preco minimo R$40. Abaixo disso qualquer custo adicional corroi viabilidade. A Juca ja tem o custo certo &mdash; o preco precisa acompanhar.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Desalinhamento qualidade x preco</summary>
+          <div class="detail-content">
+            <p>Com R$28, compete no segmento gourmet (R$18-30) onde guerra de preco e agressiva. Consumidor de especial ESPERA pagar R$35-50. Cobrar R$28 gera desconfianca: "se e tao bom, por que e tao barato?" Concorrentes diretos: R$36-48 sem resistencia.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- BLOCO 5: O Caminho -->
+      <div class="section">
+        <h2 class="section-title">O Caminho</h2>
+        <p class="section-sub">Operacao + diferenciacao para construir o canal digital</p>
+
+        <div class="two-col">
+          <!-- Operacao -->
+          <div class="card">
+            <h3 style="color:var(--marrom);margin-bottom:12px;">Operacao (Base necessaria)</h3>
+            <div class="table-wrap">
+              <table>
+                <tr><th>Passo</th><th>Impacto</th><th>Por Que</th></tr>
+                <tr><td>Reposicionar preco R$42-45</td><td><span class="tag tag-red">Critico</span></td><td>Sem margem nao existe negocio digital</td></tr>
+                <tr><td>Kit 4 pacotes R$155</td><td><span class="tag tag-orange">Alto</span></td><td>Ticket medio + frescor (1/semana)</td></tr>
+                <tr><td>Frete gratis &gt;R$229</td><td><span class="tag tag-orange">Alto</span></td><td>Concorrentes cobram R$299-300</td></tr>
+                <tr><td>Nuvemshop Payments</td><td><span class="tag tag-orange">Alto</span></td><td>Reduz taxa e unifica gestao</td></tr>
+                <tr><td>HubNoov Profissional R$139</td><td><span class="tag tag-gold">Medio</span></td><td>3 integracoes (Shopee, ML, Amazon)</td></tr>
+                <tr><td>Assinatura mensal</td><td><span class="tag tag-orange">Alto</span></td><td>Receita recorrente, churn baixo em cafe</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- Diferenciacao -->
+          <div class="card">
+            <h3 style="color:var(--marrom);margin-bottom:12px;">Diferenciacao (O Caminho Real)</h3>
+            <p class="visible-text">"Igualar em operacao e o minimo. O que vai diferenciar a Juca Coffee nao e preco nem produto &mdash; e conteudo e proximidade."</p>
+            <div class="pillars-grid" style="grid-template-columns: repeat(2,1fr);">
+              <div class="pillar-content-card"><h4>Fazenda &amp; Origem</h4></div>
+              <div class="pillar-content-card"><h4>Produto &amp; Educacao</h4></div>
+              <div class="pillar-content-card"><h4>Familia &amp; Tradicao</h4></div>
+              <div class="pillar-content-card"><h4>Bastidores</h4></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight green">"A vantagem competitiva real da Juca Coffee nao e preco, nao e marketplace. E a historia de 3 geracoes e a capacidade de transformar isso em conteudo que nenhum concorrente consegue replicar."</div>
+
+        <details>
+          <summary>A sequencia que funciona (Coffee++ como referencia)</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Fase</th><th>Periodo</th><th>O que aconteceu</th></tr>
+                <tr><td>Fase 1 &mdash; Produto/marca</td><td>2015-2019</td><td>Premio mundial sem e-commerce</td></tr>
+                <tr><td>Fase 2 &mdash; Loja propria</td><td>Out/2020</td><td>Shopify, +30%/mes 1o ano</td></tr>
+                <tr><td>Fase 3 &mdash; Recorrencia</td><td>Jan/2021</td><td>500 assinantes 2 meses, hoje 4.000 = 20% faturamento</td></tr>
+                <tr><td>Fase 4 &mdash; Marketplaces</td><td>2021-2022</td><td>4.000 PDVs, 150 ton/mes</td></tr>
+              </table>
+            </div>
+            <p style="margin-top:12px;font-weight:600;color:var(--marrom);">"Juca Coffee esta no final da Fase 1, entrando na Fase 2."</p>
+          </div>
+        </details>
+
+        <!-- Cenarios -->
+        <h3 style="color:var(--marrom);margin:24px 0 12px;">Cenarios de Resultado</h3>
+        <div class="scenario-grid">
+          <div class="scenario-card green">
+            <div class="scenario-label">Otimista</div>
+            <div class="scenario-value">R$13.260</div>
+            <div class="scenario-note">Margem mensal projetada</div>
+          </div>
+          <div class="scenario-card gold">
+            <div class="scenario-label">Realista</div>
+            <div class="scenario-value">R$8.050</div>
+            <div class="scenario-note">Margem mensal projetada</div>
+          </div>
+          <div class="scenario-card orange">
+            <div class="scenario-label">Conservador</div>
+            <div class="scenario-value">R$2.820</div>
+            <div class="scenario-note">Margem mensal projetada</div>
+          </div>
+          <div class="scenario-card red">
+            <div class="scenario-label">Pessimista</div>
+            <div class="scenario-value">Prejuizo</div>
+            <div class="scenario-note">Sem reposicionamento de preco</div>
+          </div>
+        </div>
+
+        <!-- Conclusao -->
+        <div class="conclusion-block">
+          <h3>O que separa a Juca Coffee</h3>
+          <p>"O que separa a Juca Coffee dos concorrentes nao e falta de produto, historia ou marca &mdash; e ausencia de estrutura digital. E estrutura se constroi."</p>
+          <div class="key-insight">"O jogo e: qualidade comprovavel + historia autentica + atendimento humanizado + recorrencia. Nenhum concorrente entrega os quatro ao mesmo tempo."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB 2: MATURIDADE DIGITAL -->
+  <!-- ============================================================ -->
+  <div class="tab-content" id="tab-maturidade">
+    <div class="content">
+
+      <!-- Secao 1: Score Geral -->
+      <div class="section">
+        <h2 class="section-title">Score Geral de Maturidade Digital</h2>
+        <p class="section-sub">Avaliacao em 7 pilares comparativa com concorrentes diretos</p>
+
+        <div class="card" style="text-align:center;">
+          <div class="big-score">
+            <div class="score-badge">N1</div>
+            <div class="score-label">Nivel de Maturidade Digital &mdash; Juca Coffee</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3 style="margin-bottom:12px;color:var(--marrom);">Radar de Maturidade &mdash; 7 Pilares x 4 Marcas</h3>
+          <canvas id="radarMaturidade"></canvas>
+        </div>
+
+        <div class="pillar-grid">
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Infraestrutura Digital</div></div>
+          <div class="pillar-card"><div class="pillar-score" style="color:var(--orange);">N2</div><div class="pillar-name">Identidade e Posicionamento</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Jornada do Cliente</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Aquisicao</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Retencao e Recorrencia</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Capacidade Operacional</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Visibilidade</div></div>
+        </div>
+      </div>
+
+      <!-- Secao 2: Contexto de Mercado -->
+      <div class="section">
+        <h2 class="section-title">Contexto de Mercado</h2>
+        <p class="section-sub">O cenario que justifica a entrada digital da Juca Coffee</p>
+
+        <!-- 2.1 Mercado de Cafe Especial -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">2.1 Mercado de Cafe Especial</h3>
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Global</div>
+              <div class="kpi-value">USD 2,02bi</div>
+              <div class="kpi-note">CAGR 9.9%</div>
+            </div>
+            <div class="kpi-card green">
+              <div class="kpi-label">Brasil (ABIC)</div>
+              <div class="kpi-value">R$46,24bi</div>
+              <div class="kpi-note">+25.6%</div>
+            </div>
+          </div>
+          <details>
+            <summary>Dados completos</summary>
+            <div class="detail-content">
+              <ul style="margin-left:20px;line-height:2;">
+                <li>Projecao: USD 3,54bi ate 2030</li>
+                <li>Cafes especiais = 5-10% do consumo interno, mas 20% das exportacoes</li>
+                <li>74% dos consumidores querem experimentar cafes especiais (Cocapec)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <!-- 2.2 Demanda Digital -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">2.2 Demanda Digital ja Existe</h3>
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">ML Resultados</div>
+              <div class="kpi-value">1.877</div>
+              <div class="kpi-note">"cafe especial 250g"</div>
+            </div>
+            <div class="kpi-card green">
+              <div class="kpi-label">E-commerce Alim/Beb</div>
+              <div class="kpi-value">R$16bi</div>
+              <div class="kpi-note">2024, +18.4%</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Pedidos Mobile</div>
+              <div class="kpi-value">88%</div>
+              <div class="kpi-note">Via smartphone</div>
+            </div>
+          </div>
+          <details>
+            <summary>Dados completos</summary>
+            <div class="detail-content">
+              <ul style="margin-left:20px;line-height:2;">
+                <li>Amazon BR: 300-5.000 compras mensais nos lideres</li>
+                <li>Shopee: lojas com 13.000+ avaliacoes</li>
+                <li>Google Trends: "cafe especial" cresce ha 5 anos</li>
+                <li>D2C: R$5,8bi em 2025</li>
+                <li>49% dos pagamentos via Pix</li>
+                <li>65 marcas e 131 Full no ML</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <!-- 2.3 Comportamento do Consumidor -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">2.3 Comportamento do Consumidor</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Fator de Decisao</th><th>Resposta Juca Coffee</th></tr>
+              <tr><td>Sabor/aroma</td><td>Laudo Cropster Docura 10/10</td></tr>
+              <tr><td>Qualidade SCA</td><td>85+ acima dos concorrentes (84-84.5)</td></tr>
+              <tr><td>Torras claras</td><td>Comunicar perfil sensorial</td></tr>
+              <tr><td>Origem/transparencia</td><td>Cerrado Mineiro + Fazenda + 51 anos</td></tr>
+              <tr><td>Certificacoes</td><td>DO nao explorada pelos concorrentes</td></tr>
+              <tr><td>Proximidade</td><td>Visitas, WhatsApp direto</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2.4 Cenario de Precos -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">2.4 Cenario de Precos</h3>
+          <p class="visible-text">Saca arabica: R$2.769 (fev/2025, recorde). Especiais: reajuste menor (+9,8% 2024, +4,3% 2025). Margens premium mais estaveis.</p>
+          <details>
+            <summary>Detalhes completos</summary>
+            <div class="detail-content">
+              <p>Rabobank projeta -33% commodity ate final 2026. Safra 66,2M sacas (+17,2%). Margens premium mais estaveis &mdash; especiais sofrem menos volatilidade que commodity.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- 2.5 Cerrado Mineiro -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">2.5 Cerrado Mineiro como Ativo Estrategico</h3>
+          <p class="visible-text">1a Denominacao de Origem do Brasil (2013). 4.500+ produtores. 160% crescimento em certificacao (2024).</p>
+          <details>
+            <summary>Detalhes completos</summary>
+            <div class="detail-content">
+              <ul style="margin-left:20px;line-height:2;">
+                <li>Certificacao em 2013, 55 municipios, 6M sacas/ano</li>
+                <li>160% crescimento certificacao em 2024 (115k &rarr; 300.500 sacas)</li>
+                <li>5M selos DO emitidos (parceria illy)</li>
+                <li>Nenhum concorrente direto explorou com profundidade</li>
+                <li>Requisitos: 55 municipios, 100% arabica, acima 800m, 80+ SCA por Q-Grader</li>
+                <li>Acao: pesquisar junto a Federacao (cafedocerrado.org)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <!-- 2.6 Sequencia que Funciona -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">2.6 A Sequencia que Funciona</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Fase</th><th>Periodo</th><th>O que aconteceu</th></tr>
+              <tr><td>Fase 1 &mdash; Produto/marca</td><td>2015-2019</td><td>Premio mundial sem e-commerce</td></tr>
+              <tr><td>Fase 2 &mdash; Loja propria</td><td>Out/2020</td><td>Shopify, +30%/mes 1o ano</td></tr>
+              <tr><td>Fase 3 &mdash; Recorrencia</td><td>Jan/2021</td><td>500 assinantes 2 meses, hoje 4.000 = 20% faturamento</td></tr>
+              <tr><td>Fase 4 &mdash; Marketplaces</td><td>2021-2022</td><td>4.000 PDVs, 150 ton/mes</td></tr>
+            </table>
+          </div>
+          <p style="margin-top:12px;font-weight:600;color:var(--marrom);">"Juca Coffee esta no final da Fase 1, entrando na Fase 2."</p>
+        </div>
+      </div>
+
+      <!-- Secao 3: Diagnostico da Juca Coffee -->
+      <div class="section">
+        <h2 class="section-title">Diagnostico da Juca Coffee</h2>
+        <p class="section-sub">Perfil, presenca digital e analise de forcas/fragilidades</p>
+
+        <!-- 3.1 Perfil -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">3.1 Perfil da Empresa</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Item</th><th>Detalhe</th></tr>
+              <tr><td>Fundacao</td><td>Agosto 2024</td></tr>
+              <tr><td>Origem</td><td>Regiao dos Fanecos, Santa Rosa da Serra-MG (1975)</td></tr>
+              <tr><td>Fazendas</td><td>Fazenda das Pedras (Santa Rosa da Serra) e Fazenda Juca Coffee (Andorinhas, Campos Altos)</td></tr>
+              <tr><td>Altitude</td><td>1.060m+</td></tr>
+              <tr><td>Produto</td><td>Cafe especial 100% Arabica, Processo Natural</td></tr>
+              <tr><td>Variedades</td><td>Catuai Vermelho (chocolate, rapadura) e Arara (chocolate, avela, citrico)</td></tr>
+              <tr><td>Preco presencial</td><td>R$28/250g</td></tr>
+              <tr><td>Preco e-commerce</td><td>R$42-45 (Nuvemshop), R$47-52 (ML), R$44-48 (Shopee)</td></tr>
+              <tr><td>Socios</td><td>Pedro Lima e Ricardo</td></tr>
+              <tr><td>Torra</td><td>Terceirizada (em processo de internalizacao)</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3.2 Instagram -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">3.2 Instagram @juca_coffee</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Metrica</th><th>Valor</th></tr>
+              <tr><td>Posts</td><td>206</td></tr>
+              <tr><td>Seguidores</td><td>1.640</td></tr>
+              <tr><td>Seguindo</td><td>904</td></tr>
+              <tr><td>Taxa de engajamento</td><td>4,5%</td></tr>
+              <tr><td>Frequencia</td><td>~2 posts/mes</td></tr>
+              <tr><td>Link na bio</td><td>bio.site sem loja</td></tr>
+            </table>
+          </div>
+          <p class="visible-text" style="margin-top:12px;">Post APAE: 645 curtidas. Romeiros: 181. Reels com pessoas reais: 4x a 35x melhor que carrosseis educativos (17-24 likes). Problema: frequencia e ausencia de destino de compra.</p>
+        </div>
+
+        <!-- 3.3 Forcas e Fragilidades -->
+        <div class="card">
+          <h3 style="color:var(--marrom);margin-bottom:12px;">3.3 Forcas e Fragilidades</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Forcas (9)</th><th>Fragilidades (9)</th></tr>
+              <tr><td>Historia 51 anos</td><td>Sem canal digital</td></tr>
+              <tr><td>IV coerente</td><td>Frequencia baixa (2x/mes)</td></tr>
+              <tr><td>85+ SCA Docura 10/10</td><td>Torra terceirizada</td></tr>
+              <tr><td>Altitude 1.060m+</td><td>Dupla jornada Pedro</td></tr>
+              <tr><td>Engajamento 4.5%</td><td>Zero automacao</td></tr>
+              <tr><td>Atendimento humanizado</td><td>Nenhum marketplace</td></tr>
+              <tr><td>2 fazendas</td><td>Sem clube</td></tr>
+              <tr><td>Preco competitivo e-commerce</td><td>Razao seguindo/seguidores alta (55%)</td></tr>
+              <tr><td>Conexao comunidade (APAE, romeiros)</td><td>Demanda IG sem destino de compra</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secao 4: Analise Competitiva -->
+      <div class="section">
+        <h2 class="section-title">Analise Competitiva &mdash; Concorrentes Diretos</h2>
+        <p class="section-sub">Diagnostico completo de cada concorrente regional</p>
+
+        <!-- 4.1 Campos Altos -->
+        <div class="competitor-card" style="border-left-color:var(--danger);">
+          <h3>4.1 Cafe Campos Altos &mdash; O Lider Estruturado</h3>
+          <p class="comp-summary">20k seguidores, Shopify, 4 marketplaces, 2.444 reviews Amazon, Clube de assinatura ativo.</p>
+        </div>
+        <details>
+          <summary>Campos Altos &mdash; Dados completos</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Item</th><th>Detalhe</th></tr>
+                <tr><td>Instagram</td><td>@cafecamposaltos 20k seguidores / 1.041 posts</td></tr>
+                <tr><td>Site</td><td>Shopify profissional</td></tr>
+                <tr><td>Marketplaces</td><td>ML / Shopee / Amazon / Magalu</td></tr>
+                <tr><td>Clube</td><td>SIM, renovacao automatica</td></tr>
+                <tr><td>Preco</td><td>R$36-69</td></tr>
+                <tr><td>SCA</td><td>84+ (edicao limitada 91)</td></tr>
+                <tr><td>Google Business</td><td>Cafeteria BH, Av. Augusto de Lima</td></tr>
+                <tr><td>Gastronomia</td><td>5 restaurantes Michelin, unico brasileiro no Museu LaMarzocco</td></tr>
+                <tr><td>Grupo</td><td>4 empresas</td></tr>
+                <tr><td>Investimento</td><td>R$8,5M nova unidade Ceasa Minas</td></tr>
+                <tr><td>Internacional</td><td>Our Coffees San Francisco (Google, Dropbox, Adobe)</td></tr>
+                <tr><td>Lideranca</td><td>Jose Maria presidente ACCA</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Oportunidade Juca:</strong> Atendimento personalizado, historia familiar direta, proximidade real.</div>
+          </div>
+        </details>
+
+        <!-- 4.2 Desiderio -->
+        <div class="competitor-card" style="border-left-color:var(--orange);">
+          <h3>4.2 Cafe Desiderio &mdash; A Tradicao Subutilizada</h3>
+          <p class="comp-summary">84 anos (1942), WooCommerce, 1 produto, NENHUM marketplace.</p>
+        </div>
+        <details>
+          <summary>Desiderio &mdash; Dados completos</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Item</th><th>Detalhe</th></tr>
+                <tr><td>Instagram</td><td>@cafedesiderio baixa visibilidade</td></tr>
+                <tr><td>Site</td><td>cafedesiderio.com WooCommerce</td></tr>
+                <tr><td>Marketplaces</td><td>Zero</td></tr>
+                <tr><td>Clube</td><td>Sem clube</td></tr>
+                <tr><td>Preco</td><td>R$42,40 (Pix R$38,16)</td></tr>
+                <tr><td>SCA</td><td>84.5</td></tr>
+                <tr><td>Produtos</td><td>1 produto Perfil Chocolate + edicao limitada 500un Perfil Rapadura</td></tr>
+                <tr><td>Variedade</td><td>Arara 100% arabica</td></tr>
+                <tr><td>Frete</td><td>Gratis &gt;R$299,99 Sul/Sudeste/CO</td></tr>
+                <tr><td>Fazenda</td><td>Fazenda Mesas, Campos Altos, regiao Fanecos (vizinhos geograficos)</td></tr>
+                <tr><td>Cupom</td><td>DESIDERIO5</td></tr>
+              </table>
+            </div>
+            <div class="insight orange" style="margin-top:12px;">Concorrente mais vulneravel a entrada digital da Juca.</div>
+          </div>
+        </details>
+
+        <!-- 4.3 Artefato -->
+        <div class="competitor-card" style="border-left-color:var(--green);">
+          <h3>4.3 Artefato Cafes &mdash; A Qualidade Premiada</h3>
+          <p class="comp-summary">90.11 SCA Cup of Excellence (3o BR 2025), microtorrefacao propria, 58% esgotado.</p>
+        </div>
+        <details>
+          <summary>Artefato &mdash; Dados completos</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Item</th><th>Detalhe</th></tr>
+                <tr><td>Instagram</td><td>@artefato_cafesespeciais 6.441 seg / 331 posts</td></tr>
+                <tr><td>Site</td><td>Shopify basico (4 placeholders)</td></tr>
+                <tr><td>Marketplaces</td><td>Amazon 2 produtos Prime, CoffeeUs, Alqueire</td></tr>
+                <tr><td>Clube</td><td>Sem clube</td></tr>
+                <tr><td>Preco</td><td>R$35-52</td></tr>
+                <tr><td>SCA</td><td>85-89 varejo, CoE 90.11 (3o Via Seca)</td></tr>
+                <tr><td>Variedades</td><td>6: Catuai V/A, Catigua, Topazio, Bourbon, Paraiso</td></tr>
+                <tr><td>Fazenda</td><td>Fazenda Chapadao, Pratinha-MG, 1.200-1.215m</td></tr>
+                <tr><td>Torra</td><td>Propria (microtorrefacao)</td></tr>
+                <tr><td>Familia</td><td>100% familiar (Gustavo+Rodrigo, pai Ciro desde 1989)</td></tr>
+                <tr><td>Estoque</td><td>7/12 esgotados (58%, gestao fraca)</td></tr>
+                <tr><td>Cupom</td><td>PRIMEIRACOMPRA</td></tr>
+                <tr><td>Terroir</td><td>Semelhante ao da Juca Coffee</td></tr>
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Secao 5: Benchmarks -->
+      <div class="section">
+        <h2 class="section-title">Benchmarks &mdash; Concorrentes Indiretos</h2>
+        <p class="section-sub">Marcas que ja percorreram o caminho que a Juca Coffee quer trilhar.</p>
+
+        <!-- 5.1 Coffee++ -->
+        <div class="benchmark-card">
+          <h3>5.1 Coffee++ &mdash; O Caso de Estudo D2C</h3>
+          <div class="kpi-grid" style="margin-top:12px;">
+            <div class="kpi-card"><div class="kpi-label">Instagram</div><div class="kpi-value">245k</div></div>
+            <div class="kpi-card green"><div class="kpi-label">1o Ano</div><div class="kpi-value">R$16M</div></div>
+            <div class="kpi-card"><div class="kpi-label">Assinantes</div><div class="kpi-value">4.000</div><div class="kpi-note">= 20% faturamento</div></div>
+            <div class="kpi-card"><div class="kpi-label">Fundador</div><div class="kpi-value">3a geracao</div><div class="kpi-note">Leo Montesanto</div></div>
+          </div>
+        </div>
+        <details>
+          <summary>Coffee++ &mdash; Dados completos</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Item</th><th>Detalhe</th></tr>
+                <tr><td>Plataforma</td><td>Shopify (&rarr;Plus)</td></tr>
+                <tr><td>Marketplaces</td><td>Amazon, ML, Shopee, Magalu</td></tr>
+                <tr><td>Clube</td><td>Planos mensal+anual R$20-40</td></tr>
+                <tr><td>SCA</td><td>84+ (1953: 88+, Geisha CoE 93.89)</td></tr>
+                <tr><td>Varejo</td><td>2.000+ PDVs, Zaffari/GPA/Carrefour</td></tr>
+                <tr><td>Modelo</td><td>Verticalmente integrado</td></tr>
+                <tr><td>Marca</td><td>Registrada 30+ paises</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;">
+              <strong>Licoes:</strong> Sequencia produto &rarr; loja &rarr; recorrencia &rarr; marketplace. 4.000 assinantes = 20% do faturamento. R$20/mes anual. Tinha capital que Juca nao tem, mas a sequencia e a mesma.
+            </div>
+          </div>
+        </details>
+
+        <!-- 5.2 Orfeu -->
+        <div class="benchmark-card">
+          <h3>5.2 Orfeu &mdash; O Premium Acessivel</h3>
+          <div class="kpi-grid" style="margin-top:12px;">
+            <div class="kpi-card"><div class="kpi-label">Instagram</div><div class="kpi-value">145k</div></div>
+            <div class="kpi-card green"><div class="kpi-label">Cup of Excellence</div><div class="kpi-value">31</div></div>
+            <div class="kpi-card"><div class="kpi-label">Clube</div><div class="kpi-value">Confraria</div><div class="kpi-note">Premium + visita a fazenda</div></div>
+          </div>
+        </div>
+        <details>
+          <summary>Orfeu &mdash; Dados completos</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Item</th><th>Detalhe</th></tr>
+                <tr><td>Plataforma</td><td>VTEX + internacional</td></tr>
+                <tr><td>Marketplaces</td><td>Amazon BR/US, ML 2.568 reviews 4.9 estrelas</td></tr>
+                <tr><td>Clube</td><td>Clube + Confraria anual</td></tr>
+                <tr><td>Preco</td><td>R$28-60 (Geisha R$420/320g)</td></tr>
+                <tr><td>SCA</td><td>CoE 2024 91.89 2o + Presidential Award</td></tr>
+                <tr><td>Varejo</td><td>Pao de Acucar / St Marche / Zona Sul / Zaffari</td></tr>
+                <tr><td>Fundadores</td><td>Roberto+Karen Marinho (Globo)</td></tr>
+                <tr><td>Escala</td><td>4.000 hectares, 50+ SKUs, azeites, torrefacao na fazenda</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;">
+              <strong>Licoes:</strong> Criou "premium acessivel" em supermercado. Diretor diz 15-20% do consumo deveria ser especial. Escala inalcancavel, mas em D2C/clubes a vantagem desaparece.
+            </div>
+          </div>
+        </details>
+
+        <!-- 5.3 3 Coracoes -->
+        <div class="benchmark-card">
+          <h3>5.3 3 Coracoes &mdash; A Escala como Referencia</h3>
+          <div class="kpi-grid" style="margin-top:12px;">
+            <div class="kpi-card"><div class="kpi-label">Faturamento</div><div class="kpi-value">R$10bi/ano</div></div>
+            <div class="kpi-card green"><div class="kpi-label">Market Share</div><div class="kpi-value">32%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Sub-marca</div><div class="kpi-value">Rituais</div><div class="kpi-note">Especiais separada</div></div>
+          </div>
+        </div>
+        <details>
+          <summary>3 Coracoes &mdash; Dados completos</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Item</th><th>Detalhe</th></tr>
+                <tr><td>Instagram</td><td>1M @3coracoes + 276k @mercafe + @rituaiscafesespeciais</td></tr>
+                <tr><td>Operacao</td><td>9 fabricas, 600k+ PDVs</td></tr>
+                <tr><td>Estrutura</td><td>JV 50/50 Strauss Group Israel</td></tr>
+                <tr><td>Marcas</td><td>30+</td></tr>
+                <tr><td>Rituais</td><td>85+ SCA, R$26-46</td></tr>
+                <tr><td>D2C</td><td>Mercafe.com.br</td></tr>
+                <tr><td>Clube</td><td>TRES capsulas</td></tr>
+                <tr><td>Tecnologia</td><td>QR code embalagem para historia</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;">
+              <strong>Licoes:</strong> Criou Rituais separada porque marca-mae mata credibilidade especial. Juca nasce com credibilidade (produtor real, nao corporacao). QR code replicavel imediatamente.
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Secao 6: Mapa de Maturidade -->
+      <div class="section">
+        <h2 class="section-title">Mapa de Maturidade &mdash; Analise por Pilar</h2>
+        <p class="section-sub">Comparacao detalhada dos 7 pilares entre 4 marcas</p>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <tr>
+                <th>Pilar</th>
+                <th>Juca Coffee</th>
+                <th>Campos Altos</th>
+                <th>Desiderio</th>
+                <th>Artefato</th>
+              </tr>
+              <tr><td>01 Infraestrutura Digital</td><td><span class="tag tag-red">N1</span></td><td><span class="tag tag-green">N4</span></td><td><span class="tag tag-orange">N2</span></td><td><span class="tag tag-orange">N2</span></td></tr>
+              <tr><td>02 Identidade e Posicionamento</td><td><span class="tag tag-orange">N2</span></td><td><span class="tag tag-gold">N3</span></td><td><span class="tag tag-gold">N3</span></td><td><span class="tag tag-gold">N3</span></td></tr>
+              <tr><td>03 Jornada do Cliente</td><td><span class="tag tag-red">N1</span></td><td><span class="tag tag-green">N4</span></td><td><span class="tag tag-orange">N2</span></td><td><span class="tag tag-orange">N2</span></td></tr>
+              <tr><td>04 Aquisicao</td><td><span class="tag tag-red">N1</span></td><td><span class="tag tag-green">N4</span></td><td><span class="tag tag-orange">N2</span></td><td><span class="tag tag-orange">N2</span></td></tr>
+              <tr><td>05 Retencao e Recorrencia</td><td><span class="tag tag-red">N1</span></td><td><span class="tag tag-gold">N3</span></td><td><span class="tag tag-red">N1</span></td><td><span class="tag tag-red">N1</span></td></tr>
+              <tr><td>06 Capacidade Operacional</td><td><span class="tag tag-red">N1</span></td><td><span class="tag tag-green">N4</span></td><td><span class="tag tag-orange">N2</span></td><td><span class="tag tag-orange">N2</span></td></tr>
+              <tr><td>07 Visibilidade</td><td><span class="tag tag-red">N1</span></td><td><span class="tag tag-green">N4</span></td><td><span class="tag tag-orange">N2</span></td><td><span class="tag tag-orange">N2</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pilar 01 -->
+        <details>
+          <summary>Pilar 01 &mdash; Infraestrutura Digital</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Marca</th><th>Nivel</th><th>Analise</th></tr>
+                <tr><td>Juca Coffee</td><td><span class="tag tag-red">N1</span></td><td>Vendas 100% manuais WhatsApp, Nuvemshop criada sem produtos.</td></tr>
+                <tr><td>Campos Altos</td><td><span class="tag tag-green">N4</span></td><td>Shopify + Amazon 2.444 reviews 2.000+/mes + Shopee + Magalu + ML.</td></tr>
+                <tr><td>Desiderio</td><td><span class="tag tag-orange">N2</span></td><td>WooCommerce funcional checkout Pix.</td></tr>
+                <tr><td>Artefato</td><td><span class="tag tag-orange">N2</span></td><td>Shopify basico checkout, Amazon 2 produtos.</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Leitura:</strong> Amazon 2.444 reviews e ativo impossivel de replicar. Janela: ML e Shopee onde Desiderio nao esta e Artefato tem presenca minima.</div>
+          </div>
+        </details>
+
+        <!-- Pilar 02 -->
+        <details>
+          <summary>Pilar 02 &mdash; Identidade e Posicionamento</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Marca</th><th>Nivel</th><th>Analise</th></tr>
+                <tr><td>Juca Coffee</td><td><span class="tag tag-orange">N2</span></td><td>IV coerente, proposta em construcao.</td></tr>
+                <tr><td>Campos Altos</td><td><span class="tag tag-gold">N3</span></td><td>Qualidade+escala+internacionalizacao+Michelin.</td></tr>
+                <tr><td>Desiderio</td><td><span class="tag tag-gold">N3</span></td><td>84 anos como narrativa central.</td></tr>
+                <tr><td>Artefato</td><td><span class="tag tag-gold">N3</span></td><td>CoE 2025 como ancora de autoridade.</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Leitura:</strong> Todos tem posicionamento definido. DO do Cerrado Mineiro e o ativo nao explorado por nenhum.</div>
+          </div>
+        </details>
+
+        <!-- Pilar 03 -->
+        <details>
+          <summary>Pilar 03 &mdash; Jornada do Cliente</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Marca</th><th>Nivel</th><th>Analise</th></tr>
+                <tr><td>Juca Coffee</td><td><span class="tag tag-red">N1</span></td><td>Bio &rarr; bio.site sem loja. Nenhum preco visivel antes do WhatsApp.</td></tr>
+                <tr><td>Campos Altos</td><td><span class="tag tag-green">N4</span></td><td>Jornada completa multiplos pontos.</td></tr>
+                <tr><td>Desiderio</td><td><span class="tag tag-orange">N2</span></td><td>Compra possivel sem contato manual.</td></tr>
+                <tr><td>Artefato</td><td><span class="tag tag-orange">N2</span></td><td>Checkout direto, cupom ativo.</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Leitura:</strong> Juca perde 100% dos clientes que querem comprar imediatamente pelo Instagram. Configurar Nuvemshop + atualizar link bio = maior impacto imediato.</div>
+          </div>
+        </details>
+
+        <!-- Pilar 04 -->
+        <details>
+          <summary>Pilar 04 &mdash; Aquisicao</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Marca</th><th>Nivel</th><th>Analise</th></tr>
+                <tr><td>Juca Coffee</td><td><span class="tag tag-red">N1</span></td><td>1.640 seguidores, 4.5% engajamento, apenas 2 posts/mes.</td></tr>
+                <tr><td>Campos Altos</td><td><span class="tag tag-green">N4</span></td><td>20k + trafego via Amazon.</td></tr>
+                <tr><td>Desiderio</td><td><span class="tag tag-orange">N2</span></td><td>Organico limitado.</td></tr>
+                <tr><td>Artefato</td><td><span class="tag tag-orange">N2</span></td><td>6.441 seguidores, CoE como PR espontaneo.</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Leitura:</strong> Engajamento Juca proporcionalmente superior. Acoes comunitarias geram picos que nenhum concorrente replica.</div>
+          </div>
+        </details>
+
+        <!-- Pilar 05 -->
+        <details>
+          <summary>Pilar 05 &mdash; Retencao e Recorrencia</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Marca</th><th>Nivel</th><th>Analise</th></tr>
+                <tr><td>Juca Coffee</td><td><span class="tag tag-red">N1</span></td><td>Sem lista, sem clube.</td></tr>
+                <tr><td>Campos Altos</td><td><span class="tag tag-gold">N3</span></td><td>Clube ativo renovacao automatica.</td></tr>
+                <tr><td>Desiderio</td><td><span class="tag tag-red">N1</span></td><td>Apenas cupom DESIDERIO5.</td></tr>
+                <tr><td>Artefato</td><td><span class="tag tag-red">N1</span></td><td>Sem recorrencia.</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Leitura:</strong> Janela &mdash; ser o segundo a oferecer assinatura na regiao.</div>
+          </div>
+        </details>
+
+        <!-- Pilar 06 -->
+        <details>
+          <summary>Pilar 06 &mdash; Capacidade Operacional</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Marca</th><th>Nivel</th><th>Analise</th></tr>
+                <tr><td>Juca Coffee</td><td><span class="tag tag-red">N1</span></td><td>2 socios, torra terceirizada, zero automacao, dupla jornada.</td></tr>
+                <tr><td>Campos Altos</td><td><span class="tag tag-green">N4</span></td><td>Grupo 4 empresas, R$8,5M, equipe dedicada.</td></tr>
+                <tr><td>Desiderio</td><td><span class="tag tag-orange">N2</span></td><td>84 anos processos, operacao familiar estruturada.</td></tr>
+                <tr><td>Artefato</td><td><span class="tag tag-orange">N2</span></td><td>Microtorrefacao propria, gestao estoque fraca (58% esgotado).</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Leitura:</strong> Torra terceirizada e fragilidade operacional. Artefato prova microtorrefacao familiar viavel &mdash; mas precisa gestao.</div>
+          </div>
+        </details>
+
+        <!-- Pilar 07 -->
+        <details>
+          <summary>Pilar 07 &mdash; Visibilidade</summary>
+          <div class="detail-content">
+            <div class="table-wrap">
+              <table>
+                <tr><th>Marca</th><th>Nivel</th><th>Analise</th></tr>
+                <tr><td>Juca Coffee</td><td><span class="tag tag-red">N1</span></td><td>Nenhuma metrica registrada.</td></tr>
+                <tr><td>Campos Altos</td><td><span class="tag tag-green">N4</span></td><td>Shopify + 4 marketplaces + Google Business.</td></tr>
+                <tr><td>Desiderio</td><td><span class="tag tag-orange">N2</span></td><td>Painel WooCommerce.</td></tr>
+                <tr><td>Artefato</td><td><span class="tag tag-orange">N2</span></td><td>Painel Shopify.</td></tr>
+              </table>
+            </div>
+            <div class="insight" style="margin-top:12px;"><strong>Leitura:</strong> Nuvemshop no ar = painel com pedidos, ticket medio, produtos mais vendidos &mdash; N1 para N2 sem custo.</div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Secao 7: Janelas Estrategicas -->
+      <div class="section">
+        <h2 class="section-title">Janelas Estrategicas</h2>
+        <p class="section-sub">Oportunidades identificadas no mapa competitivo</p>
+
+        <div class="card" style="border-left:4px solid var(--green);">
+          <h3 style="color:var(--marrom);margin-bottom:8px;">7.1 Clube de Assinatura (Recorrencia)</h3>
+          <p class="visible-text">Campos Altos tem. Desiderio e Artefato NAO. Ser a segunda marca da regiao + primeira com narrativa humanizada. Coffee++ provou: 4.000 assinantes = 20% faturamento.</p>
+          <details>
+            <summary>Detalhes da janela</summary>
+            <div class="detail-content">
+              <p>100 assinantes x R$42/mes = R$4.200/mes receita previsivel.</p>
+              <p style="margin-top:8px;"><strong>Acao:</strong> Estruturar modelo simples Nuvemshop apos primeiros pedidos.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--dourado);">
+          <h3 style="color:var(--marrom);margin-bottom:8px;">7.2 Denominacao de Origem (Cerrado Mineiro)</h3>
+          <p class="visible-text">5M selos, 160% crescimento. Nenhum concorrente construiu narrativa profunda em torno da DO.</p>
+          <details>
+            <summary>Detalhes da janela</summary>
+            <div class="detail-content">
+              <p>Requisitos: 55 municipios, 100% arabica, acima 800m, 80+ SCA, Q-Grader.</p>
+              <p style="margin-top:8px;"><strong>Acao:</strong> Pesquisar cafedocerrado.org, usar narrativa desde ja.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--orange);">
+          <h3 style="color:var(--marrom);margin-bottom:8px;">7.3 Presenca em Marketplace (Jornada Direta)</h3>
+          <p class="visible-text">Desiderio: ZERO marketplace. Artefato: apenas 2 na Amazon. Juca entra em canais com trafego organico que outros nao ocupam.</p>
+          <details>
+            <summary>Detalhes da janela</summary>
+            <div class="detail-content">
+              <p><strong>Acao:</strong> Nuvemshop primeiro, depois ML e Shopee.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- Secao 8: O que este Diagnostico Significa -->
+      <div class="section">
+        <h2 class="section-title">O que este Diagnostico Significa</h2>
+
+        <div class="conclusion-block">
+          <h3>Conclusao</h3>
+          <p>"Dois pilares de maior urgencia (infraestrutura digital e jornada do cliente) tem solucao tecnica direta, resoluveis nas primeiras semanas. Resolvidos: sai de N1 em 5 pilares para N2 em pelo menos 4."</p>
+          <p>"O que separa a Juca Coffee dos concorrentes nao e falta de produto, historia ou marca &mdash; e ausencia de estrutura digital. E estrutura se constroi."</p>
+          <div class="key-insight">"O jogo e: qualidade comprovavel + historia autentica + atendimento humanizado + recorrencia. Nenhum concorrente entrega os quatro ao mesmo tempo."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB 3: FINANCEIRO -->
+  <!-- ============================================================ -->
+  <div class="tab-content" id="tab-financeiro">
+    <div class="content" id="financeiro-content">
+<!-- ============================================================
+     TAB 3 — FINANCEIRO (COMPLETO)
+     ============================================================ -->
+
+<!-- SECAO 1: CONTEXTO ATUAL -->
+<div class="section-title"><span class="st-icon">&#9650;</span> Contexto Atual</div>
+
+<div class="card">
+    <h2>Situacao Atual da Juca Coffee</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Item</th><th>Detalhe</th></tr></thead>
+            <tbody>
+                <tr><td>Produto principal</td><td>Cafe especial 250g moido/grao</td></tr>
+                <tr><td>Preco praticado</td><td>R$28/pacote</td></tr>
+                <tr><td>Custo medio</td><td>R$13,75-14,00</td></tr>
+                <tr><td>Margem bruta declarada</td><td>~100% sobre custo (R$14 lucro bruto)</td></tr>
+                <tr><td>Canal atual</td><td>Presencial, WhatsApp, revenda parceiros</td></tr>
+                <tr><td>E-commerce</td><td>Inexistente</td></tr>
+                <tr><td>Logistica</td><td>Melhor Envio</td></tr>
+                <tr><td>Redes</td><td>Instagram @juca_coffee, TikTok @juca.coffee</td></tr>
+                <tr><td>Anuncios</td><td>Nenhum</td></tr>
+                <tr><td>Torra</td><td>Terceirizada</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight">
+    <strong>Contexto critico:</strong> O preco de R$28 foi definido para contexto presencial. Aplicado ao e-commerce com frete, taxas e marketing, gera prejuizo em praticamente todos os cenarios. Pedro confirmou: "para vendas online temos margem para aumentar e ainda ficar competitivo."
+</div>
+
+<!-- SECAO 2: ANALISE DE MARGEM ATUAL -->
+<div class="section-title"><span class="st-icon">&#9670;</span> Analise de Margem Atual</div>
+
+<div class="card">
+    <h2>Margem Bruta Simples</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+            <tbody>
+                <tr><td>Preco de venda</td><td style="color:var(--green);font-weight:bold;">R$28,00</td></tr>
+                <tr><td>(-) CPV (custo do produto)</td><td style="color:var(--danger);">-R$14,00</td></tr>
+                <tr style="background:var(--dourado-light);"><td><strong>= Lucro bruto</strong></td><td><strong>R$14,00 (50%)</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p style="color:#8B7355;font-size:13px;margin-top:12px;">Esta margem de 50% e a margem bruta de produto -- so e real se nao tiver nenhum outro custo.</p>
+</div>
+
+<details>
+    <summary>Custos que impactam a margem real</summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Categoria de Custo</th><th>Valor por Unidade/Pedido</th><th>Observacao</th></tr></thead>
+                <tbody>
+                    <tr><td>Produto (CPV)</td><td>R$14,00</td><td>Custo fixo por unidade</td></tr>
+                    <tr><td>Frete (pago pelo cliente)</td><td>R$0,00</td><td>Nao impacta margem diretamente</td></tr>
+                    <tr><td>Frete gratis (absorvido)</td><td>Variavel</td><td>Absorvido na margem quando oferecido</td></tr>
+                    <tr><td>Embalagem de envio</td><td>R$3,50-5,00</td><td>Caixa, protecao, fita</td></tr>
+                    <tr><td>Plataforma (Nuvemshop)</td><td>R$1,15-2,30</td><td>Custo fixo rateado por pedido</td></tr>
+                    <tr><td>Pagamento (3,49%+R$0,40)</td><td>R$1,38</td><td>Nuvemshop Payments</td></tr>
+                    <tr><td>HubNoov</td><td>R$139/mes fixo</td><td>Rateado conforme volume</td></tr>
+                    <tr><td>Marketing (CAC)</td><td>R$25-120</td><td>Custo de aquisicao por cliente</td></tr>
+                    <tr><td>Operacao</td><td>R$2-5</td><td>Tempo, impressao, etiqueta</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</details>
+
+<div class="card">
+    <h2>Waterfall -- Decomposicao de Margem Detalhada</h2>
+    <div class="chart-container wide">
+        <canvas id="waterfallFinanceiro"></canvas>
+    </div>
+    <div class="table-wrap" style="margin-top:16px;">
+        <table>
+            <thead><tr><th>Item</th><th>Valor</th><th>% do Preco</th></tr></thead>
+            <tbody>
+                <tr><td>Receita (preco de venda)</td><td style="color:var(--green);font-weight:bold;">R$28,00</td><td>100%</td></tr>
+                <tr><td>(-) CPV (custo do produto)</td><td style="color:var(--danger);">-R$14,00</td><td>50%</td></tr>
+                <tr><td>(-) Embalagem envio</td><td style="color:var(--danger);">-R$4,00</td><td>14,3%</td></tr>
+                <tr><td>(-) Taxa Pagamento (3,49%+R$0,40)</td><td style="color:var(--danger);">-R$1,38</td><td>4,9%</td></tr>
+                <tr><td>(-) Taxa Plataforma (Nuvemshop)</td><td style="color:var(--danger);">-R$1,15</td><td>4,1%</td></tr>
+                <tr><td>(-) Operacao</td><td style="color:var(--danger);">-R$3,50</td><td>12,5%</td></tr>
+                <tr><td><strong>= Margem sem Marketing</strong></td><td><strong>R$3,97</strong></td><td>14,2%</td></tr>
+                <tr><td>(-) Marketing (estimativa)</td><td style="color:var(--danger);">-R$3,69</td><td>13,2%</td></tr>
+                <tr style="background:var(--danger-light);"><td><strong>= Lucro Real</strong></td><td><strong style="color:var(--danger);">R$0,28</strong></td><td><strong>1%</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Simulacao Margem Real sem Marketing (Min/Max)</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Item</th><th>Cenario Otimista</th><th>Cenario Pessimista</th></tr></thead>
+            <tbody>
+                <tr><td>Receita</td><td>R$28,00</td><td>R$28,00</td></tr>
+                <tr><td>(-) CPV</td><td>-R$14,00</td><td>-R$14,00</td></tr>
+                <tr><td>(-) Embalagem</td><td>-R$3,50</td><td>-R$5,00</td></tr>
+                <tr><td>(-) Payments</td><td>-R$1,38</td><td>-R$1,38</td></tr>
+                <tr><td>(-) Plataforma</td><td>-R$1,15</td><td>-R$2,30</td></tr>
+                <tr><td>(-) Operacao</td><td>-R$2,00</td><td>-R$5,00</td></tr>
+                <tr style="background:var(--dourado-light);"><td><strong>Resultado</strong></td><td><strong style="color:var(--green);">+R$5,97 (~21%)</strong></td><td><strong style="color:var(--danger);">+R$0,32 (~1%)</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight danger">
+    <strong>Alerta:</strong> Com frete pago pelo cliente, o resultado unitario existe mas e insuficiente. Qualquer investimento em trafego apaga a margem.
+</div>
+
+<details>
+    <summary>Observacao fiscal</summary>
+    <div class="accordion-body">
+        <p><strong>Simples Nacional Faixa 1</strong> (ate R$180k/ano): ~4% sobre faturamento.</p>
+        <p><strong>MEI:</strong> isento de IR mas limitado a R$81k/ano.</p>
+        <p><strong>Importante:</strong> Impostos NAO estao incluidos nas simulacoes acima. Consultar contador antes do lancamento para definir melhor enquadramento tributario.</p>
+    </div>
+</details>
+
+<!-- SECAO 3: COMPARACAO COM O MERCADO -->
+<div class="section-title"><span class="st-icon">&#9679;</span> Comparacao com o Mercado</div>
+
+<div class="card">
+    <h2>Faixas de Preco -- Cafe 250g no Brasil</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Categoria</th><th>Faixa de Preco</th><th>Exemplos</th><th>Posicao Juca</th></tr></thead>
+            <tbody>
+                <tr><td>Tradicional / Commodity</td><td>R$10-18</td><td>Pilao, Melitta</td><td></td></tr>
+                <tr style="background:var(--danger-light);"><td><strong>Gourmet premium</strong></td><td>R$18-30</td><td>Orfeu Espresso</td><td><span class="tag danger">JUCA ESTA AQUI a R$28</span></td></tr>
+                <tr style="background:var(--green-light);"><td><strong>Especial acessivel</strong></td><td>R$30-42</td><td>Isso e Cafe</td><td><span class="tag green">FAIXA RECOMENDADA</span></td></tr>
+                <tr><td>Especial medio</td><td>R$42-55</td><td>Santa Monica</td><td><span class="tag gold">Potencial futuro</span></td></tr>
+                <tr><td>Premium / Microlote</td><td>R$55-90+</td><td>Laszlo</td><td><span class="tag gold">Edicoes especiais</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight orange">
+    <strong>Desalinhamento:</strong> Com R$28, a Juca compete no gourmet onde guerra de preco e agressiva. Consumidor de especial ESPERA pagar R$35-50. Cobrar R$28 gera desconfianca: "se e tao bom, por que e tao barato?"
+</div>
+
+<!-- SECAO 4: ESTRUTURA DE MARGEM SAUDAVEL -->
+<div class="section-title"><span class="st-icon">&#9650;</span> Estrutura de Margem Saudavel</div>
+
+<div class="card">
+    <h2>Distribuicao de Receita Saudavel</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Categoria</th><th>% Ideal</th><th>Para R$40</th><th>Para R$45</th></tr></thead>
+            <tbody>
+                <tr><td>CPV (custo do produto)</td><td>30-35%</td><td>R$12-14</td><td>R$13,50-15,75</td></tr>
+                <tr><td>Logistica</td><td>5-10%</td><td>R$2-4</td><td>R$2,25-4,50</td></tr>
+                <tr><td>Frete gratis (absorvido)</td><td>8-12%</td><td>R$3,20-4,80</td><td>R$3,60-5,40</td></tr>
+                <tr><td>Plataforma + Pagamento</td><td>5-8%</td><td>R$2-3,20</td><td>R$2,25-3,60</td></tr>
+                <tr><td>Marketing</td><td>10-20%</td><td>R$4-8</td><td>R$4,50-9</td></tr>
+                <tr><td>Operacao</td><td>5-8%</td><td>R$2-3,20</td><td>R$2,25-3,60</td></tr>
+                <tr style="background:var(--green-light);"><td><strong>Lucro</strong></td><td><strong>15-25%</strong></td><td><strong>R$6-10</strong></td><td><strong>R$6,75-11,25</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight green">
+    <strong>Regra pratica:</strong> Custo do produto NUNCA deve ultrapassar 35% do preco. Custo R$14 = preco minimo R$40. A Juca ja tem o custo certo -- o preco precisa acompanhar.
+</div>
+
+<!-- SECAO 5: PRECO RECOMENDADO POR CANAL -->
+<div class="section-title"><span class="st-icon">&#9670;</span> Preco Recomendado por Canal</div>
+
+<p style="margin-bottom:16px;color:#8B7355;">O preco atual de R$28 deve ser mantido apenas para vendas presenciais. Para e-commerce, a recomendacao e R$42-45 com base na analise de margem, mercado e posicionamento.</p>
+
+<div class="two-col">
+    <div class="card" style="border-top:4px solid var(--danger);">
+        <h2>Preco Atual -- R$28</h2>
+        <div style="text-align:center;padding:20px 0;">
+            <div style="font-family:'TJ Evolette',serif;font-size:48px;color:var(--danger);">1%</div>
+            <div style="font-family:'MB NOIR',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--danger);">Margem</div>
+        </div>
+        <p style="color:#8B7355;font-size:14px;">Margem de R$0,28 por unidade. Inviavel para investimento em marketing, trafego pago ou crescimento.</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green);">
+        <h2>Preco Recomendado -- R$42</h2>
+        <div style="text-align:center;padding:20px 0;">
+            <div style="font-family:'TJ Evolette',serif;font-size:48px;color:var(--green);">~33%</div>
+            <div style="font-family:'MB NOIR',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--green);">Margem</div>
+        </div>
+        <p style="color:#8B7355;font-size:14px;">Margem saudavel de ~R$14 por unidade. Permite investimento em trafego, conteudo e crescimento sustentavel.</p>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Precos Minimos por Canal</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Canal</th><th>Preco Minimo</th><th>Preco Recomendado</th><th>Margem Estimada</th><th>Prioridade</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Nuvemshop</strong></td><td>R$37</td><td>R$42-45</td><td>~45-50%</td><td><span class="tag green">1a prioridade</span></td></tr>
+                <tr><td><strong>Shopee</strong></td><td>R$35</td><td>R$42-46</td><td>~35-42%</td><td><span class="tag gold">2a prioridade</span></td></tr>
+                <tr><td><strong>Mercado Livre</strong></td><td>R$44</td><td>R$49-55</td><td>~25-35%</td><td><span class="tag orange">3a prioridade</span></td></tr>
+                <tr><td><strong>Amazon</strong></td><td>R$42</td><td>R$55-65</td><td>~30-40%</td><td><span class="tag orange">4a prioridade</span></td></tr>
+                <tr><td><strong>Assinatura</strong></td><td>R$37</td><td>R$38-42</td><td>~50%+</td><td><span class="tag green">1a recorrencia</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<details>
+    <summary>Detalhes Nuvemshop</summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Item</th><th>Detalhe</th></tr></thead>
+                <tbody>
+                    <tr><td>Plano</td><td>R$69/mes (Essencial)</td></tr>
+                    <tr><td>Comissao</td><td>0%</td></tr>
+                    <tr><td>Payments</td><td>3,49%+R$0,40 (Pix 0,99%)</td></tr>
+                    <tr><td>Frete</td><td>Correios integrado</td></tr>
+                    <tr><td>HubNoov</td><td>R$139/mes</td></tr>
+                    <tr><td>Total fixo mensal</td><td>R$208/mes</td></tr>
+                    <tr><td>Custo por pedido</td><td>R$1,15-3,47</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Simulacao de margem por preco:</strong></p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Preco</th><th>Margem por Unidade</th></tr></thead>
+                <tbody>
+                    <tr><td>R$28</td><td style="color:var(--danger);">R$7,36</td></tr>
+                    <tr><td>R$37</td><td style="color:var(--orange);">R$16,01</td></tr>
+                    <tr><td>R$42</td><td style="color:var(--green);">R$20,81</td></tr>
+                    <tr><td>R$47</td><td style="color:var(--green);">R$25,62</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Estrategia de frete:</strong></p>
+        <ul>
+            <li><strong>&lt;R$79:</strong> Frete pago pelo cliente</li>
+            <li><strong>R$79-99:</strong> Frete pago + barra de progresso "Faltam R$X para frete gratis"</li>
+            <li><strong>&gt;R$99:</strong> Frete gratis absorvido na margem do kit</li>
+            <li><strong>Assinatura:</strong> Frete sempre incluso</li>
+            <li><strong>Kit presente:</strong> Frete gratis incluso</li>
+        </ul>
+    </div>
+</details>
+
+<details>
+    <summary>Detalhes Amazon</summary>
+    <div class="accordion-body">
+        <p><strong>Planos:</strong> Individual R$2/item vendido ou Profissional R$19/mes + 15% comissao.</p>
+        <p><strong>Importante:</strong> Cafe e categoria restrita na Amazon, exige aprovacao previa. CNPJ e NF obrigatorios. Repasse em 14 dias.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Preco</th><th>Margem por Unidade</th></tr></thead>
+                <tbody>
+                    <tr><td>R$42</td><td>R$15,66</td></tr>
+                    <tr><td>R$49</td><td>R$21,34</td></tr>
+                    <tr><td>R$55</td><td>R$26,20</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Recomendacao:</strong> Entrar a partir do mes 3-4, preco minimo R$49. Canal premium com volume menor mas cliente de maior ticket.</p>
+    </div>
+</details>
+
+<details>
+    <summary>Detalhes Mercado Livre</summary>
+    <div class="accordion-body">
+        <p><strong>Comissao:</strong> 12-16% + taxa fixa R$6/unidade (anuncio Classica). Repasse em 15-30 dias.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Preco</th><th>Margem por Unidade</th></tr></thead>
+                <tbody>
+                    <tr><td>R$37</td><td style="color:var(--danger);">R$7,82</td></tr>
+                    <tr><td>R$44</td><td style="color:var(--orange);">R$13,84</td></tr>
+                    <tr><td>R$52</td><td style="color:var(--green);">R$20,72</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Recomendacao:</strong> Preco minimo R$49-52. Criar kits para diluir a taxa fixa de R$6. Canal de visibilidade, nao de margem principal.</p>
+    </div>
+</details>
+
+<details>
+    <summary>Detalhes Shopee</summary>
+    <div class="accordion-body">
+        <p><strong>Comissao:</strong> 8-12% + R$2/pedido. Publico B/C, 20-40 anos. Repasse em 3-7 dias.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Preco</th><th>Margem por Unidade</th></tr></thead>
+                <tbody>
+                    <tr><td>R$35</td><td>R$11,50</td></tr>
+                    <tr><td>R$42</td><td>R$17,80</td></tr>
+                    <tr><td>R$49</td><td>R$24,10</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Recomendacao:</strong> Menor barreira de entrada. Preco R$39-42. Campanhas de frete gratis = volume sem CAC. Testar aceitacao antes de escalar.</p>
+    </div>
+</details>
+
+<details>
+    <summary>HubNoov -- Integracao</summary>
+    <div class="accordion-body">
+        <p><strong>Custo:</strong> R$139/mes (Profissional) -- todos os canais + pedidos ilimitados.</p>
+        <ul>
+            <li>Sincronizacao de estoque em tempo real</li>
+            <li>Pedidos centralizados na Nuvemshop</li>
+            <li>Precos diferentes por canal</li>
+            <li>NF integrada</li>
+        </ul>
+        <p><strong>Custo fixo total:</strong> R$208/mes (Nuvemshop R$69 + HubNoov R$139).</p>
+        <p><strong>Custo por pedido:</strong> R$208 / 60 pedidos = R$3,47 por pedido.</p>
+    </div>
+</details>
+
+<!-- SECAO 6: IMPACTO DO TRAFEGO PAGO -->
+<div class="section-title"><span class="st-icon">&#9670;</span> Impacto do Trafego Pago</div>
+
+<p style="color:#8B7355;font-size:13px;margin-bottom:16px;">Referencia de mercado vs marca nova -- CAC mais alto sem historico de pixel.</p>
+
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-value">R$1,20-2,00</div>
+        <div class="kpi-label">CPC</div>
+        <div class="kpi-sub">Marca nova, sem historico</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value">0,8-1,5%</div>
+        <div class="kpi-label">CTR</div>
+        <div class="kpi-sub">Taxa de clique</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value">0,5-1,2%</div>
+        <div class="kpi-label">Conversao</div>
+        <div class="kpi-sub">Visitante para comprador</div>
+    </div>
+    <div class="kpi-card danger">
+        <div class="kpi-value">R$60-160</div>
+        <div class="kpi-label">CAC</div>
+        <div class="kpi-sub">Custo de aquisicao por cliente</div>
+    </div>
+    <div class="kpi-card orange">
+        <div class="kpi-value">3-6 sem</div>
+        <div class="kpi-label">Pixel Otimiza</div>
+        <div class="kpi-sub">50 conversoes para otimizar</div>
+    </div>
+    <div class="kpi-card green">
+        <div class="kpi-value">R$500-800</div>
+        <div class="kpi-label">Budget Recomendado</div>
+        <div class="kpi-sub">Por mes</div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>CAC vs Lucro -- Matriz Completa</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Preco / Produto</th>
+                    <th>CAC R$30</th>
+                    <th>CAC R$60</th>
+                    <th>CAC R$100</th>
+                    <th>CAC R$150</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>R$28 (atual)</strong></td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$16</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$46</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$86</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$136</td>
+                </tr>
+                <tr>
+                    <td><strong>R$37</strong></td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$5</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$35</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$75</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$125</td>
+                </tr>
+                <tr>
+                    <td><strong>R$42</strong></td>
+                    <td style="background:var(--orange-light);color:var(--orange);font-weight:bold;">+R$2</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$28</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$68</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$118</td>
+                </tr>
+                <tr>
+                    <td><strong>Kit 3xR$42 = R$126</strong></td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$32</td>
+                    <td style="background:var(--orange-light);color:var(--orange);font-weight:bold;">+R$2</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$38</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$88</td>
+                </tr>
+                <tr>
+                    <td><strong>Kit 3xR$45 = R$135</strong></td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$40</td>
+                    <td style="background:var(--orange-light);color:var(--orange);font-weight:bold;">+R$10</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$30</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$80</td>
+                </tr>
+                <tr>
+                    <td><strong>Assinatura 3m (2xR$42)</strong></td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$78</td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$48</td>
+                    <td style="background:var(--orange-light);color:var(--orange);font-weight:bold;">+R$8</td>
+                    <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$42</td>
+                </tr>
+                <tr>
+                    <td><strong>Assinatura 6m (2xR$42)</strong></td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$178</td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$148</td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$108</td>
+                    <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$58</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight">
+    <strong>Conclusao trafego pago:</strong> Com produto unitario, trafego pago e inviavel. Com kit + CAC &lt;R$30 funciona marginalmente. Unica forma de trafego pago ser rentavel desde o inicio: assinatura ou LTV alto como destino. Recomendacao: trafego pago so a partir do mes 2, com pixel aquecido.
+</div>
+
+<!-- SECAO 7: PROBLEMA DA VENDA UNITARIA -->
+<div class="section-title"><span class="st-icon">&#9650;</span> Problema da Venda Unitaria</div>
+
+<div class="card">
+    <h2>6 Problemas da Venda Unitaria no E-commerce</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Problema</th><th>Impacto</th></tr></thead>
+            <tbody>
+                <tr><td>Frete caro (R$14-22 em produto R$40)</td><td style="color:var(--danger);font-weight:bold;">Abandono &gt;70%</td></tr>
+                <tr><td>Ticket baixo</td><td style="color:var(--danger);">Sem diluicao de CAC</td></tr>
+                <tr><td>Compra nao recorrente</td><td style="color:var(--danger);">LTV baixo</td></tr>
+                <tr><td>Sem urgencia</td><td style="color:var(--orange);">Sem gatilho de recompra</td></tr>
+                <tr><td>Concorrencia de preco marketplace</td><td style="color:var(--orange);">Pressao para baixar</td></tr>
+                <tr><td>Sem prova social</td><td style="color:var(--danger);">Conversao &lt;0,5%</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight danger">
+    <strong>Alerta critico:</strong> O e-commerce unitario sem estrategia e uma maquina de gastar dinheiro. A solucao nao e apenas aumentar preco -- e mudar a arquitetura de como o produto e vendido.
+</div>
+
+<!-- SECAO 8: SOLUCAO — ARQUITETURA DE PRODUTO -->
+<div class="section-title"><span class="st-icon">&#9733;</span> Solucao -- Arquitetura de Produto</div>
+
+<div class="card">
+    <h2>Catalogo Recomendado para E-commerce</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Produto</th><th>Composicao</th><th>Preco</th><th>Frete</th><th>Margem</th></tr></thead>
+            <tbody>
+                <tr><td>Degustacao</td><td>2x100g</td><td>R$39,90-44,90</td><td>Cobrar R$4-10</td><td></td></tr>
+                <tr><td>Pacote avulso</td><td>1x250g</td><td>R$42-47</td><td>Cobrar R$5-12</td><td></td></tr>
+                <tr><td><strong>Kit Essencial</strong></td><td>2x250g</td><td>R$79,90-88</td><td style="color:var(--green);font-weight:bold;">Gratis</td><td>R$18-28</td></tr>
+                <tr><td><strong>Kit Familia</strong></td><td>3x250g</td><td>R$114,90-126</td><td style="color:var(--green);font-weight:bold;">Gratis</td><td>R$30-45</td></tr>
+                <tr><td><strong>Kit Presente</strong></td><td>2x250g + acessorio</td><td>R$99,90-129</td><td style="color:var(--green);font-weight:bold;">Gratis</td><td>R$25-55</td></tr>
+                <tr><td><strong>Caixa Mensal</strong></td><td>2-3 pacotes + card</td><td>R$72-119/mes</td><td style="color:var(--green);font-weight:bold;">Gratis</td><td>R$20-44</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight">
+    <strong>Atualizacao da consultora:</strong> Kit recomendado com 4 pacotes (1 por semana, sempre fresco) a R$155/1kg. Frete gratis acima de R$229 (concorrentes R$299-300).
+</div>
+
+<details>
+    <summary>Estrategia de frete detalhada</summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Faixa de Compra</th><th>Regra de Frete</th></tr></thead>
+                <tbody>
+                    <tr><td>&lt;R$79</td><td>Frete pago pelo cliente via Correios</td></tr>
+                    <tr><td>R$79-98</td><td>Frete pago + barra de progresso "Faltam R$X para frete gratis"</td></tr>
+                    <tr><td>&gt;R$99</td><td>Frete gratis absorvido na margem do kit</td></tr>
+                    <tr><td>Assinatura</td><td>Frete sempre incluso</td></tr>
+                    <tr><td>Kit presente</td><td>Frete gratis + embalagem especial</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Logica:</strong> R$99 = 2xR$42 = R$84. Cliente naturalmente adiciona +1 produto = kit de 3. A barra de progresso aumenta o ticket medio em 15-25% -- instalar obrigatoriamente no dia 1.</p>
+        <p><strong>Logistica:</strong> Correios via Nuvemshop integrado sem custo adicional. Melhor Envio: comparar transportadoras privadas (Jadlog, Total Express) para regioes especificas.</p>
+    </div>
+</details>
+
+<!-- SECAO 9: MODELO DE ASSINATURA -->
+<div class="section-title"><span class="st-icon">&#9654;</span> Modelo de Assinatura</div>
+
+<p style="margin-bottom:16px;color:var(--marrom);">A assinatura e o modelo mais sustentavel para marca nova: amortiza CAC ao longo de meses, gera previsibilidade e fideliza com experiencia de curadoria.</p>
+
+<div class="card">
+    <h2>5 Vantagens da Assinatura</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Vantagem</th><th>Detalhe</th></tr></thead>
+            <tbody>
+                <tr><td><strong>CAC amortizado</strong></td><td>Investimento feito 1 vez, receita nos meses seguintes</td></tr>
+                <tr><td><strong>Previsibilidade de estoque</strong></td><td>Sabe quantos pacotes enviar por mes</td></tr>
+                <tr><td><strong>Fidelizacao por curadoria</strong></td><td>Experiencia unica cada mes (lote, card, historia)</td></tr>
+                <tr><td><strong>LTV 4-8x maior</strong></td><td>Comparado a compra avulsa unica</td></tr>
+                <tr><td><strong>Menor abandono</strong></td><td>Cobranca automatica, sem decisao de recompra</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<details>
+    <summary>Elementos que aumentam retencao</summary>
+    <div class="accordion-body">
+        <ul>
+            <li><strong>Curadoria de lote mensal:</strong> Cerrado Mineiro -- cada mes um lote diferente da mesma fazenda</li>
+            <li><strong>Card sensorial:</strong> Descricao do lote, produtor, altitude, processo de secagem</li>
+            <li><strong>Storytelling digital:</strong> WhatsApp ou email pre-envio contando a historia daquele lote</li>
+            <li><strong>Opcao de pausa (nao cancelamento):</strong> Reduz churn em ate 40%</li>
+            <li><strong>Cashback/desconto fidelidade:</strong> A partir do 3o mes, desconto progressivo</li>
+        </ul>
+    </div>
+</details>
+
+<!-- SECAO 10: PLANOS DE ASSINATURA -->
+<div class="section-title"><span class="st-icon">&#9733;</span> Planos de Assinatura</div>
+
+<div class="insight">
+    <strong>Atualizacao da consultora:</strong> Box Cafezinho R$39/mes (1x250g) e Box Cafe com Juca R$145/mes (4x250g = 1kg, frete incluso).
+</div>
+
+<div class="two-col">
+    <div class="card" style="border-top:4px solid var(--dourado);">
+        <h2>Box Cafezinho</h2>
+        <div style="text-align:center;padding:16px 0;">
+            <div style="font-family:'TJ Evolette',serif;font-size:40px;color:var(--marrom);">R$39</div>
+            <div style="font-family:'MB NOIR',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8B7355;">/mes</div>
+        </div>
+        <ul style="margin-left:20px;color:#8B7355;font-size:14px;line-height:2;">
+            <li>1 pacote 250g por mes</li>
+            <li>Desconto de ~7% vs avulso (R$42)</li>
+            <li>Entrega mensal automatica</li>
+            <li>Escolha a variedade</li>
+        </ul>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green);">
+        <h2>Box Cafe com Juca</h2>
+        <div style="text-align:center;padding:16px 0;">
+            <div style="font-family:'TJ Evolette',serif;font-size:40px;color:var(--marrom);">R$145</div>
+            <div style="font-family:'MB NOIR',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8B7355;">/mes</div>
+        </div>
+        <ul style="margin-left:20px;color:#8B7355;font-size:14px;line-height:2;">
+            <li>4 pacotes (1kg total) por mes</li>
+            <li>Desconto de ~6% vs kit avulso (R$155)</li>
+            <li>1 pacote por semana, sempre fresco</li>
+            <li>Frete incluso</li>
+        </ul>
+    </div>
+</div>
+
+<details>
+    <summary>Planos originais do relatorio</summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Plano</th><th>Composicao</th><th>Preco</th><th>Desconto vs Avulso</th><th>Frete</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Explorador</strong></td><td>1x250g + card sensorial</td><td>R$39,90-44,90</td><td>~5-10%</td><td>Incluso</td></tr>
+                    <tr><td><strong>Entusiasta</strong></td><td>2x250g + card sensorial</td><td>R$72-82</td><td>~10-12%</td><td>Incluso</td></tr>
+                    <tr><td><strong>Coffee Lover</strong></td><td>3x250g + card + brinde</td><td>R$99-114</td><td>~12-15%</td><td>Incluso</td></tr>
+                    <tr><td><strong>Clube Cerrado</strong></td><td>2x250g selecao + card + historia</td><td>R$85-99</td><td>Experiencia unica</td><td>Incluso</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Operacionalizacao na Nuvemshop</summary>
+    <div class="accordion-body">
+        <ul>
+            <li><strong>App nativo:</strong> Assinaturas by Nuvemshop (sem custo adicional no plano Impulso+)</li>
+            <li><strong>Cobranca recorrente:</strong> Cartao de credito ou Pix automatico</li>
+            <li><strong>Gestao:</strong> Pausas, cancelamentos e upgrades pelo painel</li>
+            <li><strong>Logistica:</strong> Integracao Melhor Envio com etiquetas automaticas</li>
+            <li><strong>Comunicacao:</strong> WhatsApp Business com lembrete pre-envio</li>
+        </ul>
+    </div>
+</details>
+
+<div class="insight green">
+    <strong>Breakeven:</strong> Aproximadamente 16 assinantes do Box Cafe com Juca cobrem os custos fixos mensais (R$208/mes).
+</div>
+
+<details>
+    <summary>Simulacao churn mes a mes</summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Mes</th><th>Assinantes Ativos</th><th>Novos</th><th>Investimento CAC</th><th>Churn</th><th>Receita</th><th>Lucro</th></tr></thead>
+                <tbody>
+                    <tr><td>Mes 1</td><td>10</td><td>+10</td><td>R$600</td><td>0</td><td>R$820</td><td style="color:var(--danger);">-R$144</td></tr>
+                    <tr><td>Mes 2</td><td>16</td><td>+8</td><td>R$480</td><td>1-2 saem</td><td>R$1.312</td><td style="color:var(--green);">+R$224</td></tr>
+                    <tr><td>Mes 3</td><td>22</td><td>+8</td><td>R$480</td><td>2-3 saem</td><td>R$1.804</td><td style="color:var(--green);">+R$660</td></tr>
+                    <tr><td>Mes 4</td><td>27</td><td>+7</td><td>R$420</td><td>3 saem</td><td>R$2.214</td><td style="color:var(--green);">+R$1.078</td></tr>
+                    <tr style="background:var(--green-light);"><td><strong>Mes 6</strong></td><td><strong>35</strong></td><td>+6</td><td>R$360</td><td>4 saem</td><td><strong>R$2.870</strong></td><td style="color:var(--green);font-weight:bold;">+R$1.634</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="color:#8B7355;font-size:13px;">Premissas: margem de 48% sobre R$82 (plano Entusiasta), churn de 15%/mes (referencia Brasil para assinatura de cafe).</p>
+    </div>
+</details>
+
+<!-- SECAO 11: CENARIOS EM 6 MESES -->
+<div class="section-title"><span class="st-icon">&#9654;</span> Cenarios em 6 Meses</div>
+
+<details open>
+    <summary>Cenario Otimista <span class="tag green" style="margin-left:auto;margin-right:12px;">Melhor caso</span></summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Metrica</th><th>Mes 1</th><th>Mes 3</th><th>Mes 6</th></tr></thead>
+                <tbody>
+                    <tr><td>Pedidos avulsos</td><td>20</td><td>45</td><td>70</td></tr>
+                    <tr><td>Ticket medio (kit)</td><td>R$115</td><td>R$120</td><td>R$125</td></tr>
+                    <tr><td>Assinantes</td><td>8</td><td>30</td><td>55</td></tr>
+                    <tr><td>Receita assinatura</td><td>R$656</td><td>R$2.460</td><td>R$4.510</td></tr>
+                    <tr><td>Receita avulso</td><td>R$2.300</td><td>R$5.400</td><td>R$8.750</td></tr>
+                    <tr style="background:var(--green-light);"><td><strong>Receita total</strong></td><td><strong>R$2.956</strong></td><td><strong>R$7.860</strong></td><td><strong>R$13.260</strong></td></tr>
+                    <tr><td>Lucro operacional (20%)</td><td>R$591</td><td>R$1.572</td><td>R$2.652</td></tr>
+                    <tr><td>Marketing (12%)</td><td>R$354</td><td>R$943</td><td>R$1.591</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Premissas:</strong> Reposicionamento para R$42-45 no lancamento. Kit 3 unidades como produto principal. Conteudo 3x/semana. Trafego pago a partir do mes 2. CAC R$45 misto. Churn 12% com mecanica de pausa.</p>
+    </div>
+</details>
+
+<details>
+    <summary>Cenario Realista <span class="tag gold" style="margin-left:auto;margin-right:12px;">Mais provavel</span></summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Metrica</th><th>Mes 1</th><th>Mes 3</th><th>Mes 6</th></tr></thead>
+                <tbody>
+                    <tr><td>Pedidos Nuvemshop</td><td>8</td><td>20</td><td>40</td></tr>
+                    <tr><td>Pedidos Shopee</td><td>5</td><td>15</td><td>30</td></tr>
+                    <tr><td>Ticket medio</td><td>R$95</td><td>R$105</td><td>R$115</td></tr>
+                    <tr><td>Assinantes</td><td>0</td><td>10</td><td>25</td></tr>
+                    <tr style="background:var(--dourado-light);"><td><strong>Receita total</strong></td><td><strong>R$1.235</strong></td><td><strong>R$3.675</strong></td><td><strong>R$8.050</strong></td></tr>
+                    <tr><td>Lucro (15%)</td><td>R$185</td><td>R$551</td><td>R$1.208</td></tr>
+                    <tr><td>Marketing (8%)</td><td>R$99</td><td>R$294</td><td>R$644</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Premissas:</strong> R$42 na Nuvemshop, R$42-45 na Shopee. Crescimento gradual organico. Trafego pago a partir do mes 3. Assinatura lancada no mes 2. CAC R$60-80.</p>
+    </div>
+</details>
+
+<details>
+    <summary>Cenario Conservador <span class="tag orange" style="margin-left:auto;margin-right:12px;">Sem trafego pago</span></summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Metrica</th><th>Mes 1</th><th>Mes 3</th><th>Mes 6</th></tr></thead>
+                <tbody>
+                    <tr><td>Pedidos</td><td>4</td><td>12</td><td>25</td></tr>
+                    <tr><td>Ticket medio</td><td>R$80</td><td>R$90</td><td>R$100</td></tr>
+                    <tr><td>Assinantes</td><td>0</td><td>4</td><td>10</td></tr>
+                    <tr style="background:var(--orange-light);"><td><strong>Receita total</strong></td><td><strong>R$320</strong></td><td><strong>R$1.128</strong></td><td><strong>R$2.820</strong></td></tr>
+                    <tr><td>Lucro (12%)</td><td>R$38</td><td>R$135</td><td>R$338</td></tr>
+                    <tr><td>Breakeven</td><td><span class="tag danger">Nao</span></td><td><span class="tag danger">Nao</span></td><td><span class="tag orange">Proximo</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>Premissas:</strong> Sem trafego pago, apenas organico. R$42 sem kits estruturados. Sem campanha de lancamento. Pedro sem tempo disponivel (dupla jornada).</p>
+    </div>
+</details>
+
+<details>
+    <summary>Cenario Pessimista <span class="tag danger" style="margin-left:auto;margin-right:12px;">Sem reposicionamento</span></summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Metrica</th><th>Resultado</th></tr></thead>
+                <tbody>
+                    <tr><td>Preco mantido</td><td style="color:var(--danger);font-weight:bold;">R$28</td></tr>
+                    <tr><td>Margem por pedido</td><td style="color:var(--danger);font-weight:bold;">Negativa em todos os cenarios com frete</td></tr>
+                    <tr><td>Ticket medio</td><td style="color:var(--danger);">R$28 -- abaixo da viabilidade</td></tr>
+                    <tr><td>Resultado por transacao</td><td style="color:var(--danger);font-weight:bold;">-R$6 a -R$20</td></tr>
+                    <tr><td>Trafego pago</td><td style="color:var(--danger);">Prejuizo adicional por cada R$1 investido</td></tr>
+                    <tr><td>Breakeven</td><td style="color:var(--danger);font-weight:bold;">Nao atingivel</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</details>
+
+<div class="insight danger">
+    <strong>Sobre o cenario pessimista:</strong> Nao e catastrofico -- e evitavel. O risco nao e o fracasso do produto. E a armadilha de operar no preco errado por meses. Cada pedido no preco atual e uma sangria silenciosa.
+</div>
+
+<!-- SECAO 12: CUSTOS OPERACIONAIS MENSAIS -->
+<div class="section-title"><span class="st-icon">&#9679;</span> Custos Operacionais Mensais</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Item</th><th>Valor</th><th>Plano / Observacao</th></tr></thead>
+            <tbody>
+                <tr><td>Nuvemshop</td><td>R$69/mes</td><td>Essencial</td></tr>
+                <tr><td>HubNoov</td><td>R$139/mes</td><td>Profissional -- 3 integracoes</td></tr>
+                <tr><td>Nuvemshop Payments</td><td>3,49%+R$0,40</td><td>Pix 0,99%</td></tr>
+                <tr><td>Correios via Nuvemshop</td><td>Incluso</td><td>Sem custo adicional de integracao</td></tr>
+                <tr><td>Meta Ads</td><td>R$500-1.500/mes</td><td>Variavel conforme fase</td></tr>
+                <tr><td>Embalagens</td><td>Variavel</td><td>Por demanda</td></tr>
+                <tr style="background:var(--dourado-light);"><td><strong>Total fixo</strong></td><td><strong>R$208/mes</strong></td><td><strong>Nuvemshop + HubNoov</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- SECAO 13: COMISSOES POR MARKETPLACE -->
+<div class="section-title"><span class="st-icon">&#9670;</span> Comissoes por Marketplace</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Marketplace</th><th>Comissao</th><th>Frete</th><th>Observacao</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td><strong>Nuvemshop (loja propria)</strong></td>
+                    <td><span class="tag green">0% (Essencial)</span></td>
+                    <td>Por conta propria</td>
+                    <td>Maior margem, controle total</td>
+                </tr>
+                <tr>
+                    <td><strong>Shopee</strong></td>
+                    <td><span class="tag danger">14-20% + R$4/item</span></td>
+                    <td>Shopee Envios</td>
+                    <td>Alto volume, publico B/C</td>
+                </tr>
+                <tr>
+                    <td><strong>Mercado Livre</strong></td>
+                    <td><span class="tag orange">11-16% + R$6/un (Classica)</span></td>
+                    <td>Mercado Envios</td>
+                    <td>Visibilidade, repasse 15-30 dias</td>
+                </tr>
+                <tr>
+                    <td><strong>Amazon</strong></td>
+                    <td><span class="tag gold">8-15%</span></td>
+                    <td>FBA ou proprio</td>
+                    <td>Premium, categoria restrita, aprovacao previa, repasse 14 dias</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- SECAO 14: CONCLUSAO FINANCEIRA -->
+<div class="section-title"><span class="st-icon">&#9733;</span> Conclusao Financeira</div>
+
+<div class="card">
+    <h2>6 Pontos-Chave</h2>
+    <ol style="margin-left:20px;line-height:2;color:var(--marrom);">
+        <li>R$28 limita a margem mas com frete pago nao e prejuizo imediato. O problema real aparece ao adicionar CAC.</li>
+        <li>A margem de 50% colapsa com embalagem, taxas e marketing.</li>
+        <li>Preco minimo viavel para crescimento com trafego: <strong>R$42-45</strong>, dentro da faixa de cafe especial.</li>
+        <li>Custo fixo de R$208/mes -- a partir de ~30 pedidos ja e irrelevante por pedido.</li>
+        <li>Trafego pago so e sustentavel com kit ou assinatura -- unitario nao suporta CAC.</li>
+        <li>Assinatura = maior LTV e modelo mais sustentavel para marca nova com CAC elevado.</li>
+    </ol>
+</div>
+
+<div class="card">
+    <h2>Plano de Acao -- Prioridades</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Acao</th><th>Prazo</th><th>Impacto</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Reposicionar preco para R$42-45</strong></td><td><span class="tag danger">Imediato</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td><strong>Criar kit familia 3 unidades</strong></td><td><span class="tag orange">Semana 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td><strong>Frete gratis acima de R$99</strong></td><td><span class="tag orange">Semana 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td><strong>Ativar Nuvemshop Payments</strong></td><td><span class="tag orange">Semana 1</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td><strong>Lancar assinatura Entusiasta</strong></td><td><span class="tag gold">Mes 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td>Abrir Shopee via HubNoov</td><td><span class="tag gold">Mes 1</span></td><td><span class="tag gold">Medio</span></td></tr>
+                <tr><td><strong>Iniciar Meta Ads</strong></td><td><span class="tag gold">Mes 2</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td>Abrir Mercado Livre</td><td><span class="tag gold">Mes 2-3</span></td><td><span class="tag gold">Medio</span></td></tr>
+                <tr><td>Avaliar Amazon</td><td><span class="tag gold">Mes 4+</span></td><td><span class="tag gold">Medio</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="insight" style="background:linear-gradient(135deg, var(--dourado-light) 0%, var(--creme) 100%);border-left-color:var(--marrom);">
+    <strong>A pergunta que define tudo:</strong> A Juca Coffee quer ser marca de cafe especial ou de cafe barato? Cobrar R$42-45 por um cafe especial do Cerrado Mineiro nao e ganancia -- e posicionamento.
+</div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB 4: BRANDING -->
+  <!-- ============================================================ -->
+  <div class="tab-content" id="tab-branding">
+    <div class="content" id="branding-content">
+<!-- ============================================================
+     TAB 4 — BRANDING ESTRATEGICO (COMPLETO)
+     ============================================================ -->
+
+<!-- SECAO 1: ESSENCIA DA MARCA -->
+<div class="brand-hero">
+    <div class="hero-quote">Da fazenda que a gente cuida, pra mesa que voce merece.</div>
+    <div class="hero-sub">Essencia da Marca -- Juca Coffee</div>
+</div>
+
+<details>
+    <summary>Apresentacao da marca</summary>
+    <div class="accordion-body">
+        <p>O nome <strong>Juca Coffee</strong> homenageia Sr. Juca, avo do socio Ricardo. Em 1975, foi feita a primeira producao de cafe na regiao dos Fanecos, Santa Rosa da Serra-MG.</p>
+        <p>Agricultura familiar, sol do Cerrado, altitude acima de 1.060m. A marca foi formalizada em agosto de 2024.</p>
+        <p><strong>Propriedades:</strong> Fazenda das Pedras (Santa Rosa da Serra-MG) e Fazenda Juca Coffee (Andorinhas, Campos Altos-MG).</p>
+        <p><strong>Socios:</strong> Pedro Lima e Ricardo.</p>
+        <p><strong>Torra:</strong> Terceirizada.</p>
+        <p><strong>Produto:</strong> 100% arabica, 85+ pontos SCA.</p>
+        <ul>
+            <li><strong>Catuai Vermelho:</strong> Notas de chocolate e rapadura</li>
+            <li><strong>Arara:</strong> Notas de chocolate, avela e citrico. Docura 10/10, Corpo 8.75/10 (Cropster)</li>
+        </ul>
+        <p><strong>Planos futuros:</strong> Novas variedades safra 2026, linha de cafe tradicional, kits presente.</p>
+    </div>
+</details>
+
+<!-- SECAO 2: GOLDEN CIRCLE -->
+<div class="section-title"><span class="st-icon">&#9679;</span> Golden Circle -- Por Que, Como, O Que</div>
+
+<div class="golden-circle-wrap">
+    <div class="golden-circle">
+        <div class="gc-ring outer">
+            <div class="gc-content">
+                <div class="gc-label">O Que</div>
+                <div class="gc-text">Cafes especiais 85+ SCA, 100% arabica, do Cerrado Mineiro. Moido e em grao. Venda direta e parceiros comerciais -- cafeterias, emporios e supermercados. Kits de experiencia e em breve clube de assinatura.</div>
+            </div>
+        </div>
+        <div class="gc-ring mid">
+            <div class="gc-content">
+                <div class="gc-label">Como</div>
+                <div class="gc-text">Com cafe cultivado pela mesma familia ha 51 anos no Cerrado Mineiro, selecionado grao a grao, com qualidade comprovada por laudo SCA, entregue direto da fazenda com atendimento de quem te conhece pelo nome.</div>
+            </div>
+        </div>
+        <div class="gc-ring inner">
+            <div class="gc-content">
+                <div class="gc-label">Por Que</div>
+                <div class="gc-text">Dar a qualquer pessoa a chance de saber o que e cafe de verdade.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Por Que -- Completo</h2>
+    <p style="font-style:italic;font-size:15px;line-height:1.8;color:var(--marrom);">"Dar a qualquer pessoa a chance de saber o que e cafe de verdade. Nao pela embalagem, nao pelo marketing, mas pela xicara. E transformar um momento comum em algo que vale a pena."</p>
+</div>
+
+<!-- SECAO 3: MISSAO, VISAO E VALORES -->
+<div class="section-title"><span class="st-icon">&#9670;</span> Missao, Visao e Valores</div>
+
+<div class="card">
+    <h2>Missao</h2>
+    <p style="font-size:15px;line-height:1.8;color:var(--marrom);font-style:italic;">"Produzir e entregar cafes especiais do Cerrado Mineiro com qualidade comprovada, conectando quem planta e quem bebe atraves de um atendimento que respeita cada cliente."</p>
+</div>
+
+<div class="card">
+    <h2>Visao</h2>
+    <p style="font-size:15px;line-height:1.8;color:var(--marrom);font-style:italic;">"Ser a marca de cafe especial do Cerrado Mineiro mais lembrada -- reconhecida pela qualidade, pela historia e por provar que cafe especial e para todos."</p>
+</div>
+
+<div class="card">
+    <h2>Valores</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Valor</th><th>Significado</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Qualidade sem atalho</strong></td><td>Sem reducao de padrao para escalar</td></tr>
+                <tr><td><strong>Direto do produtor</strong></td><td>Sem intermediario entre fazenda e mesa</td></tr>
+                <tr><td><strong>Transparencia</strong></td><td>Voce sabe de onde vem, quem fez, como foi feito</td></tr>
+                <tr><td><strong>Atendimento humano</strong></td><td>Conhecemos pelo nome, pos-venda ativo, degustacoes, visitas</td></tr>
+                <tr><td><strong>Legado</strong></td><td>51 anos de familia no cafe. Cada pacote honra essa historia</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- SECAO 4: ARQUETIPOS DE MARCA -->
+<div class="section-title"><span class="st-icon">&#9733;</span> Arquetipos de Marca</div>
+
+<div class="archetype-grid">
+    <div class="archetype-card">
+        <div class="arch-pct">60%</div>
+        <div class="arch-name">O Cara Comum</div>
+        <div class="arch-traits">Arquetipo de pertencimento</div>
+        <div class="arch-quote">"Do Vo Juca pra sua mesa."</div>
+        <div class="arch-desc">
+            <div class="table-wrap" style="margin-top:12px;">
+                <table>
+                    <tbody>
+                        <tr><td><strong>Valor</strong></td><td>Pertencimento e conexao</td></tr>
+                        <tr><td><strong>Motivacao</strong></td><td>Fazer parte, estar junto</td></tr>
+                        <tr><td><strong>Medo</strong></td><td>Parecer elitista ou artificial</td></tr>
+                        <tr><td><strong>Estrategia</strong></td><td>Criar identificacao</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top:12px;">Nao se coloca acima de ninguem. Acolhe, recebe, trata como igual. Cafe especial e para todos -- nao e elite, nao precisa de cenario, nao precisa de conhecimento previo. Pedro manda audio no WhatsApp, conhece pelo nome, faz degustacao presencial.</p>
+        </div>
+    </div>
+    <div class="archetype-card">
+        <div class="arch-pct">40%</div>
+        <div class="arch-name">O Governante</div>
+        <div class="arch-traits">Guardiao do legado</div>
+        <div class="arch-quote">"Desde 1975."</div>
+        <div class="arch-desc">
+            <div class="table-wrap" style="margin-top:12px;">
+                <table>
+                    <tbody>
+                        <tr><td><strong>Valor</strong></td><td>Responsabilidade sobre legado e padrao</td></tr>
+                        <tr><td><strong>Motivacao</strong></td><td>Manter qualidade, honrar historia</td></tr>
+                        <tr><td><strong>Medo</strong></td><td>Perder o padrao, decepcionar</td></tr>
+                        <tr><td><strong>Estrategia</strong></td><td>Dados como prova silenciosa</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top:12px;">Nao e corporativo -- e o guardiao. Compromisso com SCA, selecao manual, consistencia. Impede que o calor do Cara Comum pareca amadorismo. Aparece quando precisa comunicar dados (Cropster, altitude, SCA), manter padroes, transmitir seguranca institucional.</p>
+        </div>
+    </div>
+</div>
+
+<div class="insight">
+    <strong>Equilibrio dos arquetipos:</strong> O Cara Comum garante que a marca nunca pareca elitista. O Governante garante que nunca pareca amadora. Juntos criam uma personalidade madura, tranquila, equilibrada entre tecnico e acolhedor.
+</div>
+
+<div class="brand-hero" style="margin-top:32px;">
+    <div class="hero-quote">Cafe bom e cafe de verdade. Da terra, da familia, da nossa mesa pra sua.</div>
+    <div class="hero-sub">Frase-sintese dos dois arquetipos</div>
+</div>
+
+<!-- SECAO 5: SLOGAN -->
+<div class="section-title"><span class="st-icon">&#9650;</span> Slogan</div>
+
+<div class="brand-hero" style="padding:40px 48px;">
+    <div class="hero-quote" style="font-size:24px;">Da fazenda que a gente cuida, pra mesa que voce merece.</div>
+    <div class="hero-sub">Slogan oficial recomendado</div>
+</div>
+
+<div class="card">
+    <h2>Justificativa</h2>
+    <p style="line-height:1.8;color:var(--marrom);">"Da fazenda que <strong>a gente</strong> cuida" ativa o Cara Comum ("a gente") e o Governante ("cuida"). "Pra mesa que <strong>voce merece</strong>" eleva o cliente sem elitizar o produto.</p>
+</div>
+
+<div class="insight orange">
+    <strong>Problema atual:</strong> A marca usa DOIS slogans diferentes nas redes ("O sabor da tradicao em cada gole" e "Cafe Especial do Cerrado Mineiro para sua mesa"). Isso dilui a identidade. Recomendacao: adotar um unico slogan e repetir em todos os pontos de contato.
+</div>
+
+<details>
+    <summary>Onde usar / Onde NAO usar</summary>
+    <div class="accordion-body">
+        <p><strong>USAR:</strong></p>
+        <ul>
+            <li>Bio do Instagram (fixo)</li>
+            <li>Embalagem (proxima tiragem)</li>
+            <li>Assinatura de email e WhatsApp Business</li>
+            <li>Materiais de PDV</li>
+            <li>Abertura e fechamento de videos</li>
+        </ul>
+        <p><strong>NAO USAR:</strong></p>
+        <ul>
+            <li>Dentro de legendas longas (poluicao)</li>
+            <li>Em posts com outra frase forte (competem entre si)</li>
+            <li>Nunca alterar palavras do slogan</li>
+        </ul>
+    </div>
+</details>
+
+<!-- SECAO 6: IDENTIDADE VISUAL -->
+<div class="section-title"><span class="st-icon">&#9679;</span> Identidade Visual</div>
+
+<div class="card" style="text-align:center;">
+    <img src="logo-main.png" alt="Juca Coffee Logo" style="max-width:280px;margin:20px auto;display:block;">
+    <p style="color:#8B7355;font-size:13px;margin-top:12px;">A identidade visual foi criada por outro profissional.</p>
+</div>
+
+<div class="card">
+    <h2>Paleta de Cores</h2>
+    <div class="swatch-grid">
+        <div class="color-swatch">
+            <div class="swatch-circle" style="background:#4A2C1A;"></div>
+            <div class="swatch-name">Marrom Terra</div>
+            <div class="swatch-hex">#4A2C1A</div>
+            <p style="font-size:12px;color:#8B7355;margin-top:4px;">Terra, cafe, solidez</p>
+            <p style="font-size:11px;color:#8B7355;">Backgrounds, textos</p>
+        </div>
+        <div class="color-swatch">
+            <div class="swatch-circle" style="background:#D4A017;"></div>
+            <div class="swatch-name">Dourado</div>
+            <div class="swatch-hex">#D4A017</div>
+            <p style="font-size:12px;color:#8B7355;margin-top:4px;">Valor, qualidade, calor</p>
+            <p style="font-size:11px;color:#8B7355;">Destaques, linhas, selo</p>
+        </div>
+        <div class="color-swatch">
+            <div class="swatch-circle" style="background:#FFF8E7;"></div>
+            <div class="swatch-name">Creme</div>
+            <div class="swatch-hex">#FFF8E7</div>
+            <p style="font-size:12px;color:#8B7355;margin-top:4px;">Acolhimento, suavidade</p>
+            <p style="font-size:11px;color:#8B7355;">Fundos claros, etiquetas</p>
+        </div>
+        <div class="color-swatch">
+            <div class="swatch-circle" style="background:#FFFFFF;border-color:#E0D6C8;"></div>
+            <div class="swatch-name">Branco</div>
+            <div class="swatch-hex">#FFFFFF</div>
+            <p style="font-size:12px;color:#8B7355;margin-top:4px;">Limpeza, respiro</p>
+            <p style="font-size:11px;color:#8B7355;">Texto em fundo escuro</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Tipografia</h2>
+    <div class="type-showcase">
+        <div class="type-card">
+            <div class="tc-sample-tj">JUCA</div>
+            <div class="tc-name">TJ Evolette A Basic Black</div>
+            <div class="tc-use">Logo principal "JUCA"</div>
+        </div>
+        <div class="type-card">
+            <div class="tc-sample-mangal">Cafe Especial do Cerrado</div>
+            <div class="tc-name">Mangal</div>
+            <div class="tc-use">Titulos e corpo de texto</div>
+        </div>
+        <div class="type-card">
+            <div class="tc-sample-mb">DESDE 1975</div>
+            <div class="tc-name">MB NOIR Regular</div>
+            <div class="tc-use">Labels, navegacao, "DESDE 1975"</div>
+        </div>
+    </div>
+</div>
+
+<details>
+    <summary>Fotografia e video</summary>
+    <div class="accordion-body">
+        <p><strong>Priorizar:</strong></p>
+        <ul>
+            <li>Fotos da fazenda, lavoura, preparo manual</li>
+            <li>Mesa com pessoas reais</li>
+            <li>Pedro trabalhando (embalando, preparando, na lavoura)</li>
+        </ul>
+        <p><strong>Evitar:</strong></p>
+        <ul>
+            <li>Estudios clinicos com iluminacao artificial</li>
+            <li>Stock photos (nunca)</li>
+            <li>Cenarios artificiais ou montados</li>
+        </ul>
+        <p><strong>Reels:</strong> Celular na mao, luz natural, som ambiente. Autenticidade > producao.</p>
+        <p><strong>Embalagem:</strong> Sempre em contexto real (mesa, cozinha, cafeteria) -- nunca isolada em fundo branco.</p>
+    </div>
+</details>
+
+<details>
+    <summary>Aplicacoes do logo</summary>
+    <div class="accordion-body">
+        <ul>
+            <li>Manter o grao estilizado como elemento central</li>
+            <li>Versao escura (para fundo claro) e versao clara (para fundo escuro)</li>
+            <li>Area de protecao minima ao redor do logo</li>
+            <li>Nunca distorcer, rotacionar ou alterar as cores originais</li>
+        </ul>
+    </div>
+</details>
+
+<!-- SECAO 7: TOM DE VOZ -->
+<div class="section-title"><span class="st-icon">&#9733;</span> Tom de Voz</div>
+
+<div class="card">
+    <h2>Matriz de Identidade</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Dimensao</th><th style="color:var(--green);">Juca Coffee E</th><th style="color:var(--danger);">Juca Coffee NAO E</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Linguagem</strong></td><td>Simples, direta, calorosa, profissional</td><td>Tecnica, rebuscada, fria, giria</td></tr>
+                <tr><td><strong>Relacao</strong></td><td>Anfitriao que conhece pelo nome</td><td>Vendedor ou especialista distante</td></tr>
+                <tr><td><strong>Produto</strong></td><td>"Cafe que a gente cuida com 51 anos"</td><td>"Microlote exclusivo de terroir certificado"</td></tr>
+                <tr><td><strong>Dados</strong></td><td>Prova silenciosa (QR, quando perguntam)</td><td>Liderar com numero e jargao</td></tr>
+                <tr><td><strong>Tom</strong></td><td>Produtor confiante</td><td>Marca que tenta impressionar</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="two-col">
+    <div class="card" style="border-top:4px solid var(--green);">
+        <h2>Cara Comum (60%)</h2>
+        <p style="margin-bottom:12px;"><strong>Como soa:</strong> Acolhedor, direto, caloroso.</p>
+        <p style="margin-bottom:12px;"><strong>Vocabulario:</strong> a gente, pra voce, vem conhecer, experimenta, na sua mesa, de verdade.</p>
+        <p style="margin-bottom:12px;"><strong>Estrutura:</strong> Identificacao &rarr; Convite &rarr; Oferta</p>
+        <div style="background:var(--creme);border-radius:8px;padding:14px 18px;font-style:italic;font-size:14px;color:var(--marrom);">
+            "Seu cafe da manha merece mais. Vem conhecer o que a gente cultiva no Cerrado."
+        </div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--dourado);">
+        <h2>Governante (40%)</h2>
+        <p style="margin-bottom:12px;"><strong>Como soa:</strong> Seguro, preciso, confiavel.</p>
+        <p style="margin-bottom:12px;"><strong>Vocabulario:</strong> qualidade comprovada, 85+ pontos, desde 1975, compromisso, consistencia.</p>
+        <p style="margin-bottom:12px;"><strong>Estrutura:</strong> Dado &rarr; Significado &rarr; Importancia</p>
+        <div style="background:var(--creme);border-radius:8px;padding:14px 18px;font-style:italic;font-size:14px;color:var(--marrom);">
+            "85 pontos SCA. Docura nota 10. Cultivado acima de 1.060m. E isso que tem dentro de cada pacote."
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Equilibrio por Canal</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Canal</th><th>Cara Comum</th><th>Governante</th></tr></thead>
+            <tbody>
+                <tr><td><strong>IG Feed / Reels</strong></td><td>70%</td><td>30%</td></tr>
+                <tr><td><strong>Stories</strong></td><td>80%</td><td>20%</td></tr>
+                <tr><td><strong>WhatsApp</strong></td><td>75%</td><td>25%</td></tr>
+                <tr><td><strong>Embalagem / Impresso</strong></td><td>40%</td><td>60%</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <h2>SIM vs NAO -- Exemplos Praticos</h2>
+    <div class="voice-grid">
+        <div class="voice-example do">
+            <div class="ve-label">&#10003; Assim sim</div>
+            "Vem tomar cafe com a gente"
+        </div>
+        <div class="voice-example dont">
+            <div class="ve-label">&#10007; Assim nao</div>
+            "Adquira ja o seu blend premium"
+        </div>
+        <div class="voice-example do">
+            <div class="ve-label">&#10003; Assim sim</div>
+            "Nosso cafe tem 85 pontos SCA"
+        </div>
+        <div class="voice-example dont">
+            <div class="ve-label">&#10007; Assim nao</div>
+            "O melhor cafe do Brasil"
+        </div>
+        <div class="voice-example do">
+            <div class="ve-label">&#10003; Assim sim</div>
+            "Cultivado na nossa fazenda desde 1975"
+        </div>
+        <div class="voice-example dont">
+            <div class="ve-label">&#10007; Assim nao</div>
+            "Terroir de altitude certificado"
+        </div>
+        <div class="voice-example do">
+            <div class="ve-label">&#10003; Assim sim</div>
+            "51 anos de cafe no Cerrado"
+        </div>
+        <div class="voice-example dont">
+            <div class="ve-label">&#10007; Assim nao</div>
+            "Somos superiores aos demais"
+        </div>
+        <div class="voice-example do">
+            <div class="ve-label">&#10003; Assim sim</div>
+            "A gente seleciona grao a grao"
+        </div>
+        <div class="voice-example dont">
+            <div class="ve-label">&#10007; Assim nao</div>
+            "Curadoria exclusiva de microlotes"
+        </div>
+        <div class="voice-example do">
+            <div class="ve-label">&#10003; Assim sim</div>
+            "Boa tarde! O cafe que voce pediu ja esta separado."
+        </div>
+        <div class="voice-example dont">
+            <div class="ve-label">&#10007; Assim nao</div>
+            "Prezado cliente, informamos que seu pedido..."
+        </div>
+    </div>
+</div>
+
+<details>
+    <summary>Palavras proibidas</summary>
+    <div class="accordion-body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Palavra / Expressao</th><th>Por que evitar</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Premium / Luxo / Exclusivo</strong></td><td>Contradiz o Cara Comum, elitiza o produto</td></tr>
+                    <tr><td><strong>"O melhor cafe do Brasil"</strong></td><td>Promessa vazia. Governante nao promete sem prova</td></tr>
+                    <tr><td><strong>"Adquira ja" / "Compre agora"</strong></td><td>Tom de vendedor. Juca convida, nao empurra</td></tr>
+                    <tr><td><strong>Terroir / Microlote / Cupping</strong></td><td>Jargao tecnico que afasta o publico. So usar se perguntarem</td></tr>
+                    <tr><td><strong>Prezado / Informamos / Segue em anexo</strong></td><td>Linguagem corporativa. Juca fala como pessoa</td></tr>
+                    <tr><td><strong>"Cafe fraco/suave demais"</strong></td><td>Reforca a objecao. Nunca usar, nem para negar</td></tr>
+                    <tr><td><strong>"Nosso cafe e pra quem entende"</strong></td><td>Exclui. O PORQUE da marca e "qualquer pessoa"</td></tr>
+                    <tr><td><strong>Apenas / Somente / Restrito</strong></td><td>Cria barreira. Cara Comum nao restringe</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Checklist antes de publicar</summary>
+    <div class="accordion-body">
+        <ol style="margin-left:20px;line-height:2;">
+            <li>Transmite emocao do Cara Comum ou seguranca do Governante?</li>
+            <li>O vocabulario esta no guia ou escapou para jargao?</li>
+            <li>Sem logo, voce reconheceria como Juca Coffee?</li>
+            <li>A mensagem combina com o arquetipo primario ou secundario?</li>
+            <li>Tem alguma palavra que a Juca nunca usaria?</li>
+        </ol>
+    </div>
+</details>
+
+<!-- SECAO 8: PERFIS DE COMPRA -->
+<div class="section-title"><span class="st-icon">&#9654;</span> Perfis de Compra</div>
+
+<p style="margin-bottom:20px;color:var(--marrom);line-height:1.7;">A Juca Coffee NAO trabalha com personas tradicionais. Pessoas sao multifacetadas. Os perfis abaixo definem <strong>contextos de compra</strong>, nao perfis demograficos.</p>
+
+<div class="two-col">
+    <div class="card" style="border-left:5px solid var(--dourado);">
+        <h2>O Parceiro Comercial</h2>
+        <p style="margin-bottom:8px;"><strong>Por que compra:</strong> Precisa de fornecedor confiavel para cafeteria, emporio ou supermercado.</p>
+        <p style="margin-bottom:8px;"><strong>O que convence:</strong> Laudo SCA, degustacao no PDV, regularidade de entrega, pos-venda ativo.</p>
+        <p><strong>Canal:</strong> WhatsApp, visita presencial.</p>
+    </div>
+    <div class="card" style="border-left:5px solid var(--green);">
+        <h2>O Curioso</h2>
+        <p style="margin-bottom:8px;"><strong>Por que compra:</strong> Nunca provou cafe especial ou acha que e "fraco".</p>
+        <p style="margin-bottom:8px;"><strong>O que convence:</strong> Degustacao, reacao genuina de outras pessoas, historia da fazenda.</p>
+        <p><strong>Canal:</strong> Reels, indicacao de amigo.</p>
+    </div>
+    <div class="card" style="border-left:5px solid var(--orange);">
+        <h2>O Recorrente</h2>
+        <p style="margin-bottom:8px;"><strong>Por que compra:</strong> Ja provou, gostou e quer receber todo mes.</p>
+        <p style="margin-bottom:8px;"><strong>O que convence:</strong> Clube de assinatura, praticidade, consistencia de qualidade.</p>
+        <p><strong>Canal:</strong> Nuvemshop, WhatsApp.</p>
+    </div>
+    <div class="card" style="border-left:5px solid var(--marrom);">
+        <h2>O Presenteador</h2>
+        <p style="margin-bottom:8px;"><strong>Por que compra:</strong> Quer dar algo com historia e significado.</p>
+        <p style="margin-bottom:8px;"><strong>O que convence:</strong> Kit com embalagem bonita, historia dentro da caixa, QR com rastreabilidade.</p>
+        <p><strong>Canal:</strong> Nuvemshop, Instagram.</p>
+    </div>
+</div>
+
+<!-- SECAO 9: PROPOSTA DE VALOR -->
+<div class="section-title"><span class="st-icon">&#9670;</span> Proposta de Valor</div>
+
+<div class="brand-hero" style="padding:40px 48px;">
+    <div class="hero-quote" style="font-size:20px;max-width:800px;">"A Juca Coffee entrega cafes especiais do Cerrado Mineiro com qualidade comprovada por laudo SCA, cultivados pela mesma familia ha 51 anos -- direto da fazenda pra sua mesa, com o atendimento de quem conhece voce pelo nome."</div>
+    <div class="hero-sub">Declaracao de Proposta de Valor</div>
+</div>
+
+<div class="card">
+    <h2>4 Pilares da Proposta de Valor</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Pilar</th><th>O que significa</th><th>Como comprova</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Qualidade comprovada</strong></td><td>85+ SCA, Docura 10/10, 100% arabica, 1.060m+</td><td>Cropster via QR na embalagem</td></tr>
+                <tr><td><strong>Origem autentica</strong></td><td>51 anos, Cerrado Mineiro, Fazenda das Pedras</td><td>Historia do Vo Juca em todos os touchpoints</td></tr>
+                <tr><td><strong>Direto do produtor</strong></td><td>Sem intermediario entre fazenda e mesa</td><td>Transparencia total do processo</td></tr>
+                <tr><td><strong>Atendimento humano</strong></td><td>Pos-venda ativo, degustacoes, visitas, WhatsApp</td><td>Conhece o cliente pelo nome</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- SECAO 10: ESTRATEGIA DE CONTEUDO ALINHADA AOS ARQUETIPOS -->
+<div class="section-title"><span class="st-icon">&#9733;</span> Estrategia de Conteudo Alinhada aos Arquetipos</div>
+
+<!-- PILAR 1 -->
+<div class="card" style="border-left:5px solid var(--green);">
+    <h2>Pilar 1 -- Cafe com Juca Coffee (Cara Comum -- 35%)</h2>
+    <p style="margin-bottom:16px;color:#8B7355;">A mesa, a conversa, a vida. Cafe e pretexto para falar de pessoas.</p>
+
+    <h3 style="color:var(--green);margin-bottom:8px;">Cafe com Juca Coffee</h3>
+    <p style="margin-bottom:16px;">Reflexoes curtas sobre a vida conectadas ao momento do cafe. Reels com voz do Pedro ou texto + imagem de xicara/fazenda.</p>
+
+    <h3 style="color:var(--green);margin-bottom:8px;">Verso e Cafe</h3>
+    <p style="margin-bottom:16px;">Poesia curta sobre cafe. Original ou curada de poetas brasileiros (sempre com credito). Carrossel com tipografia bonita sobre fundo marrom/dourado. Potencial viral: pessoas compartilham poesia em stories.</p>
+
+    <h3 style="color:var(--green);margin-bottom:8px;">A Mesa do Cerrado</h3>
+    <p>Historias reais de momentos a mesa. Stories/Reels com fotos e videos reais. Exemplo: "O cafe das 3 da tarde do Vo Juca era sagrado. A gente parava tudo."</p>
+</div>
+
+<!-- PILAR 2 -->
+<div class="card" style="border-left:5px solid var(--dourado);">
+    <h2>Pilar 2 -- Na Sua Cozinha (Experiencia -- 30%)</h2>
+    <p style="margin-bottom:16px;color:#8B7355;">Receitas, harmonizacoes, preparo. Conteudo util que salva e compartilha.</p>
+
+    <h3 style="color:var(--dourado);margin-bottom:8px;">Cafe + ___</h3>
+    <p style="margin-bottom:8px;">Harmonizacoes praticas. Reels curtos top-down 15-30s.</p>
+    <ul style="margin-left:20px;margin-bottom:16px;color:#8B7355;line-height:1.8;">
+        <li>Arara + pao de queijo (chocolate + queijo = umami)</li>
+        <li>Catuai + bolo de fuba (rapadura + milho)</li>
+        <li>Coado + queijo canastra (Cerrado Mineiro na mesa inteira)</li>
+    </ul>
+
+    <h3 style="color:var(--dourado);margin-bottom:8px;">Receitas com Cafe</h3>
+    <p style="margin-bottom:16px;">Cafe como ingrediente. Calda de cafe, brigadeiro especial, iced coffee com leite e canela. Step-by-step em Reels de 30-60s.</p>
+
+    <h3 style="color:var(--dourado);margin-bottom:8px;">Como Preparar</h3>
+    <p>Metodos por Pedro. Coador de pano (metodo Cerrado), French press, V60. Reels de 45-60s, Pedro mostrando com as maos, sem cenario montado.</p>
+</div>
+
+<!-- PILAR 3 -->
+<div class="card" style="border-left:5px solid var(--orange);">
+    <h2>Pilar 3 -- Desde 1975 (Legado + Governante -- 20%)</h2>
+    <p style="margin-bottom:16px;color:#8B7355;">A historia, a fazenda, o processo. O que ninguem mais tem.</p>
+
+    <h3 style="color:var(--orange);margin-bottom:8px;">Direto da Fazenda</h3>
+    <p style="margin-bottom:16px;">Bastidores reais sem producao. Sol, terra, colheita, secagem. Reels crus, celular na mao, som ambiente.</p>
+
+    <h3 style="color:var(--orange);margin-bottom:8px;">51 Anos</h3>
+    <p style="margin-bottom:16px;">Serie esporadica contando marcos. Foto antiga + texto + foto atual. Exemplo: "1975 -- primeiro pe de cafe. 2024 -- primeira embalagem. A mesma terra, a mesma familia."</p>
+
+    <h3 style="color:var(--orange);margin-bottom:8px;">O Numero</h3>
+    <p>Posts com um unico dado sem explicacao longa. Prova silenciosa. "10/10" (docura). "1.060m" (altitude). "51" (anos). Imagem limpa, numero grande, fundo marrom, logo embaixo.</p>
+</div>
+
+<!-- PILAR 4 -->
+<div class="card" style="border-left:5px solid var(--marrom);">
+    <h2>Pilar 4 -- A Comunidade (Cara Comum -- 15%)</h2>
+    <p style="margin-bottom:16px;color:#8B7355;">Quem faz parte da Juca Coffee. Clientes, parceiros, a cidade, a regiao.</p>
+
+    <h3 style="color:var(--marrom);margin-bottom:8px;">Quem Serve Juca Coffee</h3>
+    <p style="margin-bottom:16px;">Serie mostrando cafeterias e emporios parceiros. Reels de 15-30s visitando o local.</p>
+
+    <h3 style="color:var(--marrom);margin-bottom:8px;">Primeira Vez</h3>
+    <p style="margin-bottom:16px;">Reacao de alguem provando pela primeira vez. Reels real, sem roteiro. Alto potencial viral.</p>
+
+    <h3 style="color:var(--marrom);margin-bottom:8px;">Do Cerrado Mineiro</h3>
+    <p>Conteudo conectando a marca a regiao. Acoes sociais (APAE, romeiros), eventos locais. Reels documentario ou carrossel.</p>
+</div>
+
+<div class="card">
+    <h2>Distribuicao Semanal</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Pilar</th><th>Peso</th><th>Frequencia</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Cafe com Juca Coffee</strong></td><td>35%</td><td>~1-2 posts por semana</td></tr>
+                <tr><td><strong>Na Sua Cozinha</strong></td><td>30%</td><td>~1 post por semana</td></tr>
+                <tr><td><strong>Desde 1975</strong></td><td>20%</td><td>~1 post por semana</td></tr>
+                <tr><td><strong>A Comunidade</strong></td><td>15%</td><td>~1 post a cada 2 semanas</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<details>
+    <summary>Conteudo com maior potencial viral</summary>
+    <div class="accordion-body">
+        <ul>
+            <li><strong>Cafe + pao de queijo:</strong> Todo mineiro se identifica, orgulho regional</li>
+            <li><strong>Verso e Cafe:</strong> Poesia em stories -- as pessoas salvam para ler depois</li>
+            <li><strong>Primeira Vez:</strong> Reacao genuina gera curiosidade, formato TikTok</li>
+            <li><strong>Cafe com Juca reflexao:</strong> Frases de vida + cafe = print e compartilhamento</li>
+            <li><strong>O Numero:</strong> Minimalismo gera curiosidade ("o que significa 10/10?")</li>
+        </ul>
+    </div>
+</details>
+
+<details>
+    <summary>O que EVITAR no conteudo</summary>
+    <div class="accordion-body">
+        <ul>
+            <li><strong>"Bom dia com cafe" generico:</strong> Nao tem DNA da marca, qualquer pagina posta isso</li>
+            <li><strong>Carrosseis educativos longos sem pessoas:</strong> Dados mostram 17-24 likes vs 645 em conteudo humano</li>
+            <li><strong>Repost de memes de cafe de outras paginas:</strong> Dilui a identidade propria</li>
+            <li><strong>Posts puros de venda "compre agora":</strong> Maximo 1 a cada 10 publicacoes</li>
+            <li><strong>Conteudo sem conexao com os 4 pilares:</strong> Se nao encaixa em nenhum pilar, nao publica</li>
+        </ul>
+    </div>
+</details>
+
+<div class="card">
+    <h2>Frequencia Recomendada</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Canal</th><th>Frequencia Recomendada</th><th>Atual</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Feed Instagram</strong></td><td style="color:var(--green);font-weight:bold;">3-4x por semana</td><td style="color:var(--danger);">2x por mes</td></tr>
+                <tr><td><strong>Stories</strong></td><td style="color:var(--green);font-weight:bold;">Diario</td><td style="color:var(--danger);">Mesmo 1 simples por dia</td></tr>
+                <tr><td><strong>WhatsApp Status</strong></td><td style="color:var(--green);font-weight:bold;">2-3x por semana</td><td>--</td></tr>
+                <tr><td><strong>Reels</strong></td><td style="color:var(--green);font-weight:bold;">2x por semana</td><td style="color:var(--danger);">Formato com mais alcance</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- SECAO 11: MOODBOARD -->
+<div class="section-title"><span class="st-icon">&#9679;</span> Moodboard -- Universo Visual Juca Coffee</div>
+
+<div class="moodboard-section">
+
+    <div class="moodboard-row-title">Terra &amp; Origem</div>
+    <div class="moodboard-grid">
+        <div class="mb-item">
+            <img src="moodboard/vo-juca-lavoura.png" alt="Vo Juca na lavoura">
+            <div class="mb-caption">Vo Juca na lavoura</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/banner-altitude.png" alt="Altitude, cuidado e orgulho">
+            <div class="mb-caption">Altitude, cuidado e orgulho</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/xicara-fazenda.png" alt="Xicara com sunset na fazenda">
+            <div class="mb-caption">Xicara com sunset</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/produto-lavoura.png" alt="Produto na lavoura">
+            <div class="mb-caption">Produto na lavoura</div>
+        </div>
+    </div>
+
+    <div class="moodboard-row-title">Produto &amp; Craft</div>
+    <div class="moodboard-grid">
+        <div class="mb-item">
+            <img src="moodboard/embalagem-detalhe.png" alt="Close-up embalagem">
+            <div class="mb-caption">Close-up embalagem</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/embalagem-graos.png" alt="Embalagem sobre graos">
+            <div class="mb-caption">Embalagem sobre graos</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/embalagem-rustico.png" alt="Embalagem rustica">
+            <div class="mb-caption">Embalagem rustica</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/produto-artesanal.png" alt="Produto artesanal">
+            <div class="mb-caption">Produto artesanal</div>
+        </div>
+    </div>
+
+    <div class="moodboard-row-title">Familia &amp; Historia</div>
+    <div class="moodboard-grid">
+        <div class="mb-item">
+            <img src="moodboard/vo-juca-fazenda.png" alt="Vo Juca na fazenda">
+            <div class="mb-caption">Vo Juca na fazenda</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/vo-juca-barista.png" alt="Vo Juca barista">
+            <div class="mb-caption">Vo Juca barista</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/banner-familia.png" alt="Cafe de Familia desde 1975">
+            <div class="mb-caption">Cafe de Familia</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/banner-sca.png" alt="85+ Pontos SCA">
+            <div class="mb-caption">85+ Pontos SCA</div>
+        </div>
+    </div>
+
+    <div class="moodboard-row-title">Estilo de Vida</div>
+    <div class="moodboard-grid">
+        <div class="mb-item">
+            <img src="moodboard/flatlay.png" alt="Flat lay lifestyle">
+            <div class="mb-caption">Flat lay</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/cozinha-rustica.png" alt="Cozinha rustica">
+            <div class="mb-caption">Cozinha rustica</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/dois-sabores.png" alt="Duas variedades">
+            <div class="mb-caption">Duas variedades</div>
+        </div>
+        <div class="mb-item">
+            <img src="moodboard/banner-fazenda-mesa.png" alt="Direto da fazenda para sua mesa">
+            <div class="mb-caption">Direto da fazenda</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="insight" style="margin-top:24px;">
+    <strong>Moodboard:</strong> Este moodboard traduz o posicionamento da Juca Coffee: a autenticidade do Cara Comum com a qualidade do Governante. Terra, familia, cafe de verdade.
+</div>
+
+<!-- SECAO FINAL: FECHAMENTO -->
+<div class="brand-hero" style="margin-top:40px;background:linear-gradient(135deg, var(--marrom) 0%, var(--dark) 100%);">
+    <div class="hero-quote" style="color:var(--creme);">Cada xicara e um elo entre a historia e o presente.</div>
+    <div class="hero-sub" style="color:var(--dourado);margin-top:20px;">JUCA COFFEE -- Desde 1975</div>
+    <p style="color:var(--creme);opacity:0.7;font-size:14px;margin-top:12px;font-style:italic;">Da fazenda que a gente cuida, pra mesa que voce merece.</p>
+</div>
+
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ============================
+// TAB SWITCHING
+// ============================
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-nav a').forEach(function(a) { a.classList.remove('active'); });
+
+  var tabEl = document.getElementById(tabId);
+  if (tabEl) tabEl.classList.add('active');
+
+  document.querySelectorAll('.tab-btn[data-tab="' + tabId + '"]').forEach(function(btn) { btn.classList.add('active'); });
+  document.querySelectorAll('.sidebar-nav a[data-tab="' + tabId + '"]').forEach(function(a) { a.classList.add('active'); });
+}
+
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    switchTab(this.getAttribute('data-tab'));
+  });
+});
+
+document.querySelectorAll('.sidebar-nav a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    switchTab(this.getAttribute('data-tab'));
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+  });
+});
+
+// ============================
+// HAMBURGER
+// ============================
+document.getElementById('hamburgerBtn').addEventListener('click', function() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+});
+document.getElementById('sidebarOverlay').addEventListener('click', function() {
+  document.getElementById('sidebar').classList.remove('open');
+  this.classList.remove('active');
+});
+
+// ============================
+// CHARTS
+// ============================
+document.addEventListener('DOMContentLoaded', function() {
+
+  var brandColors = {
+    marrom: '#4A2C1A',
+    dourado: '#D4A017',
+    green: '#4A7C59',
+    orange: '#D4760A',
+    danger: '#8B3A3A'
+  };
+
+  // ---- RADAR VISAO GERAL ----
+  var radarVisaoCtx = document.getElementById('radarVisao');
+  if (radarVisaoCtx) {
+    new Chart(radarVisaoCtx.getContext('2d'), {
+      type: 'radar',
+      data: {
+        labels: ['Infraestrutura', 'Identidade', 'Jornada', 'Aquisicao', 'Retencao', 'Operacional', 'Visibilidade'],
+        datasets: [
+          {
+            label: 'Juca Coffee',
+            data: [1, 2, 1, 1, 1, 1, 1],
+            borderColor: brandColors.dourado,
+            backgroundColor: 'rgba(212,160,23,0.15)',
+            borderWidth: 3,
+            pointBackgroundColor: brandColors.dourado
+          },
+          {
+            label: 'Campos Altos',
+            data: [4, 3, 4, 4, 3, 4, 4],
+            borderColor: brandColors.danger,
+            backgroundColor: 'rgba(139,58,58,0.08)',
+            borderWidth: 2,
+            pointBackgroundColor: brandColors.danger
+          },
+          {
+            label: 'Desiderio',
+            data: [2, 3, 2, 2, 1, 2, 2],
+            borderColor: brandColors.orange,
+            backgroundColor: 'rgba(212,118,10,0.08)',
+            borderWidth: 2,
+            pointBackgroundColor: brandColors.orange
+          },
+          {
+            label: 'Artefato',
+            data: [2, 3, 2, 2, 1, 2, 2],
+            borderColor: brandColors.green,
+            backgroundColor: 'rgba(74,124,89,0.08)',
+            borderWidth: 2,
+            pointBackgroundColor: brandColors.green
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 4,
+            min: 0,
+            ticks: { stepSize: 1, font: { size: 11 } },
+            pointLabels: { font: { size: 12 } }
+          }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { padding: 20 } }
+        }
+      }
+    });
+  }
+
+  // ---- RADAR MATURIDADE (Tab 2) ----
+  var radarMatCtx = document.getElementById('radarMaturidade');
+  if (radarMatCtx) {
+    new Chart(radarMatCtx.getContext('2d'), {
+      type: 'radar',
+      data: {
+        labels: ['Infraestrutura', 'Identidade', 'Jornada', 'Aquisicao', 'Retencao', 'Operacional', 'Visibilidade'],
+        datasets: [
+          {
+            label: 'Juca Coffee',
+            data: [1, 2, 1, 1, 1, 1, 1],
+            borderColor: brandColors.dourado,
+            backgroundColor: 'rgba(212,160,23,0.15)',
+            borderWidth: 3,
+            pointBackgroundColor: brandColors.dourado
+          },
+          {
+            label: 'Campos Altos',
+            data: [4, 3, 4, 4, 3, 4, 4],
+            borderColor: brandColors.danger,
+            backgroundColor: 'rgba(139,58,58,0.08)',
+            borderWidth: 2,
+            pointBackgroundColor: brandColors.danger
+          },
+          {
+            label: 'Desiderio',
+            data: [2, 3, 2, 2, 1, 2, 2],
+            borderColor: brandColors.orange,
+            backgroundColor: 'rgba(212,118,10,0.08)',
+            borderWidth: 2,
+            pointBackgroundColor: brandColors.orange
+          },
+          {
+            label: 'Artefato',
+            data: [2, 3, 2, 2, 1, 2, 2],
+            borderColor: brandColors.green,
+            backgroundColor: 'rgba(74,124,89,0.08)',
+            borderWidth: 2,
+            pointBackgroundColor: brandColors.green
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 4,
+            min: 0,
+            ticks: { stepSize: 1, font: { size: 11 } },
+            pointLabels: { font: { size: 12 } }
+          }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { padding: 20 } }
+        }
+      }
+    });
+  }
+
+  // ---- WATERFALL CHART ----
+  var waterfallCtx = document.getElementById('waterfallChart');
+  if (waterfallCtx) {
+    // Waterfall data: R$28 revenue, costs subtract down to R$0.28 profit
+    var labels = ['Receita', 'CPV', 'Embalagem', 'Plataforma', 'Pagamento', 'Frete', 'Margem s/Mkt', 'Marketing', 'Lucro'];
+    var costs  = [28, -14, -4, -1.38, -1.15, -3.50, 0, -3.69, 0];
+    // running: 28, 14, 10, 8.62, 7.47, 3.97, 3.97, 0.28, 0.28
+
+    var running = 0;
+    var barData = [];
+    var barColors = [];
+
+    for (var i = 0; i < labels.length; i++) {
+      if (i === 0) {
+        // Revenue
+        barData.push([0, 28]);
+        barColors.push(brandColors.green);
+        running = 28;
+      } else if (i === 6) {
+        // Margem s/ Mkt (subtotal) = 3.97
+        barData.push([0, 3.97]);
+        barColors.push(brandColors.dourado);
+        running = 3.97;
+      } else if (i === 8) {
+        // Lucro final
+        barData.push([0, 0.28]);
+        barColors.push(brandColors.dourado);
+      } else {
+        var prev = running;
+        running = running + costs[i];
+        running = Math.round(running * 100) / 100;
+        barData.push([running, prev]);
+        barColors.push(brandColors.danger);
+      }
+    }
+
+    new Chart(waterfallCtx.getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: barData,
+          backgroundColor: barColors,
+          borderColor: barColors,
+          borderWidth: 1,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'x',
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'R$ por unidade (250g)' }
+          },
+          x: {
+            ticks: { font: { size: 11 } }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                var val = context.raw;
+                if (Array.isArray(val)) {
+                  var diff = Math.abs(val[1] - val[0]);
+                  return 'R$ ' + diff.toFixed(2);
+                }
+                return 'R$ ' + val;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+});
+</script>
+
+</body>
+</html>

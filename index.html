@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juca Coffee — Acesso Restrito</title>
+<style>
+@font-face { font-family: 'TJ Evolette'; src: url('fonts/TJEvoletteABasic-Black.otf') format('opentype'); }
+@font-face { font-family: 'MB NOIR'; src: url('fonts/MB-NOIR-Regular.ttf') format('truetype'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Mangal, Georgia, serif;
+  background: #2D2018;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF8E7;
+}
+
+.login-container {
+  text-align: center;
+  max-width: 420px;
+  width: 90%;
+  padding: 48px 40px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 20px;
+  border: 1px solid rgba(212,160,23,0.15);
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  width: 160px;
+  height: auto;
+  margin-bottom: 32px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+
+h1 {
+  font-family: 'TJ Evolette', Georgia, serif;
+  font-size: 28px;
+  color: #D4A017;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-family: 'MB NOIR', Arial, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: rgba(255,248,231,0.5);
+  margin-bottom: 36px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: rgba(255,248,231,0.7);
+  margin-bottom: 32px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+input[type="password"] {
+  width: 100%;
+  padding: 14px 20px;
+  font-family: 'MB NOIR', Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(212,160,23,0.3);
+  border-radius: 10px;
+  color: #FFF8E7;
+  outline: none;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+input[type="password"]::placeholder {
+  color: rgba(255,248,231,0.35);
+  letter-spacing: 1px;
+}
+
+input[type="password"]:focus {
+  border-color: #D4A017;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 3px rgba(212,160,23,0.1);
+}
+
+button {
+  width: 100%;
+  padding: 14px 24px;
+  font-family: 'MB NOIR', Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #D4A017;
+  color: #2D2018;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 700;
+}
+
+button:hover {
+  background: #E8B42A;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212,160,23,0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.error {
+  color: #E8735A;
+  font-size: 13px;
+  margin-top: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-family: 'MB NOIR', Arial, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.error.show {
+  opacity: 1;
+}
+
+.footer {
+  margin-top: 40px;
+  font-family: 'MB NOIR', Arial, sans-serif;
+  font-size: 10px;
+  color: rgba(255,248,231,0.25);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.grain-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.login-container { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<div class="grain-overlay"></div>
+
+<div class="login-container">
+  <img src="logo-sidebar.png" alt="Juca Coffee" class="logo">
+  <h1>JUCA COFFEE</h1>
+  <div class="subtitle">Desde 1975 &middot; Cerrado Mineiro</div>
+  <p class="tagline">Da fazenda que a gente cuida,<br>pra mesa que voce merece.</p>
+
+  <div class="input-group">
+    <input type="password" id="senha" placeholder="Digite a senha de acesso" autocomplete="off" autofocus>
+  </div>
+  <button onclick="verificarSenha()">Acessar Dashboard</button>
+  <div class="error" id="erro">Senha incorreta. Tente novamente.</div>
+
+  <div class="footer">Carol Camilo Branding &middot; Marco 2026</div>
+</div>
+
+<script>
+function verificarSenha() {
+  var senha = document.getElementById('senha').value;
+  if (senha === 'jucacoffeesite') {
+    window.location.href = 'dashboard.html';
+  } else {
+    document.getElementById('erro').classList.add('show');
+    document.getElementById('senha').value = '';
+    document.getElementById('senha').focus();
+    setTimeout(function() {
+      document.getElementById('erro').classList.remove('show');
+    }, 3000);
+  }
+}
+
+document.getElementById('senha').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') verificarSenha();
+});
+</script>
+
+</body>
+</html>
