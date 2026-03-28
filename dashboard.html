@@ -45,10 +45,11 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Mangal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Mangal, serif;
   background: var(--bg);
   color: var(--gray-900);
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 /* SIDEBAR */
@@ -83,7 +84,9 @@ body {
   padding: 12px 20px;
   color: rgba(255,255,255,0.7);
   text-decoration: none;
-  font-size: 14px;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
   transition: all 0.2s;
   border-left: 3px solid transparent;
   cursor: pointer;
@@ -101,6 +104,7 @@ body {
   text-align: center;
 }
 .sidebar-footer {
+  font-family: 'MB NOIR', sans-serif;
   padding: 16px 20px;
   font-size: 11px;
   color: rgba(255,255,255,0.4);
@@ -161,10 +165,11 @@ body {
   padding: 14px 24px;
   border: none;
   background: none;
-  font-family: 'Mangal', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
   color: var(--gray-500);
+  letter-spacing: 0.3px;
   cursor: pointer;
   border-bottom: 3px solid transparent;
   white-space: nowrap;
@@ -195,15 +200,18 @@ body {
   margin-bottom: 40px;
 }
 .section-title {
-  font-family: 'Mangal', serif;
-  font-size: 22px;
+  font-family: Mangal, serif;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--marrom);
   margin-bottom: 8px;
   padding-bottom: 8px;
   border-bottom: 2px solid var(--dourado-light);
 }
 .section-sub {
+  font-family: Mangal, serif;
   font-size: 14px;
+  font-weight: normal;
   color: var(--gray-500);
   margin-bottom: 20px;
 }
@@ -226,13 +234,16 @@ body {
 .kpi-card.orange { border-left-color: var(--orange); }
 .kpi-card.danger { border-left-color: var(--danger); }
 .kpi-card .kpi-label {
-  font-size: 12px;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 11px;
+  font-weight: normal;
   text-transform: uppercase;
   color: var(--gray-500);
   letter-spacing: 0.5px;
   margin-bottom: 4px;
 }
 .kpi-card .kpi-value {
+  font-family: Mangal, serif;
   font-size: 24px;
   font-weight: 700;
   color: var(--marrom);
@@ -251,16 +262,31 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   margin-bottom: 20px;
 }
+.card h2 {
+  font-family: Mangal, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--marrom);
+}
+.card h3 {
+  font-family: Mangal, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--marrom);
+}
 
 /* INSIGHT */
 .insight {
+  font-family: Mangal, serif;
+  font-size: 14px;
+  font-weight: normal;
   padding: 16px 20px;
   border-radius: 8px;
   border-left: 4px solid var(--dourado);
   background: var(--dourado-light);
   margin-bottom: 20px;
   font-style: italic;
-  color: var(--gray-900);
+  color: var(--marrom);
   line-height: 1.7;
 }
 .insight.green { border-left-color: var(--green); background: var(--green-light); }
@@ -276,9 +302,11 @@ details {
   overflow: hidden;
 }
 details summary {
+  font-family: Mangal, serif;
+  font-size: 14px;
   padding: 16px 20px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--marrom);
   list-style: none;
   display: flex;
@@ -301,6 +329,8 @@ details[open] summary::after {
 }
 details summary::-webkit-details-marker { display: none; }
 .detail-content {
+  font-family: Mangal, serif;
+  font-size: 14px;
   padding: 0 20px 20px;
   color: var(--gray-700);
   line-height: 1.7;
@@ -317,14 +347,22 @@ details summary::-webkit-details-marker { display: none; }
   font-size: 14px;
 }
 .table-wrap th {
-  background: var(--marrom);
-  color: #fff;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background: var(--gray-100);
+  color: var(--gray-700);
   padding: 12px 16px;
   text-align: left;
-  font-weight: 600;
   white-space: nowrap;
 }
 .table-wrap td {
+  font-family: Mangal, serif;
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.7;
   padding: 10px 16px;
   border-bottom: 1px solid var(--gray-100);
 }
@@ -337,8 +375,9 @@ details summary::-webkit-details-marker { display: none; }
   display: inline-block;
   padding: 3px 10px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 11px;
+  font-weight: normal;
 }
 .tag-green { background: var(--green-light); color: var(--green); }
 .tag-gold { background: var(--dourado-light); color: var(--dourado-dark); }
@@ -365,13 +404,16 @@ details summary::-webkit-details-marker { display: none; }
 .scenario-card.orange { border-top-color: var(--orange); }
 .scenario-card.red { border-top-color: var(--danger); }
 .scenario-card .scenario-label {
-  font-size: 13px;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 11px;
+  font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--gray-500);
   margin-bottom: 8px;
 }
 .scenario-card .scenario-value {
+  font-family: Mangal, serif;
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 4px;
@@ -419,7 +461,8 @@ details summary::-webkit-details-marker { display: none; }
   box-shadow: 0 4px 20px rgba(74,44,26,0.3);
 }
 .big-score .score-label {
-  font-size: 18px;
+  font-family: Mangal, serif;
+  font-size: 14px;
   color: var(--gray-700);
 }
 
@@ -438,14 +481,18 @@ details summary::-webkit-details-marker { display: none; }
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 .pillar-card .pillar-score {
+  font-family: Mangal, serif;
   font-size: 20px;
   font-weight: 700;
   color: var(--danger);
   margin-bottom: 4px;
 }
 .pillar-card .pillar-name {
-  font-size: 12px;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 11px;
   color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 /* COMPETITOR CARD */
@@ -458,13 +505,17 @@ details summary::-webkit-details-marker { display: none; }
   border-left: 4px solid var(--gray-300);
 }
 .competitor-card h3 {
+  font-family: Mangal, serif;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--marrom);
   margin-bottom: 8px;
 }
 .competitor-card .comp-summary {
+  font-family: Mangal, serif;
   font-size: 14px;
   color: var(--gray-700);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* CONTENT PILLARS */
@@ -483,6 +534,9 @@ details summary::-webkit-details-marker { display: none; }
   text-align: center;
 }
 .pillar-content-card h4 {
+  font-family: Mangal, serif;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--marrom);
   margin-bottom: 4px;
 }
@@ -566,7 +620,9 @@ details summary::-webkit-details-marker { display: none; }
 }
 
 .visible-text {
-  font-size: 15px;
+  font-family: Mangal, serif;
+  font-size: 14px;
+  font-weight: normal;
   color: var(--gray-700);
   line-height: 1.7;
   margin-bottom: 16px;
@@ -581,6 +637,9 @@ details summary::-webkit-details-marker { display: none; }
   border-left: 4px solid var(--dourado);
 }
 .benchmark-card h3 {
+  font-family: Mangal, serif;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--marrom);
   margin-bottom: 8px;
 }
@@ -593,11 +652,15 @@ details summary::-webkit-details-marker { display: none; }
   margin-bottom: 24px;
 }
 .conclusion-block h3 {
+  font-family: Mangal, serif;
   color: var(--dourado);
   margin-bottom: 12px;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 700;
 }
 .conclusion-block p {
+  font-family: Mangal, serif;
+  font-size: 14px;
   line-height: 1.8;
   margin-bottom: 12px;
   opacity: 0.95;
@@ -626,80 +689,69 @@ details summary::-webkit-details-marker { display: none; }
   border: 1px solid rgba(212,160,23,0.15);
 }
 .brand-hero .hero-quote {
-  font-family: Mangal, Georgia, serif;
-  font-size: 28px;
+  font-family: Mangal, serif;
+  font-size: 26px;
   color: var(--marrom);
   font-weight: 700;
+  font-style: italic;
   line-height: 1.4;
   margin-bottom: 12px;
 }
 .brand-hero .hero-sub {
-  font-family: 'MB NOIR', Arial, sans-serif;
-  font-size: 12px;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 11px;
+  font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 3px;
   color: var(--gray-500);
 }
 
-/* GOLDEN CIRCLE */
-.golden-circle-wrap {
+/* GOLDEN CIRCLE (VERTICAL) */
+.golden-circle-vertical {
+  max-width: 700px;
+  margin: 0 auto 24px;
+}
+.gc-level {
   display: flex;
-  justify-content: center;
-  padding: 40px 20px;
-  margin-bottom: 24px;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
-.golden-circle {
-  position: relative;
-  width: 420px;
-  height: 420px;
-}
-.gc-ring {
-  position: absolute;
+.gc-circle-small {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  flex-shrink: 0;
 }
-.gc-ring.outer {
-  width: 420px; height: 420px;
-  background: var(--creme);
-  border: 2px solid rgba(212,160,23,0.2);
-  top: 0; left: 0;
-}
-.gc-ring.mid {
-  width: 280px; height: 280px;
-  background: var(--dourado-light);
-  border: 2px solid rgba(212,160,23,0.3);
-  top: 70px; left: 70px;
-}
-.gc-ring.inner {
-  width: 150px; height: 150px;
-  background: var(--dourado);
-  top: 135px; left: 135px;
-}
-.gc-content {
-  padding: 20px;
-  z-index: 1;
-}
-.gc-label {
-  font-family: 'MB NOIR', Arial, sans-serif;
-  font-size: 11px;
+.gc-why .gc-circle-small { background: var(--dourado); }
+.gc-how .gc-circle-small { background: var(--dourado-light); border: 2px solid var(--dourado); }
+.gc-what .gc-circle-small { background: var(--creme); border: 2px solid var(--dourado-light); }
+.gc-label-side {
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--marrom);
-  margin-bottom: 4px;
   font-weight: 700;
+  min-width: 70px;
+  padding-top: 4px;
 }
-.gc-ring.inner .gc-label { color: #fff; }
-.gc-ring.inner .gc-text { color: #fff; font-size: 11px; }
-.gc-text {
-  font-size: 12px;
-  line-height: 1.5;
+.gc-text-side {
+  font-family: Mangal, serif;
+  font-size: 14px;
+  line-height: 1.7;
   color: var(--gray-700);
+  flex: 1;
 }
-.gc-ring.outer .gc-text { font-size: 11px; padding: 0 40px; }
-.gc-ring.mid .gc-text { font-size: 11px; padding: 0 20px; }
+.gc-arrow {
+  text-align: center;
+  font-size: 24px;
+  color: var(--dourado);
+  padding: 8px 0;
+}
 
 /* ARCHETYPE CARDS */
 .archetype-grid {
@@ -723,27 +775,30 @@ details summary::-webkit-details-marker { display: none; }
   margin-bottom: 4px;
 }
 .archetype-card .arch-name {
-  font-family: Mangal, Georgia, serif;
-  font-size: 20px;
+  font-family: Mangal, serif;
+  font-size: 17px;
   font-weight: 700;
   color: var(--marrom);
   margin-bottom: 4px;
 }
 .archetype-card .arch-traits {
-  font-family: 'MB NOIR', Arial, sans-serif;
-  font-size: 12px;
+  font-family: 'MB NOIR', sans-serif;
+  font-size: 11px;
+  font-weight: normal;
   color: var(--gray-500);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 12px;
 }
 .archetype-card .arch-quote {
+  font-family: Mangal, serif;
   font-style: italic;
   color: var(--dourado-dark);
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 16px;
 }
 .archetype-card .arch-desc {
+  font-family: Mangal, serif;
   text-align: left;
   font-size: 14px;
   line-height: 1.7;
@@ -768,13 +823,13 @@ details summary::-webkit-details-marker { display: none; }
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .color-swatch .swatch-name {
-  font-family: 'MB NOIR', Arial, sans-serif;
+  font-family: 'MB NOIR', sans-serif;
   font-size: 12px;
   color: var(--gray-700);
   margin-bottom: 2px;
 }
 .color-swatch .swatch-hex {
-  font-family: 'MB NOIR', Arial, sans-serif;
+  font-family: 'MB NOIR', sans-serif;
   font-size: 11px;
   color: var(--gray-500);
 }
@@ -813,7 +868,7 @@ details summary::-webkit-details-marker { display: none; }
   justify-content: center;
 }
 .typo-card .typo-name {
-  font-family: 'MB NOIR', Arial, sans-serif;
+  font-family: 'MB NOIR', sans-serif;
   font-size: 11px;
   color: var(--gray-500);
   text-transform: uppercase;
@@ -847,7 +902,7 @@ details summary::-webkit-details-marker { display: none; }
   border-left: 3px solid var(--danger);
 }
 .voice-example .voice-tag {
-  font-family: 'MB NOIR', Arial, sans-serif;
+  font-family: 'MB NOIR', sans-serif;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -867,22 +922,28 @@ details summary::-webkit-details-marker { display: none; }
   border-left: 4px solid var(--dourado);
 }
 .content-pillar h2 {
-  font-size: 18px;
+  font-family: Mangal, serif;
+  font-size: 17px;
+  font-weight: 700;
   color: var(--marrom);
   margin-bottom: 4px;
 }
 .content-pillar .pillar-theme {
+  font-family: Mangal, serif;
   font-size: 14px;
   color: var(--gray-500);
   font-style: italic;
   margin-bottom: 16px;
 }
 .content-pillar h3 {
+  font-family: Mangal, serif;
   font-size: 15px;
+  font-weight: 700;
   color: var(--marrom);
   margin: 16px 0 6px;
 }
 .content-pillar p {
+  font-family: Mangal, serif;
   font-size: 14px;
   line-height: 1.7;
   color: var(--gray-700);
@@ -902,7 +963,7 @@ details summary::-webkit-details-marker { display: none; }
   margin-bottom: 40px;
 }
 .moodboard-row-title {
-  font-family: 'MB NOIR', Arial, sans-serif;
+  font-family: 'MB NOIR', sans-serif;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -940,7 +1001,7 @@ details summary::-webkit-details-marker { display: none; }
   color: #fff;
   padding: 20px 10px 8px;
   font-size: 11px;
-  font-family: 'MB NOIR', Arial, sans-serif;
+  font-family: 'MB NOIR', sans-serif;
   letter-spacing: 0.5px;
 }
 
@@ -954,8 +1015,8 @@ details summary::-webkit-details-marker { display: none; }
   margin-top: 32px;
 }
 .brand-closing .close-quote {
-  font-family: Mangal, Georgia, serif;
-  font-size: 22px;
+  font-family: Mangal, serif;
+  font-size: 20px;
   font-style: italic;
   color: var(--dourado);
   margin-bottom: 16px;
@@ -969,6 +1030,7 @@ details summary::-webkit-details-marker { display: none; }
   margin-bottom: 8px;
 }
 .brand-closing p {
+  font-family: Mangal, serif;
   font-size: 14px;
   opacity: 0.7;
 }
@@ -988,25 +1050,26 @@ details summary::-webkit-details-marker { display: none; }
   border-top: 3px solid var(--dourado);
 }
 .profile-card h2 {
-  font-size: 16px;
+  font-family: Mangal, serif;
+  font-size: 17px;
+  font-weight: 700;
   color: var(--marrom);
   margin-bottom: 12px;
 }
 .profile-card p {
-  font-size: 13px;
-  line-height: 1.6;
+  font-family: Mangal, serif;
+  font-size: 14px;
+  line-height: 1.7;
   color: var(--gray-700);
   margin-bottom: 6px;
 }
 
-/* SECTION TITLE ICON */
-.section-title .st-icon {
-  color: var(--dourado);
-  margin-right: 8px;
-}
+/* (st-icon removed for consistency) */
 
 /* ACCORDION BODY (alias for detail-content) */
 .accordion-body {
+  font-family: Mangal, serif;
+  font-size: 14px;
   padding: 0 20px 20px;
   color: var(--gray-700);
   line-height: 1.7;
@@ -1022,11 +1085,8 @@ details summary::-webkit-details-marker { display: none; }
 }
 
 @media (max-width: 768px) {
-  .golden-circle-wrap { padding: 20px 0; }
-  .golden-circle { width: 300px; height: 300px; }
-  .gc-ring.outer { width: 300px; height: 300px; }
-  .gc-ring.mid { width: 200px; height: 200px; top: 50px; left: 50px; }
-  .gc-ring.inner { width: 110px; height: 110px; top: 95px; left: 95px; }
+  .gc-level { flex-direction: column; gap: 12px; padding: 16px; }
+  .gc-label-side { min-width: auto; }
   .archetype-grid { grid-template-columns: 1fr; }
   .swatch-grid { grid-template-columns: repeat(2, 1fr); }
   .typo-grid { grid-template-columns: 1fr; }
@@ -2060,7 +2120,7 @@ details summary::-webkit-details-marker { display: none; }
      ============================================================ -->
 
 <!-- SECAO 1: CONTEXTO ATUAL -->
-<div class="section-title"><span class="st-icon">&#9650;</span> Contexto Atual</div>
+<h2 class="section-title">Contexto Atual</h2>
 
 <div class="card">
     <h2>Situacao Atual da Juca Coffee</h2>
@@ -2088,7 +2148,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 2: ANALISE DE MARGEM ATUAL -->
-<div class="section-title"><span class="st-icon">&#9670;</span> Analise de Margem Atual</div>
+<h2 class="section-title">Analise de Margem Atual</h2>
 
 <div class="card">
     <h2>Margem Bruta Simples</h2>
@@ -2182,7 +2242,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 3: COMPARACAO COM O MERCADO -->
-<div class="section-title"><span class="st-icon">&#9679;</span> Comparacao com o Mercado</div>
+<h2 class="section-title">Comparacao com o Mercado</h2>
 
 <div class="card">
     <h2>Faixas de Preco -- Cafe 250g no Brasil</h2>
@@ -2205,7 +2265,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 4: ESTRUTURA DE MARGEM SAUDAVEL -->
-<div class="section-title"><span class="st-icon">&#9650;</span> Estrutura de Margem Saudavel</div>
+<h2 class="section-title">Estrutura de Margem Saudavel</h2>
 
 <div class="card">
     <h2>Distribuicao de Receita Saudavel</h2>
@@ -2230,7 +2290,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 5: PRECO RECOMENDADO POR CANAL -->
-<div class="section-title"><span class="st-icon">&#9670;</span> Preco Recomendado por Canal</div>
+<h2 class="section-title">Preco Recomendado por Canal</h2>
 
 <p style="margin-bottom:16px;color:#8B7355;">O preco atual de R$28 deve ser mantido apenas para vendas presenciais. Para e-commerce, a recomendacao e R$42-45 com base na analise de margem, mercado e posicionamento.</p>
 
@@ -2380,7 +2440,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 6: IMPACTO DO TRAFEGO PAGO -->
-<div class="section-title"><span class="st-icon">&#9670;</span> Impacto do Trafego Pago</div>
+<h2 class="section-title">Impacto do Trafego Pago</h2>
 
 <p style="color:#8B7355;font-size:13px;margin-bottom:16px;">Referencia de mercado vs marca nova -- CAC mais alto sem historico de pixel.</p>
 
@@ -2490,7 +2550,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 7: PROBLEMA DA VENDA UNITARIA -->
-<div class="section-title"><span class="st-icon">&#9650;</span> Problema da Venda Unitaria</div>
+<h2 class="section-title">Problema da Venda Unitaria</h2>
 
 <div class="card">
     <h2>6 Problemas da Venda Unitaria no E-commerce</h2>
@@ -2514,7 +2574,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 8: SOLUCAO — ARQUITETURA DE PRODUTO -->
-<div class="section-title"><span class="st-icon">&#9733;</span> Solucao -- Arquitetura de Produto</div>
+<h2 class="section-title">Solucao -- Arquitetura de Produto</h2>
 
 <div class="card">
     <h2>Catalogo Recomendado para E-commerce</h2>
@@ -2558,7 +2618,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 9: MODELO DE ASSINATURA -->
-<div class="section-title"><span class="st-icon">&#9654;</span> Modelo de Assinatura</div>
+<h2 class="section-title">Modelo de Assinatura</h2>
 
 <p style="margin-bottom:16px;color:var(--marrom);">A assinatura e o modelo mais sustentavel para marca nova: amortiza CAC ao longo de meses, gera previsibilidade e fideliza com experiencia de curadoria.</p>
 
@@ -2592,7 +2652,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 10: PLANOS DE ASSINATURA -->
-<div class="section-title"><span class="st-icon">&#9733;</span> Planos de Assinatura</div>
+<h2 class="section-title">Planos de Assinatura</h2>
 
 <div class="insight">
     <strong>Atualizacao da consultora:</strong> Box Cafezinho R$39/mes (1x250g) e Box Cafe com Juca R$145/mes (4x250g = 1kg, frete incluso).
@@ -2681,7 +2741,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 11: CENARIOS EM 6 MESES -->
-<div class="section-title"><span class="st-icon">&#9654;</span> Cenarios em 6 Meses</div>
+<h2 class="section-title">Cenarios em 6 Meses</h2>
 
 <details open>
     <summary>Cenario Otimista <span class="tag green" style="margin-left:auto;margin-right:12px;">Melhor caso</span></summary>
@@ -2770,7 +2830,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 12: CUSTOS OPERACIONAIS MENSAIS -->
-<div class="section-title"><span class="st-icon">&#9679;</span> Custos Operacionais Mensais</div>
+<h2 class="section-title">Custos Operacionais Mensais</h2>
 
 <div class="card">
     <div class="table-wrap">
@@ -2790,7 +2850,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 13: COMISSOES POR MARKETPLACE -->
-<div class="section-title"><span class="st-icon">&#9670;</span> Comissoes por Marketplace</div>
+<h2 class="section-title">Comissoes por Marketplace</h2>
 
 <div class="card">
     <div class="table-wrap">
@@ -2827,7 +2887,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 14: CONCLUSAO FINANCEIRA -->
-<div class="section-title"><span class="st-icon">&#9733;</span> Conclusao Financeira</div>
+<h2 class="section-title">Conclusao Financeira</h2>
 
 <div class="card">
     <h2>6 Pontos-Chave</h2>
@@ -2901,28 +2961,25 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 2: GOLDEN CIRCLE -->
-<div class="section-title"><span class="st-icon">&#9679;</span> Golden Circle -- Por Que, Como, O Que</div>
+<h2 class="section-title">Golden Circle -- Por Que, Como, O Que</h2>
 
-<div class="golden-circle-wrap">
-    <div class="golden-circle">
-        <div class="gc-ring outer">
-            <div class="gc-content">
-                <div class="gc-label">O Que</div>
-                <div class="gc-text">Cafes especiais 85+ SCA, 100% arabica, do Cerrado Mineiro. Moido e em grao. Venda direta e parceiros comerciais -- cafeterias, emporios e supermercados. Kits de experiencia e em breve clube de assinatura.</div>
-            </div>
-        </div>
-        <div class="gc-ring mid">
-            <div class="gc-content">
-                <div class="gc-label">Como</div>
-                <div class="gc-text">Com cafe cultivado pela mesma familia ha 51 anos no Cerrado Mineiro, selecionado grao a grao, com qualidade comprovada por laudo SCA, entregue direto da fazenda com atendimento de quem te conhece pelo nome.</div>
-            </div>
-        </div>
-        <div class="gc-ring inner">
-            <div class="gc-content">
-                <div class="gc-label">Por Que</div>
-                <div class="gc-text">Dar a qualquer pessoa a chance de saber o que e cafe de verdade.</div>
-            </div>
-        </div>
+<div class="golden-circle-vertical">
+    <div class="gc-level gc-why">
+        <div class="gc-circle-small"></div>
+        <div class="gc-label-side">Por Que</div>
+        <div class="gc-text-side">"Dar a qualquer pessoa a chance de saber o que e cafe de verdade. Nao pela embalagem, nao pelo marketing, mas pela xicara."</div>
+    </div>
+    <div class="gc-arrow">&darr;</div>
+    <div class="gc-level gc-how">
+        <div class="gc-circle-small"></div>
+        <div class="gc-label-side">Como</div>
+        <div class="gc-text-side">Com cafe cultivado pela mesma familia ha 51 anos no Cerrado Mineiro, selecionado grao a grao, com qualidade comprovada por laudo SCA, entregue direto da fazenda com atendimento de quem te conhece pelo nome.</div>
+    </div>
+    <div class="gc-arrow">&darr;</div>
+    <div class="gc-level gc-what">
+        <div class="gc-circle-small"></div>
+        <div class="gc-label-side">O Que</div>
+        <div class="gc-text-side">Cafes especiais 85+ SCA, 100% arabica, do Cerrado Mineiro. Moido e em grao. Venda direta e parceiros comerciais. Kits de experiencia e em breve clube de assinatura.</div>
     </div>
 </div>
 
@@ -2932,7 +2989,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 3: MISSAO, VISAO E VALORES -->
-<div class="section-title"><span class="st-icon">&#9670;</span> Missao, Visao e Valores</div>
+<h2 class="section-title">Missao, Visao e Valores</h2>
 
 <div class="card">
     <h2>Missao</h2>
@@ -2961,7 +3018,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 4: ARQUETIPOS DE MARCA -->
-<div class="section-title"><span class="st-icon">&#9733;</span> Arquetipos de Marca</div>
+<h2 class="section-title">Arquetipos de Marca</h2>
 
 <div class="archetype-grid">
     <div class="archetype-card">
@@ -3014,7 +3071,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 5: SLOGAN -->
-<div class="section-title"><span class="st-icon">&#9650;</span> Slogan</div>
+<h2 class="section-title">Slogan</h2>
 
 <div class="brand-hero" style="padding:40px 48px;">
     <div class="hero-quote" style="font-size:24px;">Da fazenda que a gente cuida, pra mesa que voce merece.</div>
@@ -3051,7 +3108,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 6: IDENTIDADE VISUAL -->
-<div class="section-title"><span class="st-icon">&#9679;</span> Identidade Visual</div>
+<h2 class="section-title">Identidade Visual</h2>
 
 <div class="card" style="text-align:center;">
     <img src="logo-main.png" alt="Juca Coffee Logo" style="max-width:280px;margin:20px auto;display:block;">
@@ -3146,7 +3203,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 7: TOM DE VOZ -->
-<div class="section-title"><span class="st-icon">&#9733;</span> Tom de Voz</div>
+<h2 class="section-title">Tom de Voz</h2>
 
 <div class="card">
     <h2>Matriz de Identidade</h2>
@@ -3289,7 +3346,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 8: PERFIS DE COMPRA -->
-<div class="section-title"><span class="st-icon">&#9654;</span> Perfis de Compra</div>
+<h2 class="section-title">Perfis de Compra</h2>
 
 <p style="margin-bottom:20px;color:var(--marrom);line-height:1.7;">A Juca Coffee NAO trabalha com personas tradicionais. Pessoas sao multifacetadas. Os perfis abaixo definem <strong>contextos de compra</strong>, nao perfis demograficos.</p>
 
@@ -3321,7 +3378,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 9: PROPOSTA DE VALOR -->
-<div class="section-title"><span class="st-icon">&#9670;</span> Proposta de Valor</div>
+<h2 class="section-title">Proposta de Valor</h2>
 
 <div class="brand-hero" style="padding:40px 48px;">
     <div class="hero-quote" style="font-size:20px;max-width:800px;">"A Juca Coffee entrega cafes especiais do Cerrado Mineiro com qualidade comprovada por laudo SCA, cultivados pela mesma familia ha 51 anos -- direto da fazenda pra sua mesa, com o atendimento de quem conhece voce pelo nome."</div>
@@ -3344,7 +3401,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 10: ESTRATEGIA DE CONTEUDO ALINHADA AOS ARQUETIPOS -->
-<div class="section-title"><span class="st-icon">&#9733;</span> Estrategia de Conteudo Alinhada aos Arquetipos</div>
+<h2 class="section-title">Estrategia de Conteudo Alinhada aos Arquetipos</h2>
 
 <!-- PILAR 1 -->
 <div class="content-pillar" style="border-left-color:var(--green);">
@@ -3470,7 +3527,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <!-- SECAO 11: MOODBOARD -->
-<div class="section-title"><span class="st-icon">&#9679;</span> Moodboard -- Universo Visual Juca Coffee</div>
+<h2 class="section-title">Moodboard -- Universo Visual Juca Coffee</h2>
 
 <div class="moodboard-section">
 
@@ -3806,6 +3863,72 @@ document.addEventListener('DOMContentLoaded', function() {
           x: {
             ticks: { font: { size: 11 } }
           }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                var val = context.raw;
+                if (Array.isArray(val)) {
+                  var diff = Math.abs(val[1] - val[0]);
+                  return 'R$ ' + diff.toFixed(2);
+                }
+                return 'R$ ' + val;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // ---- WATERFALL FINANCEIRO (Tab 3) ----
+  var waterfallFinCtx = document.getElementById('waterfallFinanceiro');
+  if (waterfallFinCtx) {
+    var labelsF = ['Receita', 'CPV', 'Embalagem', 'Pagamento', 'Plataforma', 'Operacao', 'Margem s/Mkt', 'Marketing', 'Lucro'];
+    var costsF  = [28, -14, -4, -1.38, -1.15, -3.50, 0, -3.69, 0];
+    var runningF = 0;
+    var barDataF = [];
+    var barColorsF = [];
+    for (var j = 0; j < labelsF.length; j++) {
+      if (j === 0) {
+        barDataF.push([0, 28]);
+        barColorsF.push(brandColors.green);
+        runningF = 28;
+      } else if (j === 6) {
+        barDataF.push([0, 3.97]);
+        barColorsF.push(brandColors.dourado);
+        runningF = 3.97;
+      } else if (j === 8) {
+        barDataF.push([0, 0.28]);
+        barColorsF.push(brandColors.dourado);
+      } else {
+        var prevF = runningF;
+        runningF = runningF + costsF[j];
+        runningF = Math.round(runningF * 100) / 100;
+        barDataF.push([runningF, prevF]);
+        barColorsF.push(brandColors.danger);
+      }
+    }
+    new Chart(waterfallFinCtx.getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: labelsF,
+        datasets: [{
+          data: barDataF,
+          backgroundColor: barColorsF,
+          borderColor: barColorsF,
+          borderWidth: 1,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'x',
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'R$ por unidade (250g)' } },
+          x: { ticks: { font: { size: 11 } } }
         },
         plugins: {
           legend: { display: false },
