@@ -2609,9 +2609,9 @@ details summary::-webkit-details-marker { display: none; }
         </div>
         <p><strong>Estratégia de frete:</strong></p>
         <ul>
-            <li><strong>&lt;R$79:</strong> Frete pago pelo cliente</li>
-            <li><strong>R$79-99:</strong> Frete pago + barra de progresso "Faltam R$X para frete grátis"</li>
-            <li><strong>&gt;R$99:</strong> Frete grátis absorvido na margem do kit</li>
+            <li><strong>&lt;R$150:</strong> Frete pago pelo cliente</li>
+            <li><strong>R$150-228:</strong> Barra de progresso "Faltam R$X para frete grátis"</li>
+            <li><strong>&gt;R$229:</strong> Frete grátis absorvido na margem do kit</li>
             <li><strong>Assinatura:</strong> Frete sempre incluso</li>
             <li><strong>Kit presente:</strong> Frete grátis incluso</li>
         </ul>
@@ -2658,7 +2658,7 @@ details summary::-webkit-details-marker { display: none; }
 <details>
     <summary>Detalhes Shopee</summary>
     <div class="accordion-body">
-        <p><strong>Comissão:</strong> 8-12% + R$2/pedido. Público B/C, 20-40 anos. Repasse em 3-7 dias.</p>
+        <p><strong>Comissão:</strong> 14-20% + R$4/item. Público B/C, 20-40 anos. Repasse em 3-7 dias.</p>
         <div class="table-wrap">
             <table>
                 <thead><tr><th>Preço</th><th>Margem por Unidade</th></tr></thead>
@@ -2762,14 +2762,14 @@ details summary::-webkit-details-marker { display: none; }
                     <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$118</td>
                 </tr>
                 <tr>
-                    <td><strong>Kit 3xR$42 = R$126</strong></td>
+                    <td><strong>Kit 4 pacotes = R$155</strong></td>
                     <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$32</td>
                     <td style="background:var(--orange-light);color:var(--orange);font-weight:bold;">+R$2</td>
                     <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$38</td>
                     <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$88</td>
                 </tr>
                 <tr>
-                    <td><strong>Kit 3xR$45 = R$135</strong></td>
+                    <td><strong>Kit 4xR$45 = R$180</strong></td>
                     <td style="background:var(--green-light);color:var(--green);font-weight:bold;">+R$40</td>
                     <td style="background:var(--orange-light);color:var(--orange);font-weight:bold;">+R$10</td>
                     <td style="background:var(--danger-light);color:var(--danger);font-weight:bold;">-R$30</td>
@@ -2834,7 +2834,7 @@ details summary::-webkit-details-marker { display: none; }
                 <tr><td>Degustação</td><td>2x100g</td><td>R$39,90-44,90</td><td>Cobrar R$4-10</td><td></td></tr>
                 <tr><td>Pacote avulso</td><td>1x250g</td><td>R$42-47</td><td>Cobrar R$5-12</td><td></td></tr>
                 <tr><td><strong>Kit Essencial</strong></td><td>2x250g</td><td>R$79,90-88</td><td style="color:var(--green);font-weight:bold;">Grátis</td><td>R$18-28</td></tr>
-                <tr><td><strong>Kit Família</strong></td><td>3x250g</td><td>R$114,90-126</td><td style="color:var(--green);font-weight:bold;">Grátis</td><td>R$30-45</td></tr>
+                <tr><td><strong>Kit Família</strong></td><td>4x250g</td><td>R$155</td><td style="color:var(--green);font-weight:bold;">Grátis</td><td>R$30-45</td></tr>
                 <tr><td><strong>Kit Presente</strong></td><td>2x250g + acessório</td><td>R$99,90-129</td><td style="color:var(--green);font-weight:bold;">Grátis</td><td>R$25-55</td></tr>
                 <tr><td><strong>Caixa Mensal</strong></td><td>2-3 pacotes + card</td><td>R$72-119/mês</td><td style="color:var(--green);font-weight:bold;">Grátis</td><td>R$20-44</td></tr>
             </tbody>
@@ -2853,15 +2853,15 @@ details summary::-webkit-details-marker { display: none; }
             <table>
                 <thead><tr><th>Faixa de Compra</th><th>Regra de Frete</th></tr></thead>
                 <tbody>
-                    <tr><td>&lt;R$79</td><td>Frete pago pelo cliente via Correios</td></tr>
-                    <tr><td>R$79-98</td><td>Frete pago + barra de progresso "Faltam R$X para frete grátis"</td></tr>
-                    <tr><td>&gt;R$99</td><td>Frete grátis absorvido na margem do kit</td></tr>
+                    <tr><td>&lt;R$150</td><td>Frete pago pelo cliente via Correios</td></tr>
+                    <tr><td>R$150-228</td><td>Barra de progresso "Faltam R$X para frete grátis"</td></tr>
+                    <tr><td>&gt;R$229</td><td>Frete grátis absorvido na margem do kit</td></tr>
                     <tr><td>Assinatura</td><td>Frete sempre incluso</td></tr>
                     <tr><td>Kit presente</td><td>Frete grátis + embalagem especial</td></tr>
                 </tbody>
             </table>
         </div>
-        <p><strong>Lógica:</strong> R$99 = 2xR$42 = R$84. Cliente naturalmente adiciona +1 produto = kit de 3. A barra de progresso aumenta o ticket médio em 15-25% -- instalar obrigatoriamente no dia 1.</p>
+        <p><strong>Lógica:</strong> R$229 = acima de 4 pacotes ou kit + assinatura. Incentiva ticket alto. A barra de progresso aumenta o ticket médio em 15-25% -- instalar obrigatoriamente no dia 1.</p>
         <p><strong>Logística:</strong> Correios via Nuvemshop integrado sem custo adicional. Melhor Envio: comparar transportadoras privadas (Jadlog, Total Express) para regiões específicas.</p>
     </div>
 </details>
@@ -2945,7 +2945,7 @@ details summary::-webkit-details-marker { display: none; }
                 <tbody>
                     <tr><td><strong>Explorador</strong></td><td>1x250g + card sensorial</td><td>R$39,90-44,90</td><td>~5-10%</td><td>Incluso</td></tr>
                     <tr><td><strong>Entusiasta</strong></td><td>2x250g + card sensorial</td><td>R$72-82</td><td>~10-12%</td><td>Incluso</td></tr>
-                    <tr><td><strong>Coffee Lover</strong></td><td>3x250g + card + brinde</td><td>R$99-114</td><td>~12-15%</td><td>Incluso</td></tr>
+                    <tr><td><strong>Coffee Lover</strong></td><td>4x250g + card + brinde</td><td>R$155</td><td>~12-15%</td><td>Incluso</td></tr>
                     <tr><td><strong>Clube Cerrado</strong></td><td>2x250g seleção + card + história</td><td>R$85-99</td><td>Experiência única</td><td>Incluso</td></tr>
                 </tbody>
             </table>
@@ -2990,7 +2990,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <!-- SECAO 11: CENARIOS EM 6 MESES -->
-<h2 class="section-title">Cenários em 6 Mêses</h2>
+<h2 class="section-title">Cenários em 6 Meses</h2>
 
 <details open>
     <summary>Cenário Otimista <span class="tag green" style="margin-left:auto;margin-right:12px;">Melhor caso</span></summary>
@@ -3010,7 +3010,7 @@ details summary::-webkit-details-marker { display: none; }
                 </tbody>
             </table>
         </div>
-        <p><strong>Premissas:</strong> Reposicionamento para R$42-45 no lançamento. Kit 3 unidades como produto principal. Conteúdo 3x/semana. Tráfego pago a partir do mês 2. CAC R$45 misto. Churn 12% com mecânica de pausa.</p>
+        <p><strong>Premissas:</strong> Reposicionamento para R$42-45 no lançamento. Kit 4 unidades a R$155 como produto principal. Conteúdo 3x/semana. Tráfego pago a partir do mês 2. CAC R$45 misto. Churn 12% com mecânica de pausa.</p>
     </div>
 </details>
 
@@ -3075,7 +3075,7 @@ details summary::-webkit-details-marker { display: none; }
 </details>
 
 <div class="insight danger">
-    <strong>Sobre o cenário pessimista:</strong> Não é catastrófico -- é evitável. O risco não é o fracasso do produto. É a armadilha de operar no preço errado por mêses. Cada pedido no preço atual é uma sangria silenciosa.
+    <strong>Sobre o cenário pessimista:</strong> Não é catastrófico -- é evitável. O risco não é o fracasso do produto. É a armadilha de operar no preço errado por meses. Cada pedido no preço atual é uma sangria silenciosa.
 </div>
 
 <!-- SECAO 12: CUSTOS OPERACIONAIS MENSAIS -->
@@ -3139,7 +3139,7 @@ details summary::-webkit-details-marker { display: none; }
 <h2 class="section-title">Conclusão Financeira</h2>
 
 <div class="card">
-    <h2>6 Pontos-Chave</h2>
+    <h2>7 Pontos-Chave</h2>
     <ol style="margin-left:20px;line-height:2;color:var(--marrom);">
         <li>R$28 limita a margem mas com frete pago não é prejuízo imediato. O problema real aparece ao adicionar CAC.</li>
         <li>A margem de 50% colapsa com embalagem, taxas e marketing.</li>
@@ -3147,6 +3147,7 @@ details summary::-webkit-details-marker { display: none; }
         <li>Custo fixo de R$208/mês -- a partir de ~30 pedidos já é irrelevante por pedido.</li>
         <li>Tráfego pago só é sustentável com kit ou assinatura -- unitário não suporta CAC.</li>
         <li>Assinatura = maior LTV e modelo mais sustentável para marca nova com CAC elevado.</li>
+        <li>A vantagem competitiva real não é preço -- é conteúdo autêntico e proximidade com o cliente.</li>
     </ol>
 </div>
 
@@ -3157,10 +3158,10 @@ details summary::-webkit-details-marker { display: none; }
             <thead><tr><th>Ação</th><th>Prazo</th><th>Impacto</th></tr></thead>
             <tbody>
                 <tr><td><strong>Reposicionar preço para R$42-45</strong></td><td><span class="tag danger">Imediato</span></td><td><span class="tag green">Alto</span></td></tr>
-                <tr><td><strong>Criar kit família 3 unidades</strong></td><td><span class="tag orange">Semana 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
-                <tr><td><strong>Frete grátis acima de R$99</strong></td><td><span class="tag orange">Semana 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td><strong>Criar kit família 4 unidades a R$155</strong></td><td><span class="tag orange">Semana 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td><strong>Frete grátis acima de R$229</strong></td><td><span class="tag orange">Semana 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
                 <tr><td><strong>Ativar Nuvemshop Payments</strong></td><td><span class="tag orange">Semana 1</span></td><td><span class="tag green">Alto</span></td></tr>
-                <tr><td><strong>Lançar assinatura Entusiasta</strong></td><td><span class="tag gold">Mês 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
+                <tr><td><strong>Lançar Box Cafezinho (R$39/mês) e Box Café com Juca (R$145/mês)</strong></td><td><span class="tag gold">Mês 1-2</span></td><td><span class="tag green">Alto</span></td></tr>
                 <tr><td>Abrir Shopee via HubNoov</td><td><span class="tag gold">Mês 1</span></td><td><span class="tag gold">Médio</span></td></tr>
                 <tr><td><strong>Iniciar Meta Ads</strong></td><td><span class="tag gold">Mês 2</span></td><td><span class="tag green">Alto</span></td></tr>
                 <tr><td>Abrir Mercado Livre</td><td><span class="tag gold">Mês 2-3</span></td><td><span class="tag gold">Médio</span></td></tr>
@@ -3171,7 +3172,7 @@ details summary::-webkit-details-marker { display: none; }
 </div>
 
 <div class="insight" style="background:linear-gradient(135deg, var(--dourado-light) 0%, var(--creme) 100%);border-left-color:var(--marrom);">
-    <strong>A pergunta que define tudo:</strong> A Juca Coffee quer ser marca de café especial ou de café barato? Cobrar R$42-45 por um café especial do Cerrado Mineiro não é ganância -- é posicionamento.
+    <strong>O insight final:</strong> O desafio real não é o preço -- é construir a operação digital que coloque a Juca no mesmo campo de jogo dos concorrentes, e usar conteúdo e proximidade como diferenciais que ninguém copia.
 </div>
 
     </div>
