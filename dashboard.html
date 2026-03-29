@@ -1833,6 +1833,50 @@ details summary::-webkit-details-marker { display: none; }
 
         <p class="visible-text">A Juca Coffee está no <strong>Nível 1</strong> (Básico) em 5 dos 7 pilares avaliados. Apenas Identidade e Posicionamento alcança N2. O principal concorrente (Campos Altos) está em N4 na maioria dos pilares. Os dois pilares de maior urgência &mdash; infraestrutura digital e jornada do cliente &mdash; têm solução técnica direta, resolúveis nas primeiras semanas.</p>
 
+        <!-- Legenda de Maturidade -->
+        <div class="card" style="margin-bottom:24px;">
+          <h3 style="color:var(--marrom);margin-bottom:16px;">Escala de Maturidade Digital</h3>
+          <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="kpi-card danger" style="text-align:center;">
+              <div class="kpi-value" style="font-size:20px;">N1</div>
+              <div class="kpi-label" style="margin-top:6px;">Venda Reativa</div>
+              <div class="kpi-note">Sem estrutura digital de vendas</div>
+            </div>
+            <div class="kpi-card orange" style="text-align:center;">
+              <div class="kpi-value" style="font-size:20px;color:var(--orange);">N2</div>
+              <div class="kpi-label" style="margin-top:6px;">Venda com Intenção</div>
+              <div class="kpi-note">Estrutura básica presente</div>
+            </div>
+            <div class="kpi-card" style="text-align:center;">
+              <div class="kpi-value" style="font-size:20px;color:var(--dourado-dark);">N3</div>
+              <div class="kpi-label" style="margin-top:6px;">Venda com Sistema</div>
+              <div class="kpi-note">Canais integrados e jornada funcional</div>
+            </div>
+            <div class="kpi-card green" style="text-align:center;">
+              <div class="kpi-value" style="font-size:20px;color:var(--green);">N4</div>
+              <div class="kpi-label" style="margin-top:6px;">Venda Escalável</div>
+              <div class="kpi-note">Automação, dados e multicanalidade</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Os 7 Pilares Avaliados -->
+        <div class="card" style="margin-bottom:24px;">
+          <h3 style="color:var(--marrom);margin-bottom:16px;">Os 7 Pilares Avaliados</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Pilar</th><th>O que avalia</th><th>Juca</th></tr>
+              <tr><td><strong>01. Infraestrutura Digital</strong></td><td>Loja própria, meios de pagamento, marketplaces ativos, checkout funcional</td><td><span class="tag tag-red">N1</span></td></tr>
+              <tr><td><strong>02. Identidade e Posicionamento</strong></td><td>Logo, paleta, proposta de valor, narrativa de marca consistente</td><td><span class="tag tag-orange">N2</span></td></tr>
+              <tr><td><strong>03. Jornada do Cliente</strong></td><td>Caminho do descobrimento à compra: bio → loja → checkout → pós-venda</td><td><span class="tag tag-red">N1</span></td></tr>
+              <tr><td><strong>04. Aquisição</strong></td><td>Tráfego pago, orgânico, SEO, parcerias, presença em marketplaces</td><td><span class="tag tag-red">N1</span></td></tr>
+              <tr><td><strong>05. Retenção e Recorrência</strong></td><td>Clube de assinatura, e-mail marketing, recompra, fidelização</td><td><span class="tag tag-red">N1</span></td></tr>
+              <tr><td><strong>06. Capacidade Operacional</strong></td><td>Gestão de estoque, logística, embalagem, integração de canais</td><td><span class="tag tag-red">N1</span></td></tr>
+              <tr><td><strong>07. Visibilidade</strong></td><td>Dados de desempenho, métricas acessíveis, dashboards, decisão por dados</td><td><span class="tag tag-red">N1</span></td></tr>
+            </table>
+          </div>
+        </div>
+
         <div class="chart-container">
           <h3 style="margin-bottom:12px;color:var(--marrom);">Radar de Maturidade &mdash; 7 Pilares x 4 Marcas</h3>
           <canvas id="radarMaturidade"></canvas>
