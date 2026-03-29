@@ -1689,35 +1689,7 @@ details summary::-webkit-details-marker { display: none; }
   <div class="tab-content" id="tab-maturidade">
     <div class="content">
 
-      <!-- Seção 1: Score Geral -->
-      <div class="section">
-        <h2 class="section-title">Score Geral de Maturidade Digital</h2>
-        <p class="section-sub">Avaliação em 7 pilares comparativa com concorrentes diretos</p>
-
-        <div class="card" style="text-align:center;">
-          <div class="big-score">
-            <div class="score-badge">N1</div>
-            <div class="score-label">Nível de Maturidade Digital &mdash; Juca Coffee</div>
-          </div>
-        </div>
-
-        <div class="chart-container">
-          <h3 style="margin-bottom:12px;color:var(--marrom);">Radar de Maturidade &mdash; 7 Pilares x 4 Marcas</h3>
-          <canvas id="radarMaturidade"></canvas>
-        </div>
-
-        <div class="pillar-grid">
-          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Infraestrutura Digital</div></div>
-          <div class="pillar-card"><div class="pillar-score" style="color:var(--orange);">N2</div><div class="pillar-name">Identidade e Posicionamento</div></div>
-          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Jornada do Cliente</div></div>
-          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Aquisição</div></div>
-          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Retenção e Recorrência</div></div>
-          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Capacidade Operacional</div></div>
-          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Visibilidade</div></div>
-        </div>
-      </div>
-
-      <!-- Seção 2: Contexto de Mercado -->
+      <!-- Seção 1: Contexto de Mercado (movido para primeiro) -->
       <div class="section">
         <h2 class="section-title">Contexto de Mercado</h2>
         <p class="section-sub">O cenário que justifica a entrada digital da Juca Coffee</p>
@@ -1847,10 +1819,36 @@ details summary::-webkit-details-marker { display: none; }
         </div>
       </div>
 
-      <!-- Seção 3: Diagnóstico da Juca Coffee -->
+      <!-- Seção 2: Diagnóstico de Maturidade Digital (Score + Diagnóstico merged) -->
       <div class="section">
-        <h2 class="section-title">Diagnóstico da Juca Coffee</h2>
-        <p class="section-sub">Perfil, presença digital e análise de forças/fragilidades</p>
+        <h2 class="section-title">Diagnóstico de Maturidade Digital</h2>
+        <p class="section-sub">Score geral, perfil da empresa, presença digital e análise de forças/fragilidades</p>
+
+        <div class="card" style="text-align:center;">
+          <div class="big-score">
+            <div class="score-badge">N1</div>
+            <div class="score-label">Nível de Maturidade Digital &mdash; Juca Coffee</div>
+          </div>
+        </div>
+
+        <p class="visible-text">A Juca Coffee está no <strong>Nível 1</strong> (Básico) em 5 dos 7 pilares avaliados. Apenas Identidade e Posicionamento alcança N2. O principal concorrente (Campos Altos) está em N4 na maioria dos pilares. Os dois pilares de maior urgência &mdash; infraestrutura digital e jornada do cliente &mdash; têm solução técnica direta, resolúveis nas primeiras semanas.</p>
+
+        <div class="chart-container">
+          <h3 style="margin-bottom:12px;color:var(--marrom);">Radar de Maturidade &mdash; 7 Pilares x 4 Marcas</h3>
+          <canvas id="radarMaturidade"></canvas>
+        </div>
+
+        <div class="pillar-grid">
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Infraestrutura Digital</div></div>
+          <div class="pillar-card"><div class="pillar-score" style="color:var(--orange);">N2</div><div class="pillar-name">Identidade e Posicionamento</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Jornada do Cliente</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Aquisição</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Retenção e Recorrência</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Capacidade Operacional</div></div>
+          <div class="pillar-card"><div class="pillar-score">N1</div><div class="pillar-name">Visibilidade</div></div>
+        </div>
+
+        <div class="insight">"Resolvendo infraestrutura e jornada do cliente: sai de N1 em 5 pilares para N2 em pelo menos 4. A estrutura digital é o gargalo &mdash; e estrutura se constrói."</div>
 
         <!-- 3.1 Perfil -->
         <div class="card">
@@ -2281,7 +2279,20 @@ details summary::-webkit-details-marker { display: none; }
           <details>
             <summary>Detalhes da janela</summary>
             <div class="detail-content">
-              <p><strong>Ação:</strong> Nuvemshop primeiro, depois ML e Shopee.</p>
+              <p><strong>Ação:</strong> Nuvemshop primeiro, depois ML e Shopee via HubNoov Profissional (R$139/mês, 3 integrações).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--marrom);">
+          <h3 style="color:var(--marrom);margin-bottom:8px;">7.4 Conteúdo como Diferencial Competitivo</h3>
+          <p class="visible-text">Todos os concorrentes são fracos em conteúdo. Campos Altos tem 20k seguidores e 5 likes por post. Desidério e Artefato têm conteúdo genérico. A brecha está no conteúdo autêntico &mdash; e a Juca tem a matéria-prima que ninguém copia.</p>
+          <details>
+            <summary>Detalhes da janela</summary>
+            <div class="detail-content">
+              <p>Post APAE: 645 curtidas. Romeiros: 181. Reels com pessoas reais: 4x a 35x melhor que carrosséis educativos. O engajamento da Juca (4.5%) já é superior ao de marcas com 10x mais seguidores.</p>
+              <p style="margin-top:8px;"><strong>Matéria-prima exclusiva:</strong> Vô Juca, a fazenda, 51 anos de história, Pedro no WhatsApp, degustações presenciais, conexão APAE/romeiros. Nenhum concorrente consegue replicar.</p>
+              <p style="margin-top:8px;"><strong>Ação:</strong> Frequência de 2x/mês para 3-4x/semana. Reels com pessoas reais (não carrosséis educativos). 4 pilares de conteúdo: Café com Juca (35%), Na Sua Cozinha (30%), Desde 1975 (20%), A Comunidade (15%).</p>
             </div>
           </details>
         </div>
@@ -3882,7 +3893,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(radarVisaoCtx.getContext('2d'), {
       type: 'radar',
       data: {
-        labels: ['Infraestrutura', 'Identidade', 'Jornada', 'Aquisicao', 'Retencao', 'Operacional', 'Visibilidade'],
+        labels: ['Infraestrutura', 'Identidade', 'Jornada', 'Aquisição', 'Retenção', 'Operacional', 'Visibilidade'],
         datasets: [
           {
             label: 'Juca Coffee',
@@ -3890,7 +3901,8 @@ document.addEventListener('DOMContentLoaded', function() {
             borderColor: brandColors.dourado,
             backgroundColor: 'rgba(212,160,23,0.15)',
             borderWidth: 3,
-            pointBackgroundColor: brandColors.dourado
+            pointBackgroundColor: brandColors.dourado,
+            pointRadius: 5
           },
           {
             label: 'Campos Altos',
@@ -3898,23 +3910,28 @@ document.addEventListener('DOMContentLoaded', function() {
             borderColor: brandColors.danger,
             backgroundColor: 'rgba(139,58,58,0.08)',
             borderWidth: 2,
-            pointBackgroundColor: brandColors.danger
+            pointBackgroundColor: brandColors.danger,
+            pointRadius: 4
           },
           {
-            label: 'Desiderio',
+            label: 'Desidério',
             data: [2, 3, 2, 2, 1, 2, 2],
             borderColor: brandColors.orange,
             backgroundColor: 'rgba(212,118,10,0.08)',
             borderWidth: 2,
-            pointBackgroundColor: brandColors.orange
+            pointBackgroundColor: brandColors.orange,
+            pointRadius: 4
           },
           {
             label: 'Artefato',
             data: [2, 3, 2, 2, 1, 2, 2],
             borderColor: brandColors.green,
-            backgroundColor: 'rgba(74,124,89,0.08)',
+            backgroundColor: 'rgba(74,124,89,0.12)',
             borderWidth: 2,
-            pointBackgroundColor: brandColors.green
+            borderDash: [6, 3],
+            pointBackgroundColor: brandColors.green,
+            pointRadius: 6,
+            pointStyle: 'rectRot'
           }
         ]
       },
@@ -3930,7 +3947,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         },
         plugins: {
-          legend: { position: 'bottom', labels: { padding: 20 } }
+          legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true } }
         }
       }
     });
@@ -3942,7 +3959,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(radarMatCtx.getContext('2d'), {
       type: 'radar',
       data: {
-        labels: ['Infraestrutura', 'Identidade', 'Jornada', 'Aquisicao', 'Retencao', 'Operacional', 'Visibilidade'],
+        labels: ['Infraestrutura', 'Identidade', 'Jornada', 'Aquisição', 'Retenção', 'Operacional', 'Visibilidade'],
         datasets: [
           {
             label: 'Juca Coffee',
@@ -3950,7 +3967,8 @@ document.addEventListener('DOMContentLoaded', function() {
             borderColor: brandColors.dourado,
             backgroundColor: 'rgba(212,160,23,0.15)',
             borderWidth: 3,
-            pointBackgroundColor: brandColors.dourado
+            pointBackgroundColor: brandColors.dourado,
+            pointRadius: 5
           },
           {
             label: 'Campos Altos',
@@ -3958,23 +3976,28 @@ document.addEventListener('DOMContentLoaded', function() {
             borderColor: brandColors.danger,
             backgroundColor: 'rgba(139,58,58,0.08)',
             borderWidth: 2,
-            pointBackgroundColor: brandColors.danger
+            pointBackgroundColor: brandColors.danger,
+            pointRadius: 4
           },
           {
-            label: 'Desiderio',
+            label: 'Desidério',
             data: [2, 3, 2, 2, 1, 2, 2],
             borderColor: brandColors.orange,
             backgroundColor: 'rgba(212,118,10,0.08)',
             borderWidth: 2,
-            pointBackgroundColor: brandColors.orange
+            pointBackgroundColor: brandColors.orange,
+            pointRadius: 4
           },
           {
             label: 'Artefato',
             data: [2, 3, 2, 2, 1, 2, 2],
             borderColor: brandColors.green,
-            backgroundColor: 'rgba(74,124,89,0.08)',
+            backgroundColor: 'rgba(74,124,89,0.12)',
             borderWidth: 2,
-            pointBackgroundColor: brandColors.green
+            borderDash: [6, 3],
+            pointBackgroundColor: brandColors.green,
+            pointRadius: 6,
+            pointStyle: 'rectRot'
           }
         ]
       },
@@ -3990,7 +4013,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         },
         plugins: {
-          legend: { position: 'bottom', labels: { padding: 20 } }
+          legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true } }
         }
       }
     });
